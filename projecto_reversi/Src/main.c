@@ -83,14 +83,22 @@ static void LCD_Config();
 /* USER CODE BEGIN 0 */
 int flag=0;
 int count = 0;
+uint32_t ConvertedValue;
+long int JTemp;
+char desc[100];
+
 
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM6)
 	{
-		BSP_LED_Toggle(LED_GREEN);
 		flag=1;
 		count++;
+
+		  if (count%2 == 0){
+			  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
+			  	  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
+		  }
 	}
 }
 
@@ -119,9 +127,8 @@ void imprime_tabuleiro(){
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint32_t ConvertedValue;
-	long int JTemp;
-	char desc[100];
+
+
 
   /* USER CODE END 1 */
   
@@ -163,32 +170,28 @@ int main(void)
   BSP_LED_Init(LED_RED);
 //start do adc
   HAL_ADC_Start(&hadc1);
+  imprime_tabuleiro();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //esperar algum tempo
-	  HAL_Delay(TEMP_REFRESH_PERIOD);
-	  //espera pelo fim da conversão
-	  HAL_StatusTypeDef status=HAL_ADC_PollForConversion(&hadc1,TEMP_REFRESH_PERIOD); //se o valor aqui obtido estiver ok -> HAL_OK
-	  if(status==HAL_OK)//so corre quando o valor foi bem recebido e nao por excesso de tempo
-	  {
-		  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
-		  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
-		  /* Display the Temperature Value on the LCD */
-		  sprintf(desc, "Temperatura: %ld C", JTemp);
-		  BSP_LCD_SetFont(&Font12);
-		  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 90, (uint8_t *)desc, RIGHT_MODE);
-		  sprintf(desc, "Tempo: %d segundos", count);
-		  BSP_LCD_SetFont(&Font12);
-		  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 70, (uint8_t *)desc, RIGHT_MODE);
-		  BSP_LCD_ClearStringLine(30);
-		  count++;
-	  }
 
-	  imprime_tabuleiro();
+
+  	  //Mostrar a temperatura
+	  sprintf(desc, "Temperatura: %ld C", JTemp);
+	  BSP_LCD_SetFont(&Font12);
+	  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 90, (uint8_t *)desc, RIGHT_MODE);
+
+	  //Mostrar o tempo
+	  sprintf(desc, "Tempo: %d segundos", count);
+	  BSP_LCD_SetFont(&Font12);
+	  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 70, (uint8_t *)desc, RIGHT_MODE);
+
+
+
+
 
     /* USER CODE END WHILE */
 
@@ -557,7 +560,7 @@ static void MX_TIM6_Init(void)
   htim6.Instance = TIM6;
   htim6.Init.Prescaler = 9999;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 0;
+  htim6.Init.Period = 9999;
   htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
   {
@@ -668,10 +671,8 @@ static void LCD_Config(void)
   BSP_LCD_DisplayStringAt(0, 10, (uint8_t *)"REVERSI", CENTER_MODE);
   BSP_LCD_SetFont(&Font16);
 
-
   BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
   BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
-  BSP_LCD_SetFont(&Font24);
 }
 /* USER CODE END 4 */
 
