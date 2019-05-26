@@ -86,7 +86,7 @@ int count = 0;
 uint32_t ConvertedValue;
 long int JTemp;
 char desc[100];
-
+int init_tick_led1 = 0;
 
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
@@ -96,8 +96,14 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 		count++;
 
 		  if (count%2 == 0){
+			  //ACTUALIZA O VALOR DA TEMPERATURA
 			  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
-			  	  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
+			  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
+		      if(HAL_GetTick() >= init_tick_led1 + 500)
+		      {
+		          init_tick_led1 = HAL_GetTick();
+		          BSP_LED_Toggle(LED_GREEN);
+		      }
 		  }
 	}
 }
@@ -117,6 +123,20 @@ void imprime_tabuleiro(){
 	  }
 	  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 
+}
+
+void mostra_temperatura(){
+	  //Mostrar a temperatura
+	  sprintf(desc, "Temperatura: %ld C", JTemp);
+	  BSP_LCD_SetFont(&Font12);
+	  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 90, (uint8_t *)desc, RIGHT_MODE);
+}
+
+void mostra_tempo(){
+	//Mostrar o tempo
+	sprintf(desc, "Tempo: %d segundos", count);
+	BSP_LCD_SetFont(&Font12);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 70, (uint8_t *)desc, RIGHT_MODE);
 }
 /* USER CODE END 0 */
 
@@ -178,16 +198,8 @@ int main(void)
   while (1)
   {
 
-
-  	  //Mostrar a temperatura
-	  sprintf(desc, "Temperatura: %ld C", JTemp);
-	  BSP_LCD_SetFont(&Font12);
-	  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 90, (uint8_t *)desc, RIGHT_MODE);
-
-	  //Mostrar o tempo
-	  sprintf(desc, "Tempo: %d segundos", count);
-	  BSP_LCD_SetFont(&Font12);
-	  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 70, (uint8_t *)desc, RIGHT_MODE);
+	  mostra_temperatura();
+	  mostra_tempo();
 
 
 
