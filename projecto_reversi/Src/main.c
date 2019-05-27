@@ -168,34 +168,165 @@ void imprime_pecas_iniciais(){
 	BSP_LCD_FillCircle(50*4 + 105, 50*4 + 75, 15);
 	tabuleiro[3][3] = PECA_JOGADOR_1;
 	tabuleiro[4][4] = PECA_JOGADOR_1;
+
 	BSP_LCD_SetTextColor(COR_JOGADOR_2);
 	BSP_LCD_FillCircle(50*3 + 105, 50*4 + 75, 15);
 	BSP_LCD_FillCircle(50*4 + 105, 50*3 + 75, 15);
 	tabuleiro[3][4] = PECA_JOGADOR_2;
 	tabuleiro[4][3] = PECA_JOGADOR_2;
 
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+
 }
 
 void muda_peca_consoante_jogador(float x, float y){
+	int k = 0;
+	int z = 0;
 	if(ver_quem_joga%2==1){
 	//JOGADOR 1
 	BSP_LCD_SetTextColor(COR_JOGADOR_1);
 	BSP_LCD_FillCircle(x, y, 15);
-	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 	}
 	else{
 	//JOGADOR 2
 	BSP_LCD_SetTextColor(COR_JOGADOR_2);
 	BSP_LCD_FillCircle(x, y, 15);
-	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 	}
+
+	for(k = 0; k < 8; k++){
+		for(z = 0; z < 8; z++){
+			if(tabuleiro[k][z]==PECA_JOGADOR_1){
+				BSP_LCD_SetTextColor(COR_JOGADOR_1);
+				BSP_LCD_FillCircle(50*k + 105, 50*z + 75, 15);
+			}
+			else if(tabuleiro[k][z]==PECA_JOGADOR_2){
+				BSP_LCD_SetTextColor(COR_JOGADOR_2);
+				BSP_LCD_FillCircle(50*k + 105, 50*z + 75, 15);
+			}
+		}
+	}
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+}
+
+int validar_com_self(int x, int y){
+    char self, adv;
+    int i = 0;
+    int j = 0;
+    int ok = 0;
+
+    if (ver_quem_joga%2 == 1){
+    	self = PECA_JOGADOR_1;
+    }
+    else{
+    	self = PECA_JOGADOR_2;
+    }
+
+
+    //ver relaçoes com as peças vizinhas
+    //ESQUERDA
+    for(j = y-2; j >= 0 ;  j-- ){
+       if(tabuleiro[x][j] == self){
+            return 1;
+       }
+       else{
+            return 0;
+       }
+    }
+
+
+    //DIREITA
+    for(j = y + 2; j < 8 ;  j++ ){
+       if(tabuleiro[x][j] == self){
+            return 1;
+       }
+       else{
+            return 0;
+       }
+    }
+
+
+    //CIMA
+    for(i = x + 2; i < 8 ;  i++ ){
+       if(tabuleiro[i][y] == self){ //self a seguir ao inimigo para cima
+                return 1;
+       }
+       else{
+            	return 0;
+       }
+    }
+
+
+    //BAIXO
+    for(i = x-2; i >= 0 ;  i-- ){
+      if(tabuleiro[i][y] == self){ //ve se a seguir ao adversario ha self
+          return 1;
+      }
+      else{
+      	return 0;
+      }
+    }
+
+
+   // DIAGONAL SUPERIOR ESQUERDA
+   for(i = x - 2, j = y + 2; i >= 0 && j< 8; i--, j++){
+      if(tabuleiro[i][j] == self){ //self a seguir
+         return 1;
+      }
+      else{
+         return 0;
+      }
+   }
+
+
+   // DIAGONAL INFERIOR DIREITA
+   for(i = x + 2, j = y - 2; i < 8 && j >= 0; i++, j--){
+	  if(tabuleiro[i][j] == self){ //self a seguir
+	     return 1;
+	  }
+	  else{
+	     return 0;
+	  }
+   }
+
+
+   // DIAGONAL CIMA DIREIRA
+   for(i = x + 2, j = y + 2; i < 8 && j< 8; i++, j++){
+      if(tabuleiro[i][j] == self){ //verifica se ha self a seguir
+ 	     return 1;
+ 	  }
+ 	  else{
+ 	     return 0;
+ 	  }
+   }
+
+
+    //DIAGONAL INFERIOR ESQUERDA
+    for(i = x - 2, j = y - 2; i >= 0 && j >= 0; i--, j--){
+       if(tabuleiro[i][j] == self){ //ve se ha self
+       	  return 1;
+       }
+       else{
+       	  return 0;
+       }
+     }
+
+
+    // DIAGONAL SUPERIOR ESQUERDA
+    for(i = x - 2, j = y + 2; i >= 0 && j< 8; i--, j++){
+       if(tabuleiro[i][j] == self){ //self a seguir ao adversario
+        	  return 1;
+        }
+        else{
+        	  return 0;
+        }
+    }
 
 }
 
 int verifica_se_adversario(int x, int y){
     char adv;
-    int k = 0;
-    int z = 0;
+    int i = 0;
+    int j = 0;
 
     if (ver_quem_joga%2 == 1){
         adv = PECA_JOGADOR_2;
@@ -204,9 +335,9 @@ int verifica_se_adversario(int x, int y){
     	adv = PECA_JOGADOR_1;
     }
 
-    for(k = -1; k <= 1; k++){
-    	for(z = -1; z <= 1; z++){
-    		if(tabuleiro[x+k][y+z] == adv && tabuleiro[x][y]==SEM_PECA){
+    for(i = -1; i <= 1; i++){
+    	for(j = -1; j <= 1; j++){
+    		if(tabuleiro[x+i][y+j] == adv && tabuleiro[x][y]==SEM_PECA){
     			return 1;
     		}
     	}
@@ -216,20 +347,70 @@ int verifica_se_adversario(int x, int y){
 
 }
 
-void registo_tabela(int x, int y){
-	if(ver_quem_joga%2==1){
-		tabuleiro[x][y]= PECA_JOGADOR_1;
-	}
-	else{
-		tabuleiro[x][y]= PECA_JOGADOR_2;
-	}
+void vira_pecas(int x, int y){
+	char self;
+	char adv;
+	int j = 0;
+	int i = 0;
+
+    if (ver_quem_joga%2 == 1){
+    	self = PECA_JOGADOR_1;
+        adv = PECA_JOGADOR_2;
+    }
+    else{
+    	self = PECA_JOGADOR_2;
+    	adv = PECA_JOGADOR_1;
+    }
+
+    //ESQUERDA
+    for(j = y-1; j >= 0 && tabuleiro[x][j] == adv; j--){ //enquanto houver peças do adversário
+        tabuleiro[x][j] = self; //converte
+    }
+
+    //DIREITA
+    for(j = y + 1; j < 8 && tabuleiro[x][j] == adv; j++){ //enquanto houver peças do inimigo na fila
+    	tabuleiro[x][j] = self; //converter as peças do inimigo
+    }
+
+    //CIMA
+    for(i = x + 1; i < 8 && tabuleiro[i][y] == adv; i++){ //enquanto houver peças do adversario
+        tabuleiro[i][y] = self; //converte
+    }
+
+    //BAIXO
+    for(i = x-1; i >= 0 && tabuleiro[i][y] == adv; i--){ //enquanto houver adversario na linha
+        tabuleiro[i][y] = self; //converte em self
+    }
+
+    //DIAGONAL SUPERIOR ESQUERDA
+    for(i = x - 1, j = y + 1; i >= 0 && j < 8 && tabuleiro[i][j] == adv; i--, j++){  //enquanto adversario
+         tabuleiro[i][j] = self; // converte
+     }
+
+    //DIAGONAL SUPERIOR DIREITA
+    for(i = x + 1, j = y + 1; i < 8 && j < 8 && tabuleiro[i][j] == adv; i++, j++){ //enquanto adversario
+         tabuleiro[i][j] = self; //troca
+     }
+
+    //DIAGONAL INFERIOR ESQUERDA
+    for(i = x - 1, j = y - 1; i >= 0 && j >= 0 && tabuleiro[i][j] == adv; i--, j--){ //enquanto houver adversario na fila
+         tabuleiro[i][j] = self; //converter
+     }
+
+    //DIAGONAL INFERIOR DIREITA
+    for(i = x + 1, j = y - 1; i < 8 && j >= 0 && tabuleiro[i][j] == adv; i++, j--){ //enquanto adversario
+         tabuleiro[i][j] = self; //converter
+     }
+
+
 }
 
 void tocar_ecran(){
 
 	int i=0;
 	int j=0;
-	int valido = 0;
+	int valido_adv = 0;
+	int valido_self = 0;
 	float x = 0.0;
 	float y = 0.0;
 
@@ -237,7 +418,7 @@ void tocar_ecran(){
 
 	if(ts_flag==1){
 		ts_flag=0;
-			if(TS_State.touchX[0]>=(BSP_LCD_GetXSize()/10+15) && TS_State.touchY[0]>=(BSP_LCD_GetYSize()/10+15) && TS_State.touchX[0]<=475 && TS_State.touchY[0]<=425){
+			if(TS_State.touchX[0]>=(BSP_LCD_GetXSize()/10+15) && TS_State.touchY[0]>=(BSP_LCD_GetYSize()/10+15) && TS_State.touchX[0]<=475 && TS_State.touchY[0]<=450){
 
 				for(i=0; i<8; i++){
 					if((TS_State.touchX[0]) >= 50*i + 80 && (TS_State.touchX[0]) < 50*i + 130){
@@ -253,11 +434,12 @@ void tocar_ecran(){
 					}
 				}
 
-				valido = verifica_se_adversario(i, j);
+				valido_adv =  verifica_se_adversario(i, j);
+				valido_self = validar_com_self(i, j);
 
-				if(valido==1){
+				if(valido_adv && valido_self){
+					vira_pecas(i, j);
 					muda_peca_consoante_jogador(x, y);
-					registo_tabela(i, j);
 					ver_quem_joga++;
 				}
 
