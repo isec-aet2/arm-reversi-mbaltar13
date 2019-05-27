@@ -166,10 +166,13 @@ void imprime_pecas_iniciais(){
 	BSP_LCD_SetTextColor(COR_JOGADOR_1);
 	BSP_LCD_FillCircle(50*3 + 105, 50*3 + 75, 15);
 	BSP_LCD_FillCircle(50*4 + 105, 50*4 + 75, 15);
+	tabuleiro[3][3] = PECA_JOGADOR_1;
+	tabuleiro[4][4] = PECA_JOGADOR_1;
 	BSP_LCD_SetTextColor(COR_JOGADOR_2);
 	BSP_LCD_FillCircle(50*3 + 105, 50*4 + 75, 15);
 	BSP_LCD_FillCircle(50*4 + 105, 50*3 + 75, 15);
-
+	tabuleiro[3][4] = PECA_JOGADOR_2;
+	tabuleiro[4][3] = PECA_JOGADOR_2;
 
 }
 
@@ -191,6 +194,8 @@ void muda_peca_consoante_jogador(float x, float y){
 
 int verifica_se_adversario(int x, int y){
     char adv;
+    int k = 0;
+    int z = 0;
 
     if (ver_quem_joga%2 == 1){
         adv = PECA_JOGADOR_2;
@@ -199,48 +204,25 @@ int verifica_se_adversario(int x, int y){
     	adv = PECA_JOGADOR_1;
     }
 
-
-    //baixo
-    if(tabuleiro[x][y-1] == adv && tabuleiro[x][y]==SEM_PECA){  //adversario junto
-        return 1;
-    }
-
-    //cima
-    if(tabuleiro[x][y+1] == adv && tabuleiro[x][y]==SEM_PECA){
-    	return 1;
-    }
-
-    //direita
-    if(tabuleiro[x+1][y] == adv && tabuleiro[x][y]==SEM_PECA){
-    	return 1;
-    }
-
-    //esquerda
-    if(tabuleiro[x-1][y] == adv && tabuleiro[x][y]==SEM_PECA){
-    	return 1;
-    }
-
-    // diagonal cima direita
-    if(tabuleiro[x+1][y+1] == adv && tabuleiro[x][y]==SEM_PECA){
-        return 1;
-    }
-
-    // diagonal baixo direito
-    if(tabuleiro[x+1][y-1] == adv && tabuleiro[x][y]==SEM_PECA){
-    	return 1;
-    }
-
-    //diagonal baixo esquerda
-    if(tabuleiro[x-1][y-1] == adv && tabuleiro[x][y]==SEM_PECA){
-        return 1;
-    }
-
-    //diagonal baixo direita
-    if(tabuleiro[x-1][y+1] == adv && tabuleiro[x][y]==SEM_PECA){
-    	return 1;
+    for(k = -1; k <= 1; k++){
+    	for(z = -1; z <= 1; z++){
+    		if(tabuleiro[x+k][y+z] == adv && tabuleiro[x][y]==SEM_PECA){
+    			return 1;
+    		}
+    	}
     }
 
     return 0;
+
+}
+
+void registo_tabela(int x, int y){
+	if(ver_quem_joga%2==1){
+		tabuleiro[x][y]= PECA_JOGADOR_1;
+	}
+	else{
+		tabuleiro[x][y]= PECA_JOGADOR_2;
+	}
 }
 
 void tocar_ecran(){
@@ -273,18 +255,13 @@ void tocar_ecran(){
 
 				valido = verifica_se_adversario(i, j);
 
-				if(valido){
+				if(valido==1){
 					muda_peca_consoante_jogador(x, y);
+					registo_tabela(i, j);
+					ver_quem_joga++;
 				}
 
-				if(ver_quem_joga%2==1){
-					tabuleiro[i][j]= PECA_JOGADOR_1;
-				}
-				else{
-					tabuleiro[i][j]= PECA_JOGADOR_2;
-				}
 
-				ver_quem_joga++;
 		}
 	}
 }
