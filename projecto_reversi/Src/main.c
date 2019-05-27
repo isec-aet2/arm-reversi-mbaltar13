@@ -90,15 +90,18 @@ char desc[100];
 int init_tick_led1 = 0;
 TS_StateTypeDef TS_State;
 int ts_flag = 0;
-int ver_quem_joga = 1; //começa no jogador 1
+volatile int ver_quem_joga = 1; //começa no jogador 1
+
+
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 	if(GPIO_Pin == GPIO_PIN_13){
 		BSP_TS_GetState(&TS_State);
 		ts_flag=1;
-
+	    HAL_Delay(100);
 	}
+
 }
 
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
@@ -164,15 +167,18 @@ void muda_peca_consoante_jogador(float x, float y){
 	BSP_LCD_FillCircle(x, y, 15);
 	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 	}
-	ver_quem_joga++;
+
 
 }
 
+
+
 void tocar_ecran(){
-	float x;
-	float y;
+
 	int i=0;
 	int j=0;
+	float x;
+	float y;
 
 	if(ts_flag==1){
 		ts_flag=0;
@@ -194,9 +200,12 @@ void tocar_ecran(){
 			}
 
 			muda_peca_consoante_jogador(x, y);
+			ver_quem_joga++;
+
 		}
 	}
 }
+
 /* USER CODE END 0 */
 
 /**
