@@ -171,24 +171,27 @@ void muda_peca_consoante_jogador(float x, float y){
 void tocar_ecran(){
 	float x;
 	float y;
-	int i;
-	//int j;
+	int i=0;
+	int j=0;
 
 	if(ts_flag==1){
 		ts_flag=0;
 
-		if(TS_State.touchX[0]>(BSP_LCD_GetXSize()/10+15) && TS_State.touchY[0]>(BSP_LCD_GetYSize()/10+15) && TS_State.touchX[0]<475 && TS_State.touchY[0]<425){
-			x = (TS_State.touchX[0]);
-			y = (TS_State.touchY[0]);
-
+		if(TS_State.touchX[0]>=(BSP_LCD_GetXSize()/10+15) && TS_State.touchY[0]>=(BSP_LCD_GetYSize()/10+15) && TS_State.touchX[0]<=475 && TS_State.touchY[0]<=425){
 
 			for(i=0; i<8; i++){
-				if(x>((BSP_LCD_GetXSize()/10+15)+(30*i)) && x>((BSP_LCD_GetXSize()/10+15)+(30*i)+30)){
-					x=((BSP_LCD_GetXSize()/10+15)+(30*i)) + ((BSP_LCD_GetXSize()/10+15)+(30*i)+30)/2;
+				if((TS_State.touchX[0]) >= 50*i + 80 && (TS_State.touchX[0]) < 50*i + 130){
+					x = 50*i + 105;
 					break;
 				}
 			}
 
+			for(j=0; j<8; j++){
+				if((TS_State.touchY[0]) >= (50*j) && (TS_State.touchY[0]) < (50*j+100)){
+					y = 50*j + 75;
+					break;
+				}
+			}
 
 			muda_peca_consoante_jogador(x, y);
 		}
