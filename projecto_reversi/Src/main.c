@@ -24,9 +24,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include "stm32f769i_discovery_lcd.h"
 #include "stm32f769i_discovery.h"
+#include "stm32f769i_discovery_lcd.h"
+#include "stm32f769i_discovery_ts.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -82,16 +83,26 @@ static void LCD_Config();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int flag=0;
-int count = 0;
+int count = 0; //CONTA SEGUNDOS
 uint32_t ConvertedValue;
 long int JTemp;
 char desc[100];
 int init_tick_led1 = 0;
+TS_StateTypeDef TS_State;
+int ts_flag = 0;
+int ver_quem_joga = 1; //começa no jogador 1
 
-void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
-{
-	if(htim->Instance == TIM6)
-	{
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+
+	if(GPIO_Pin == GPIO_PIN_13){
+		BSP_TS_GetState(&TS_State);
+		ts_flag=1;
+
+	}
+}
+
+void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
+	if(htim->Instance == TIM6){
 		flag=1;
 		count++;
 
@@ -106,6 +117,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 		      }
 		  }
 	}
+	flag=0;
 }
 
 void imprime_tabuleiro(){
@@ -137,6 +149,50 @@ void mostra_tempo(){
 	sprintf(desc, "Tempo: %d segundos", count);
 	BSP_LCD_SetFont(&Font12);
 	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 70, (uint8_t *)desc, RIGHT_MODE);
+}
+
+void muda_peca_consoante_jogador(float x, float y){
+	if(ver_quem_joga%2==1){
+	//JOGADOR 1
+	BSP_LCD_SetTextColor(LCD_COLOR_RED);
+	BSP_LCD_FillCircle(x, y, 15);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+	}
+	else{
+	//JOGADOR 2
+	BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
+	BSP_LCD_FillCircle(x, y, 15);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+	}
+	ver_quem_joga++;
+
+}
+
+void tocar_ecran(){
+	float x;
+	float y;
+	int i;
+	//int j;
+
+	if(ts_flag==1){
+		ts_flag=0;
+
+		if(TS_State.touchX[0]>(BSP_LCD_GetXSize()/10+15) && TS_State.touchY[0]>(BSP_LCD_GetYSize()/10+15) && TS_State.touchX[0]<475 && TS_State.touchY[0]<425){
+			x = (TS_State.touchX[0]);
+			y = (TS_State.touchY[0]);
+
+
+			for(i=0; i<8; i++){
+				if(x>((BSP_LCD_GetXSize()/10+15)+(30*i)) && x>((BSP_LCD_GetXSize()/10+15)+(30*i)+30)){
+					x=((BSP_LCD_GetXSize()/10+15)+(30*i)) + ((BSP_LCD_GetXSize()/10+15)+(30*i)+30)/2;
+					break;
+				}
+			}
+
+
+			muda_peca_consoante_jogador(x, y);
+		}
+	}
 }
 /* USER CODE END 0 */
 
@@ -184,13 +240,20 @@ int main(void)
   MX_DSIHOST_DSI_Init();
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_TIM_Base_Start_IT(&htim6);
   LCD_Config();
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED);
 //start do adc
   HAL_ADC_Start(&hadc1);
+
+  BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
+  BSP_TS_ITConfig();
+
   imprime_tabuleiro();
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -200,6 +263,7 @@ int main(void)
 
 	  mostra_temperatura();
 	  mostra_tempo();
+	  tocar_ecran();
 
 
 
@@ -644,6 +708,7 @@ static void MX_FMC_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -654,6 +719,16 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOJ_CLK_ENABLE();
+
+  /*Configure GPIO pin : PI13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 
