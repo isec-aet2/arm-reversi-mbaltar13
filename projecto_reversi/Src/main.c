@@ -43,6 +43,12 @@
 #define VSENS_AT_AMBIENT_TEMP  760    /* VSENSE value (mv) at ambient temperature */
 #define AVG_SLOPE               25    /* Avg_Solpe multiply by 10 */
 #define VREF                  3300
+
+#define COR_JOGADOR_1        LCD_COLOR_RED
+#define PECA_JOGADOR_1       'X'
+#define COR_JOGADOR_2        LCD_COLOR_GREEN
+#define PECA_JOGADOR_2       'Y'
+#define SEM_PECA	         'N'
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -91,6 +97,7 @@ int init_tick_led1 = 0;
 TS_StateTypeDef TS_State;
 int ts_flag = 0;
 volatile int ver_quem_joga = 1; //começa no jogador 1
+char tabuleiro[8][8];
 
 
 
@@ -154,54 +161,130 @@ void mostra_tempo(){
 	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 70, (uint8_t *)desc, RIGHT_MODE);
 }
 
+void imprime_pecas_iniciais(){
+
+	BSP_LCD_SetTextColor(COR_JOGADOR_1);
+	BSP_LCD_FillCircle(50*3 + 105, 50*3 + 75, 15);
+	BSP_LCD_FillCircle(50*4 + 105, 50*4 + 75, 15);
+	BSP_LCD_SetTextColor(COR_JOGADOR_2);
+	BSP_LCD_FillCircle(50*3 + 105, 50*4 + 75, 15);
+	BSP_LCD_FillCircle(50*4 + 105, 50*3 + 75, 15);
+
+
+}
+
 void muda_peca_consoante_jogador(float x, float y){
 	if(ver_quem_joga%2==1){
 	//JOGADOR 1
-	BSP_LCD_SetTextColor(LCD_COLOR_RED);
+	BSP_LCD_SetTextColor(COR_JOGADOR_1);
 	BSP_LCD_FillCircle(x, y, 15);
 	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 	}
 	else{
 	//JOGADOR 2
-	BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
+	BSP_LCD_SetTextColor(COR_JOGADOR_2);
 	BSP_LCD_FillCircle(x, y, 15);
 	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 	}
 
-
 }
 
+int verifica_se_adversario(int x, int y){
+    char adv;
 
+    if (ver_quem_joga%2 == 1){
+        adv = PECA_JOGADOR_2;
+    }
+    else{
+    	adv = PECA_JOGADOR_1;
+    }
+
+
+    //baixo
+    if(tabuleiro[x][y-1] == adv && tabuleiro[x][y]==SEM_PECA){  //adversario junto
+        return 1;
+    }
+
+    //cima
+    if(tabuleiro[x][y+1] == adv && tabuleiro[x][y]==SEM_PECA){
+    	return 1;
+    }
+
+    //direita
+    if(tabuleiro[x+1][y] == adv && tabuleiro[x][y]==SEM_PECA){
+    	return 1;
+    }
+
+    //esquerda
+    if(tabuleiro[x-1][y] == adv && tabuleiro[x][y]==SEM_PECA){
+    	return 1;
+    }
+
+    // diagonal cima direita
+    if(tabuleiro[x+1][y+1] == adv && tabuleiro[x][y]==SEM_PECA){
+        return 1;
+    }
+
+    // diagonal baixo direito
+    if(tabuleiro[x+1][y-1] == adv && tabuleiro[x][y]==SEM_PECA){
+    	return 1;
+    }
+
+    //diagonal baixo esquerda
+    if(tabuleiro[x-1][y-1] == adv && tabuleiro[x][y]==SEM_PECA){
+        return 1;
+    }
+
+    //diagonal baixo direita
+    if(tabuleiro[x-1][y+1] == adv && tabuleiro[x][y]==SEM_PECA){
+    	return 1;
+    }
+
+    return 0;
+}
 
 void tocar_ecran(){
 
 	int i=0;
 	int j=0;
-	float x;
-	float y;
+	int valido = 0;
+	float x = 0.0;
+	float y = 0.0;
+
+
 
 	if(ts_flag==1){
 		ts_flag=0;
+			if(TS_State.touchX[0]>=(BSP_LCD_GetXSize()/10+15) && TS_State.touchY[0]>=(BSP_LCD_GetYSize()/10+15) && TS_State.touchX[0]<=475 && TS_State.touchY[0]<=425){
 
-		if(TS_State.touchX[0]>=(BSP_LCD_GetXSize()/10+15) && TS_State.touchY[0]>=(BSP_LCD_GetYSize()/10+15) && TS_State.touchX[0]<=475 && TS_State.touchY[0]<=425){
-
-			for(i=0; i<8; i++){
-				if((TS_State.touchX[0]) >= 50*i + 80 && (TS_State.touchX[0]) < 50*i + 130){
-					x = 50*i + 105;
-					break;
+				for(i=0; i<8; i++){
+					if((TS_State.touchX[0]) >= 50*i + 80 && (TS_State.touchX[0]) < 50*i + 130){
+						x = 50*i + 105;
+						break;
+					}
 				}
-			}
 
-			for(j=0; j<8; j++){
-				if((TS_State.touchY[0]) >= (50*j) && (TS_State.touchY[0]) < (50*j+100)){
-					y = 50*j + 75;
-					break;
+				for(j=0; j<8; j++){
+					if((TS_State.touchY[0]) >= (50*j) && (TS_State.touchY[0]) < (50*j+100)){
+						y = 50*j + 75;
+						break;
+					}
 				}
-			}
 
-			muda_peca_consoante_jogador(x, y);
-			ver_quem_joga++;
+				valido = verifica_se_adversario(i, j);
 
+				if(valido){
+					muda_peca_consoante_jogador(x, y);
+				}
+
+				if(ver_quem_joga%2==1){
+					tabuleiro[i][j]= PECA_JOGADOR_1;
+				}
+				else{
+					tabuleiro[i][j]= PECA_JOGADOR_2;
+				}
+
+				ver_quem_joga++;
 		}
 	}
 }
@@ -215,7 +298,8 @@ void tocar_ecran(){
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+int i = 0;
+int j = 0;
 
 
   /* USER CODE END 1 */
@@ -265,7 +349,11 @@ int main(void)
 
   imprime_tabuleiro();
 
-
+  for (i = 0; i < 8; i++){
+	  for (j = 0; j < 8; j++){
+		  tabuleiro[i][j] = SEM_PECA;
+	  }
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -275,6 +363,7 @@ int main(void)
 
 	  mostra_temperatura();
 	  mostra_tempo();
+	  imprime_pecas_iniciais();
 	  tocar_ecran();
 
 
