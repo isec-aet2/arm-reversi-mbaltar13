@@ -253,7 +253,7 @@ void limpa_possibilidades(){
 	}
 }
 
-int validar_com_self(int x, int y){
+int validar_com_self(int linsel, int colsel){
     char self, adv;
     int i = 0;
     int j = 0;
@@ -270,93 +270,121 @@ int validar_com_self(int x, int y){
 
     //ver relaçoes com as peças vizinhas
     //ESQUERDA
-    if(tabuleiro[x][y-1] == adv){
-    	for(j = y-2; j >= 0 ;  j-- ){
-    		if(tabuleiro[x][j] == self){
-    			return 1;
-    		}
-    	}
+    if(tabuleiro[linsel][colsel-1] == adv){
+        for(j = colsel-2; j >= 0 ;  j-- ){
+            if(tabuleiro[linsel][j] == self){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
     }
 
+
     //DIREITA
-    if(tabuleiro[x][y-1] == adv){
-    	for(j = y + 2; j < 8 ;  j++ ){
-    		if(tabuleiro[x][j] == self){
-    			return 1;
-    		}
-    	}
+    if(tabuleiro[linsel][colsel+1] == adv){
+        for(j = colsel + 2; j < 8 ;  j++ ){
+            if(tabuleiro[linsel][j] == self){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
     }
 
 
     //CIMA
-    if(tabuleiro[x+1][y] == adv){
-    	for(i = x + 2; i < 8 ;  i++ ){
-    		if(tabuleiro[i][y] == self){ //self a seguir ao inimigo para cima
+    if(tabuleiro[linsel+1][colsel] == adv){
+        for(i = linsel + 2; i < 8 ;  i++ ){
+            if(tabuleiro[i][colsel] == self){
                 return 1;
-    		}
-    	}
+            }
+            else{
+                return 0;
+            }
+        }
     }
 
 
     //BAIXO
-    if(tabuleiro[x-1][y] == adv){
-    	for(i = x-2; i >= 0 ;  i-- ){
-    		if(tabuleiro[i][y] == self){ //ve se a seguir ao adversario ha self
-    			return 1;
-    		}
-    	}
+    if(tabuleiro[linsel-1][colsel] == adv){
+        for(i = linsel-2; i >= 0 ;  i-- ){
+            if(tabuleiro[i][colsel] == self){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
     }
 
 
-   // DIAGONAL SUPERIOR ESQUERDA
-   if(tabuleiro[x-1][y+1] == adv){
-	   for(i = x - 2, j = y + 2; i >= 0 && j< 8; i--, j++){
-		   if(tabuleiro[i][j] == self){ //self a seguir
-			   return 1;
-		   }
-	   }
+   //DIAGONAL SUPERIOR ESQUERDA
+   if(tabuleiro[linsel-1][colsel+1] == adv){
+       for(i=linsel-2, j=colsel+2; i>=0 && j< 8; i--, j++){
+           if(tabuleiro[i][j] == self){
+               return 1;
+           }
+           else{
+               return 0;
+           }
+       }
    }
 
 
    // DIAGONAL INFERIOR DIREITA
-   if(tabuleiro[x+1][y-1] == adv){
-	   for(i = x + 2, j = y - 2; i < 8 && j >= 0; i++, j--){
-		   if(tabuleiro[i][j] == self){ //self a seguir
-			   return 1;
-		   }
-	   }
+     if(tabuleiro[linsel+1][colsel-1] == adv){ //verfica se há adversário junto à casa onde pretendemos jogar
+       for(i=linsel+2, j=colsel-2; i<8 && j>= 0; i++, j--){
+           if(tabuleiro[i][j] == self){ // ve se tem self
+               return 1;
+           }
+           else{
+               return 0;
+           }
+       }
    }
 
 
-   // DIAGONAL CIMA DIREIRA
-   if(tabuleiro[x+1][y+1] == adv){
-	   for(i = x + 2, j = y + 2; i < 8 && j< 8; i++, j++){
-		   if(tabuleiro[i][j] == self){ //verifica se ha self a seguir
-			   return 1;
-		   }
-	   }
+
+     // DIAGONAL INFERIOR ESQUERDA
+     if(tabuleiro[linsel+1][colsel+1] == adv){ //verfica se ha adversario junto
+       for(i=linsel+2, j=colsel+2; i<8 && j< 8; i++, j++){
+           if(tabuleiro[i][j] == self){ //verifica se ha self a seguir
+               return 1;
+           }
+           else{
+               return 0;
+           }
+       }
    }
 
 
-    //DIAGONAL INFERIOR ESQUERDA
-    if(tabuleiro[x-1][y-1] == adv){
-    	for(i = x - 2, j = y - 2; i >= 0 && j >= 0; i--, j--){
-    		if(tabuleiro[i][j] == self){ //ve se ha self
-    			return 1;
-    		}
-    	}
-     }
+     // DIAGONAL SUPERIOR DIREITA
+     if(tabuleiro[linsel-1][colsel-1] == adv){ //ve se ha adversario
+       for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
+           if(tabuleiro[i][j] == self){ //ve se ha self
+               return 1;
+           }
+           else{
+               return 0;
+           }
+       }
+   }
 
 
-    // DIAGONAL SUPERIOR ESQUERDA
-    if(tabuleiro[x-1][y+1] == adv){
-    	for(i = x - 2, j = y + 2; i >= 0 && j< 8; i--, j++){
-    		if(tabuleiro[i][j] == self){ //self a seguir ao adversario
-    			return 1;
-    		}
-    	}
-    }
-    return 0;
+     // DIAGONAL SUPERIOR ESQUERDA
+     if(tabuleiro[linsel-1][colsel+1] == adv){ //adversario ao lado
+       for(i=linsel-2, j=colsel+2; i>=0 && j< 8; i--, j++){
+           if(tabuleiro[i][j] == self){ //self a seguir ao adversario
+               return 1;
+           }
+           else{
+               return 0;
+           }
+       }
+   }
 
 }
 
