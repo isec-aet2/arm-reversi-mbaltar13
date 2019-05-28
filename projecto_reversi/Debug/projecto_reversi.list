@@ -22791,8 +22791,8 @@ void vira_pecas(int linsel, int colsel){
 
 
     //ver relaçoes com as peças vizinhas
-    //direita
-    if(tabuleiro[linsel][colsel-1] == adv){ //tendo adversario junto a direita
+    //ESQUERDA
+    if(tabuleiro[linsel][colsel-1] == adv){
  8008b62:	683b      	ldr	r3, [r7, #0]
  8008b64:	3b01      	subs	r3, #1
  8008b66:	499a      	ldr	r1, [pc, #616]	; (8008dd0 <vira_pecas+0x2a8>)
@@ -22810,7 +22810,7 @@ void vira_pecas(int linsel, int colsel){
  8008b7c:	3b02      	subs	r3, #2
  8008b7e:	61bb      	str	r3, [r7, #24]
  8008b80:	e012      	b.n	8008ba8 <vira_pecas+0x80>
-            if(tabuleiro[linsel][j] == self){ //self no fim
+            if(tabuleiro[linsel][j] == self){
  8008b82:	4a93      	ldr	r2, [pc, #588]	; (8008dd0 <vira_pecas+0x2a8>)
  8008b84:	687b      	ldr	r3, [r7, #4]
  8008b86:	00db      	lsls	r3, r3, #3
@@ -22822,14 +22822,14 @@ void vira_pecas(int linsel, int colsel){
  8008b92:	7ffa      	ldrb	r2, [r7, #31]
  8008b94:	429a      	cmp	r2, r3
  8008b96:	d102      	bne.n	8008b9e <vira_pecas+0x76>
-                ok = 1; //pode imprimir e dar a vez ao jogador seguinte
+                ok = 1;
  8008b98:	2301      	movs	r3, #1
  8008b9a:	613b      	str	r3, [r7, #16]
                 break;
  8008b9c:	e007      	b.n	8008bae <vira_pecas+0x86>
             }
             else{
-                ok = 0;//abortar missão - não é válida por não tem self na fila
+                ok = 0;
  8008b9e:	2300      	movs	r3, #0
  8008ba0:	613b      	str	r3, [r7, #16]
         for(j = colsel-2; j >= 0 ;  j-- ){
@@ -22847,12 +22847,12 @@ void vira_pecas(int linsel, int colsel){
  8008bae:	693b      	ldr	r3, [r7, #16]
  8008bb0:	2b00      	cmp	r3, #0
  8008bb2:	d01c      	beq.n	8008bee <vira_pecas+0xc6>
-        for(j = colsel-1; j >= 0 && tabuleiro[linsel][j] == adv; j--){ //enquanto houver peças do inimigo na fila
+        for(j = colsel-1; j >= 0 && tabuleiro[linsel][j] == adv; j--){
  8008bb4:	683b      	ldr	r3, [r7, #0]
  8008bb6:	3b01      	subs	r3, #1
  8008bb8:	61bb      	str	r3, [r7, #24]
  8008bba:	e00a      	b.n	8008bd2 <vira_pecas+0xaa>
-        	tabuleiro[linsel][j] = self; //converter as peças do adversário
+        	tabuleiro[linsel][j] = self;
  8008bbc:	4a84      	ldr	r2, [pc, #528]	; (8008dd0 <vira_pecas+0x2a8>)
  8008bbe:	687b      	ldr	r3, [r7, #4]
  8008bc0:	00db      	lsls	r3, r3, #3
@@ -22861,7 +22861,7 @@ void vira_pecas(int linsel, int colsel){
  8008bc6:	4413      	add	r3, r2
  8008bc8:	7ffa      	ldrb	r2, [r7, #31]
  8008bca:	701a      	strb	r2, [r3, #0]
-        for(j = colsel-1; j >= 0 && tabuleiro[linsel][j] == adv; j--){ //enquanto houver peças do inimigo na fila
+        for(j = colsel-1; j >= 0 && tabuleiro[linsel][j] == adv; j--){
  8008bcc:	69bb      	ldr	r3, [r7, #24]
  8008bce:	3b01      	subs	r3, #1
  8008bd0:	61bb      	str	r3, [r7, #24]
@@ -22885,8 +22885,10 @@ void vira_pecas(int linsel, int colsel){
     ok = 0;
  8008bee:	2300      	movs	r3, #0
  8008bf0:	613b      	str	r3, [r7, #16]
-        //esquerda
-    if(tabuleiro[linsel][colsel+1] == adv){ //adversário junto à esquerda
+
+
+    //DIREITA
+    if(tabuleiro[linsel][colsel+1] == adv){
  8008bf2:	683b      	ldr	r3, [r7, #0]
  8008bf4:	3301      	adds	r3, #1
  8008bf6:	4976      	ldr	r1, [pc, #472]	; (8008dd0 <vira_pecas+0x2a8>)
@@ -22904,7 +22906,7 @@ void vira_pecas(int linsel, int colsel){
  8008c0c:	3302      	adds	r3, #2
  8008c0e:	61bb      	str	r3, [r7, #24]
  8008c10:	e012      	b.n	8008c38 <vira_pecas+0x110>
-            if(tabuleiro[linsel][j] == self){ //peças self a seguir
+            if(tabuleiro[linsel][j] == self){
  8008c12:	4a6f      	ldr	r2, [pc, #444]	; (8008dd0 <vira_pecas+0x2a8>)
  8008c14:	687b      	ldr	r3, [r7, #4]
  8008c16:	00db      	lsls	r3, r3, #3
@@ -22916,14 +22918,14 @@ void vira_pecas(int linsel, int colsel){
  8008c22:	7ffa      	ldrb	r2, [r7, #31]
  8008c24:	429a      	cmp	r2, r3
  8008c26:	d102      	bne.n	8008c2e <vira_pecas+0x106>
-                ok = 1; //pode jogar e passar a vez
+                ok = 1;
  8008c28:	2301      	movs	r3, #1
  8008c2a:	613b      	str	r3, [r7, #16]
                 break;
  8008c2c:	e007      	b.n	8008c3e <vira_pecas+0x116>
             }
             else{
-                ok = 0; //abortar missão
+                ok = 0;
  8008c2e:	2300      	movs	r3, #0
  8008c30:	613b      	str	r3, [r7, #16]
         for(j = colsel + 2; j < 8 ;  j++ ){
@@ -22941,12 +22943,12 @@ void vira_pecas(int linsel, int colsel){
  8008c3e:	693b      	ldr	r3, [r7, #16]
  8008c40:	2b00      	cmp	r3, #0
  8008c42:	d01c      	beq.n	8008c7e <vira_pecas+0x156>
-        for(j = colsel + 1; j < 8 && tabuleiro[linsel][j] == adv; j++){ //enquanto houver peças do inimigo na fila
+        for(j = colsel + 1; j < 8 && tabuleiro[linsel][j] == adv; j++){
  8008c44:	683b      	ldr	r3, [r7, #0]
  8008c46:	3301      	adds	r3, #1
  8008c48:	61bb      	str	r3, [r7, #24]
  8008c4a:	e00a      	b.n	8008c62 <vira_pecas+0x13a>
-        	tabuleiro[linsel][j] = self; //converter as peças do inimigo
+        	tabuleiro[linsel][j] = self;
  8008c4c:	4a60      	ldr	r2, [pc, #384]	; (8008dd0 <vira_pecas+0x2a8>)
  8008c4e:	687b      	ldr	r3, [r7, #4]
  8008c50:	00db      	lsls	r3, r3, #3
@@ -22955,7 +22957,7 @@ void vira_pecas(int linsel, int colsel){
  8008c56:	4413      	add	r3, r2
  8008c58:	7ffa      	ldrb	r2, [r7, #31]
  8008c5a:	701a      	strb	r2, [r3, #0]
-        for(j = colsel + 1; j < 8 && tabuleiro[linsel][j] == adv; j++){ //enquanto houver peças do inimigo na fila
+        for(j = colsel + 1; j < 8 && tabuleiro[linsel][j] == adv; j++){
  8008c5c:	69bb      	ldr	r3, [r7, #24]
  8008c5e:	3301      	adds	r3, #1
  8008c60:	61bb      	str	r3, [r7, #24]
@@ -22976,11 +22978,13 @@ void vira_pecas(int linsel, int colsel){
         }
     }
 
-     ok = 0;
+    ok = 0;
  8008c7e:	2300      	movs	r3, #0
  8008c80:	613b      	str	r3, [r7, #16]
-    //cima
-    if(tabuleiro[linsel+1][colsel] == adv){ // ver se há adversários em cima
+
+
+    //CIMA
+    if(tabuleiro[linsel+1][colsel] == adv){
  8008c82:	687b      	ldr	r3, [r7, #4]
  8008c84:	3301      	adds	r3, #1
  8008c86:	4a52      	ldr	r2, [pc, #328]	; (8008dd0 <vira_pecas+0x2a8>)
@@ -22998,7 +23002,7 @@ void vira_pecas(int linsel, int colsel){
  8008c9c:	3302      	adds	r3, #2
  8008c9e:	617b      	str	r3, [r7, #20]
  8008ca0:	e012      	b.n	8008cc8 <vira_pecas+0x1a0>
-            if(tabuleiro[i][colsel] == self){ //self a seguir ao inimigo para cima
+            if(tabuleiro[i][colsel] == self){
  8008ca2:	4a4b      	ldr	r2, [pc, #300]	; (8008dd0 <vira_pecas+0x2a8>)
  8008ca4:	697b      	ldr	r3, [r7, #20]
  8008ca6:	00db      	lsls	r3, r3, #3
@@ -23010,7 +23014,7 @@ void vira_pecas(int linsel, int colsel){
  8008cb2:	7ffa      	ldrb	r2, [r7, #31]
  8008cb4:	429a      	cmp	r2, r3
  8008cb6:	d102      	bne.n	8008cbe <vira_pecas+0x196>
-                ok = 1; //valido, imprime e continua
+                ok = 1;
  8008cb8:	2301      	movs	r3, #1
  8008cba:	613b      	str	r3, [r7, #16]
                 break;
@@ -23036,12 +23040,12 @@ void vira_pecas(int linsel, int colsel){
  8008cce:	693b      	ldr	r3, [r7, #16]
  8008cd0:	2b00      	cmp	r3, #0
  8008cd2:	d01c      	beq.n	8008d0e <vira_pecas+0x1e6>
-        for(i = linsel + 1; i < 8 && tabuleiro[i][colsel] == adv; i++){ //enquanto houver peças do adversario
+        for(i = linsel + 1; i < 8 && tabuleiro[i][colsel] == adv; i++){
  8008cd4:	687b      	ldr	r3, [r7, #4]
  8008cd6:	3301      	adds	r3, #1
  8008cd8:	617b      	str	r3, [r7, #20]
  8008cda:	e00a      	b.n	8008cf2 <vira_pecas+0x1ca>
-        	tabuleiro[i][colsel] = self; //converte em self
+        	tabuleiro[i][colsel] = self;
  8008cdc:	4a3c      	ldr	r2, [pc, #240]	; (8008dd0 <vira_pecas+0x2a8>)
  8008cde:	697b      	ldr	r3, [r7, #20]
  8008ce0:	00db      	lsls	r3, r3, #3
@@ -23050,7 +23054,7 @@ void vira_pecas(int linsel, int colsel){
  8008ce6:	4413      	add	r3, r2
  8008ce8:	7ffa      	ldrb	r2, [r7, #31]
  8008cea:	701a      	strb	r2, [r3, #0]
-        for(i = linsel + 1; i < 8 && tabuleiro[i][colsel] == adv; i++){ //enquanto houver peças do adversario
+        for(i = linsel + 1; i < 8 && tabuleiro[i][colsel] == adv; i++){
  8008cec:	697b      	ldr	r3, [r7, #20]
  8008cee:	3301      	adds	r3, #1
  8008cf0:	617b      	str	r3, [r7, #20]
@@ -23074,8 +23078,10 @@ void vira_pecas(int linsel, int colsel){
     ok = 0;
  8008d0e:	2300      	movs	r3, #0
  8008d10:	613b      	str	r3, [r7, #16]
-    //baixo
-    if(tabuleiro[linsel-1][colsel] == adv){ //vê se tem peças do adversario em baixo
+
+
+    //BAIXO
+    if(tabuleiro[linsel-1][colsel] == adv){
  8008d12:	687b      	ldr	r3, [r7, #4]
  8008d14:	3b01      	subs	r3, #1
  8008d16:	4a2e      	ldr	r2, [pc, #184]	; (8008dd0 <vira_pecas+0x2a8>)
@@ -23093,7 +23099,7 @@ void vira_pecas(int linsel, int colsel){
  8008d2c:	3b02      	subs	r3, #2
  8008d2e:	617b      	str	r3, [r7, #20]
  8008d30:	e012      	b.n	8008d58 <vira_pecas+0x230>
-            if(tabuleiro[i][colsel] == self){ //ve se a seguir ao adversario ha self
+            if(tabuleiro[i][colsel] == self){
  8008d32:	4a27      	ldr	r2, [pc, #156]	; (8008dd0 <vira_pecas+0x2a8>)
  8008d34:	697b      	ldr	r3, [r7, #20]
  8008d36:	00db      	lsls	r3, r3, #3
@@ -23105,14 +23111,14 @@ void vira_pecas(int linsel, int colsel){
  8008d42:	7ffa      	ldrb	r2, [r7, #31]
  8008d44:	429a      	cmp	r2, r3
  8008d46:	d102      	bne.n	8008d4e <vira_pecas+0x226>
-                ok = 1; //tudo ok, pode imprimir
+                ok = 1;
  8008d48:	2301      	movs	r3, #1
  8008d4a:	613b      	str	r3, [r7, #16]
                 break;
  8008d4c:	e007      	b.n	8008d5e <vira_pecas+0x236>
             }
             else{
-                ok = 0; //abortar missão
+                ok = 0;
  8008d4e:	2300      	movs	r3, #0
  8008d50:	613b      	str	r3, [r7, #16]
         for(i = linsel-2; i >= 0 ;  i-- ){
@@ -23130,12 +23136,12 @@ void vira_pecas(int linsel, int colsel){
  8008d5e:	693b      	ldr	r3, [r7, #16]
  8008d60:	2b00      	cmp	r3, #0
  8008d62:	d01c      	beq.n	8008d9e <vira_pecas+0x276>
-        for(i = linsel-1; i >= 0 && tabuleiro[i][colsel] == adv; i--){ //enquanto houver adversario na linha
+        for(i = linsel-1; i >= 0 && tabuleiro[i][colsel] == adv; i--){
  8008d64:	687b      	ldr	r3, [r7, #4]
  8008d66:	3b01      	subs	r3, #1
  8008d68:	617b      	str	r3, [r7, #20]
  8008d6a:	e00a      	b.n	8008d82 <vira_pecas+0x25a>
-        	tabuleiro[i][colsel] = self; //converte em self
+        	tabuleiro[i][colsel] = self;
  8008d6c:	4a18      	ldr	r2, [pc, #96]	; (8008dd0 <vira_pecas+0x2a8>)
  8008d6e:	697b      	ldr	r3, [r7, #20]
  8008d70:	00db      	lsls	r3, r3, #3
@@ -23144,7 +23150,7 @@ void vira_pecas(int linsel, int colsel){
  8008d76:	4413      	add	r3, r2
  8008d78:	7ffa      	ldrb	r2, [r7, #31]
  8008d7a:	701a      	strb	r2, [r3, #0]
-        for(i = linsel-1; i >= 0 && tabuleiro[i][colsel] == adv; i--){ //enquanto houver adversario na linha
+        for(i = linsel-1; i >= 0 && tabuleiro[i][colsel] == adv; i--){
  8008d7c:	697b      	ldr	r3, [r7, #20]
  8008d7e:	3b01      	subs	r3, #1
  8008d80:	617b      	str	r3, [r7, #20]
@@ -23165,13 +23171,13 @@ void vira_pecas(int linsel, int colsel){
         }
     }
 
-
-ok = 0;
+    ok = 0;
  8008d9e:	2300      	movs	r3, #0
  8008da0:	613b      	str	r3, [r7, #16]
 
-   // diagonal cima+direita
-   if(tabuleiro[linsel-1][colsel+1] == adv){ //vÊ se há adversários
+
+   //DIAGONAL SUPERIOR ESQUERDA
+   if(tabuleiro[linsel-1][colsel+1] == adv){
  8008da2:	687b      	ldr	r3, [r7, #4]
  8008da4:	1e5a      	subs	r2, r3, #1
  8008da6:	683b      	ldr	r3, [r7, #0]
@@ -23196,7 +23202,7 @@ ok = 0;
  8008dca:	bf00      	nop
  8008dcc:	20000064 	.word	0x20000064
  8008dd0:	20000580 	.word	0x20000580
-           if(tabuleiro[i][j] == self){ //self a seguir
+           if(tabuleiro[i][j] == self){
  8008dd4:	4a9b      	ldr	r2, [pc, #620]	; (8009044 <vira_pecas+0x51c>)
  8008dd6:	697b      	ldr	r3, [r7, #20]
  8008dd8:	00db      	lsls	r3, r3, #3
@@ -23208,14 +23214,14 @@ ok = 0;
  8008de4:	7ffa      	ldrb	r2, [r7, #31]
  8008de6:	429a      	cmp	r2, r3
  8008de8:	d102      	bne.n	8008df0 <vira_pecas+0x2c8>
-               ok = 1; // tudo ok, pode fazer a jogada
+               ok = 1;
  8008dea:	2301      	movs	r3, #1
  8008dec:	613b      	str	r3, [r7, #16]
                break;
  8008dee:	e00d      	b.n	8008e0c <vira_pecas+0x2e4>
            }
            else{
-               ok = 0; //abortar missão
+               ok = 0;
  8008df0:	2300      	movs	r3, #0
  8008df2:	613b      	str	r3, [r7, #16]
        for(i=linsel-2, j=colsel+2; i>=0 && j< 8; i--, j++){
@@ -23239,7 +23245,7 @@ ok = 0;
  8008e0c:	693b      	ldr	r3, [r7, #16]
  8008e0e:	2b00      	cmp	r3, #0
  8008e10:	d025      	beq.n	8008e5e <vira_pecas+0x336>
-      for(i=linsel-1, j=colsel+1; i>=0 && j< 8 && tabuleiro[i][j] == adv; i--, j++){  //enquanto adversario
+      for(i=linsel-1, j=colsel+1; i>=0 && j< 8 && tabuleiro[i][j] == adv; i--, j++){
  8008e12:	687b      	ldr	r3, [r7, #4]
  8008e14:	3b01      	subs	r3, #1
  8008e16:	617b      	str	r3, [r7, #20]
@@ -23247,7 +23253,7 @@ ok = 0;
  8008e1a:	3301      	adds	r3, #1
  8008e1c:	61bb      	str	r3, [r7, #24]
  8008e1e:	e00d      	b.n	8008e3c <vira_pecas+0x314>
-    	  tabuleiro[i][j] = self; // converte
+    	  tabuleiro[i][j] = self;
  8008e20:	4a88      	ldr	r2, [pc, #544]	; (8009044 <vira_pecas+0x51c>)
  8008e22:	697b      	ldr	r3, [r7, #20]
  8008e24:	00db      	lsls	r3, r3, #3
@@ -23256,7 +23262,7 @@ ok = 0;
  8008e2a:	4413      	add	r3, r2
  8008e2c:	7ffa      	ldrb	r2, [r7, #31]
  8008e2e:	701a      	strb	r2, [r3, #0]
-      for(i=linsel-1, j=colsel+1; i>=0 && j< 8 && tabuleiro[i][j] == adv; i--, j++){  //enquanto adversario
+      for(i=linsel-1, j=colsel+1; i>=0 && j< 8 && tabuleiro[i][j] == adv; i--, j++){
  8008e30:	697b      	ldr	r3, [r7, #20]
  8008e32:	3b01      	subs	r3, #1
  8008e34:	617b      	str	r3, [r7, #20]
@@ -23283,11 +23289,13 @@ ok = 0;
        }
    }
 
-    ok = 0;
+   ok = 0;
  8008e5e:	2300      	movs	r3, #0
  8008e60:	613b      	str	r3, [r7, #16]
-   // diagonal baixo+esquerda
-     if(tabuleiro[linsel+1][colsel-1] == adv){ //verfica se há adversário junto à casa onde pretendemos jogar
+
+
+   //DIAGONAL INFERIOR ESQUERDA
+   if(tabuleiro[linsel+1][colsel-1] == adv){
  8008e62:	687b      	ldr	r3, [r7, #4]
  8008e64:	1c5a      	adds	r2, r3, #1
  8008e66:	683b      	ldr	r3, [r7, #0]
@@ -23309,7 +23317,7 @@ ok = 0;
  8008e84:	3b02      	subs	r3, #2
  8008e86:	61bb      	str	r3, [r7, #24]
  8008e88:	e015      	b.n	8008eb6 <vira_pecas+0x38e>
-           if(tabuleiro[i][j] == self){ // ve se tem self
+           if(tabuleiro[i][j] == self){
  8008e8a:	4a6e      	ldr	r2, [pc, #440]	; (8009044 <vira_pecas+0x51c>)
  8008e8c:	697b      	ldr	r3, [r7, #20]
  8008e8e:	00db      	lsls	r3, r3, #3
@@ -23321,14 +23329,14 @@ ok = 0;
  8008e9a:	7ffa      	ldrb	r2, [r7, #31]
  8008e9c:	429a      	cmp	r2, r3
  8008e9e:	d102      	bne.n	8008ea6 <vira_pecas+0x37e>
-               ok = 1; //tudo bem, pode jogar
+               ok = 1;
  8008ea0:	2301      	movs	r3, #1
  8008ea2:	613b      	str	r3, [r7, #16]
                break;
  8008ea4:	e00d      	b.n	8008ec2 <vira_pecas+0x39a>
            }
            else{
-               ok = 0; //abortar missao
+               ok = 0;
  8008ea6:	2300      	movs	r3, #0
  8008ea8:	613b      	str	r3, [r7, #16]
        for(i=linsel+2, j=colsel-2; i<8 && j>= 0; i++, j--){
@@ -23348,12 +23356,11 @@ ok = 0;
        }
    }
 
-
    if(ok){
  8008ec2:	693b      	ldr	r3, [r7, #16]
  8008ec4:	2b00      	cmp	r3, #0
  8008ec6:	d025      	beq.n	8008f14 <vira_pecas+0x3ec>
-      for(i=linsel+1, j=colsel-1; i<8 && j>= 0 && tabuleiro[i][j] == adv; i++, j--){ //enquanto adversario
+      for(i=linsel+1, j=colsel-1; i<8 && j>= 0 && tabuleiro[i][j] == adv; i++, j--){
  8008ec8:	687b      	ldr	r3, [r7, #4]
  8008eca:	3301      	adds	r3, #1
  8008ecc:	617b      	str	r3, [r7, #20]
@@ -23361,7 +23368,7 @@ ok = 0;
  8008ed0:	3b01      	subs	r3, #1
  8008ed2:	61bb      	str	r3, [r7, #24]
  8008ed4:	e00d      	b.n	8008ef2 <vira_pecas+0x3ca>
-    	  tabuleiro[i][j] = self; //converter
+    	  tabuleiro[i][j] = self;
  8008ed6:	4a5b      	ldr	r2, [pc, #364]	; (8009044 <vira_pecas+0x51c>)
  8008ed8:	697b      	ldr	r3, [r7, #20]
  8008eda:	00db      	lsls	r3, r3, #3
@@ -23370,7 +23377,7 @@ ok = 0;
  8008ee0:	4413      	add	r3, r2
  8008ee2:	7ffa      	ldrb	r2, [r7, #31]
  8008ee4:	701a      	strb	r2, [r3, #0]
-      for(i=linsel+1, j=colsel-1; i<8 && j>= 0 && tabuleiro[i][j] == adv; i++, j--){ //enquanto adversario
+      for(i=linsel+1, j=colsel-1; i<8 && j>= 0 && tabuleiro[i][j] == adv; i++, j--){
  8008ee6:	697b      	ldr	r3, [r7, #20]
  8008ee8:	3301      	adds	r3, #1
  8008eea:	617b      	str	r3, [r7, #20]
@@ -23397,11 +23404,13 @@ ok = 0;
        }
    }
 
-    ok = 0;
+   ok = 0;
  8008f14:	2300      	movs	r3, #0
  8008f16:	613b      	str	r3, [r7, #16]
-// diagonal baixo+direita
-     if(tabuleiro[linsel+1][colsel+1] == adv){ //verfica se ha adversario junto
+
+
+   //DIAGONAL SUPERIOR DIREITA
+   if(tabuleiro[linsel+1][colsel+1] == adv){
  8008f18:	687b      	ldr	r3, [r7, #4]
  8008f1a:	1c5a      	adds	r2, r3, #1
  8008f1c:	683b      	ldr	r3, [r7, #0]
@@ -23423,7 +23432,7 @@ ok = 0;
  8008f3a:	3302      	adds	r3, #2
  8008f3c:	61bb      	str	r3, [r7, #24]
  8008f3e:	e015      	b.n	8008f6c <vira_pecas+0x444>
-           if(tabuleiro[i][j] == self){ //verifica se ha self a seguir
+           if(tabuleiro[i][j] == self){
  8008f40:	4a40      	ldr	r2, [pc, #256]	; (8009044 <vira_pecas+0x51c>)
  8008f42:	697b      	ldr	r3, [r7, #20]
  8008f44:	00db      	lsls	r3, r3, #3
@@ -23435,7 +23444,7 @@ ok = 0;
  8008f50:	7ffa      	ldrb	r2, [r7, #31]
  8008f52:	429a      	cmp	r2, r3
  8008f54:	d102      	bne.n	8008f5c <vira_pecas+0x434>
-               ok = 1; //tudo ok, continua
+               ok = 1;
  8008f56:	2301      	movs	r3, #1
  8008f58:	613b      	str	r3, [r7, #16]
                break;
@@ -23466,7 +23475,7 @@ ok = 0;
  8008f78:	693b      	ldr	r3, [r7, #16]
  8008f7a:	2b00      	cmp	r3, #0
  8008f7c:	d025      	beq.n	8008fca <vira_pecas+0x4a2>
-      for(int i=linsel+1, j=colsel+1; i<8 && j < 8 && tabuleiro[i][j] == adv; i++, j++){ //enquanto adversario
+      for(int i=linsel+1, j=colsel+1; i<8 && j < 8 && tabuleiro[i][j] == adv; i++, j++){
  8008f7e:	687b      	ldr	r3, [r7, #4]
  8008f80:	3301      	adds	r3, #1
  8008f82:	60fb      	str	r3, [r7, #12]
@@ -23474,7 +23483,7 @@ ok = 0;
  8008f86:	3301      	adds	r3, #1
  8008f88:	60bb      	str	r3, [r7, #8]
  8008f8a:	e00d      	b.n	8008fa8 <vira_pecas+0x480>
-    	  tabuleiro[i][j] = self; //troca
+    	  tabuleiro[i][j] = self;
  8008f8c:	4a2d      	ldr	r2, [pc, #180]	; (8009044 <vira_pecas+0x51c>)
  8008f8e:	68fb      	ldr	r3, [r7, #12]
  8008f90:	00db      	lsls	r3, r3, #3
@@ -23483,7 +23492,7 @@ ok = 0;
  8008f96:	4413      	add	r3, r2
  8008f98:	7ffa      	ldrb	r2, [r7, #31]
  8008f9a:	701a      	strb	r2, [r3, #0]
-      for(int i=linsel+1, j=colsel+1; i<8 && j < 8 && tabuleiro[i][j] == adv; i++, j++){ //enquanto adversario
+      for(int i=linsel+1, j=colsel+1; i<8 && j < 8 && tabuleiro[i][j] == adv; i++, j++){
  8008f9c:	68fb      	ldr	r3, [r7, #12]
  8008f9e:	3301      	adds	r3, #1
  8008fa0:	60fb      	str	r3, [r7, #12]
@@ -23510,11 +23519,13 @@ ok = 0;
        }
    }
 
-    ok = 0;
+   ok = 0;
  8008fca:	2300      	movs	r3, #0
  8008fcc:	613b      	str	r3, [r7, #16]
-// diagonal cima+esquerda
-     if(tabuleiro[linsel-1][colsel-1] == adv){ //ve se ha adversario
+
+
+   //DIAGONAL INFERIOR ESQUERDA
+   if(tabuleiro[linsel-1][colsel-1] == adv){
  8008fce:	687b      	ldr	r3, [r7, #4]
  8008fd0:	1e5a      	subs	r2, r3, #1
  8008fd2:	683b      	ldr	r3, [r7, #0]
@@ -23528,7 +23539,7 @@ ok = 0;
  8008fe2:	7fba      	ldrb	r2, [r7, #30]
  8008fe4:	429a      	cmp	r2, r3
  8008fe6:	d122      	bne.n	800902e <vira_pecas+0x506>
-       for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
+      for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
  8008fe8:	687b      	ldr	r3, [r7, #4]
  8008fea:	3b02      	subs	r3, #2
  8008fec:	617b      	str	r3, [r7, #20]
@@ -23536,7 +23547,7 @@ ok = 0;
  8008ff0:	3b02      	subs	r3, #2
  8008ff2:	61bb      	str	r3, [r7, #24]
  8008ff4:	e015      	b.n	8009022 <vira_pecas+0x4fa>
-           if(tabuleiro[i][j] == self){ //ve se ha self
+           if(tabuleiro[i][j] == self){
  8008ff6:	4a13      	ldr	r2, [pc, #76]	; (8009044 <vira_pecas+0x51c>)
  8008ff8:	697b      	ldr	r3, [r7, #20]
  8008ffa:	00db      	lsls	r3, r3, #3
@@ -23548,17 +23559,17 @@ ok = 0;
  8009006:	7ffa      	ldrb	r2, [r7, #31]
  8009008:	429a      	cmp	r2, r3
  800900a:	d102      	bne.n	8009012 <vira_pecas+0x4ea>
-               ok = 1; //pode jogar
+               ok = 1;
  800900c:	2301      	movs	r3, #1
  800900e:	613b      	str	r3, [r7, #16]
                break;
  8009010:	e00d      	b.n	800902e <vira_pecas+0x506>
            }
            else{
-               ok = 0; //abortar missao
+               ok = 0;
  8009012:	2300      	movs	r3, #0
  8009014:	613b      	str	r3, [r7, #16]
-       for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
+      for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
  8009016:	697b      	ldr	r3, [r7, #20]
  8009018:	3b01      	subs	r3, #1
  800901a:	617b      	str	r3, [r7, #20]
@@ -23579,7 +23590,7 @@ ok = 0;
  800902e:	693b      	ldr	r3, [r7, #16]
  8009030:	2b00      	cmp	r3, #0
  8009032:	d028      	beq.n	8009086 <vira_pecas+0x55e>
-      for(i=linsel-1, j=colsel-1; i>=0 && j>= 0 && tabuleiro[i][j] == adv; i--, j--){ //enquanto houver adversario na fila
+      for(i=linsel-1, j=colsel-1; i>=0 && j>= 0 && tabuleiro[i][j] == adv; i--, j--){
  8009034:	687b      	ldr	r3, [r7, #4]
  8009036:	3b01      	subs	r3, #1
  8009038:	617b      	str	r3, [r7, #20]
@@ -23589,7 +23600,7 @@ ok = 0;
  8009040:	e010      	b.n	8009064 <vira_pecas+0x53c>
  8009042:	bf00      	nop
  8009044:	20000580 	.word	0x20000580
-    	  tabuleiro[i][j] = self; //converter
+    	  tabuleiro[i][j] = self;
  8009048:	4a13      	ldr	r2, [pc, #76]	; (8009098 <vira_pecas+0x570>)
  800904a:	697b      	ldr	r3, [r7, #20]
  800904c:	00db      	lsls	r3, r3, #3
@@ -23598,7 +23609,7 @@ ok = 0;
  8009052:	4413      	add	r3, r2
  8009054:	7ffa      	ldrb	r2, [r7, #31]
  8009056:	701a      	strb	r2, [r3, #0]
-      for(i=linsel-1, j=colsel-1; i>=0 && j>= 0 && tabuleiro[i][j] == adv; i--, j--){ //enquanto houver adversario na fila
+      for(i=linsel-1, j=colsel-1; i>=0 && j>= 0 && tabuleiro[i][j] == adv; i--, j--){
  8009058:	697b      	ldr	r3, [r7, #20]
  800905a:	3b01      	subs	r3, #1
  800905c:	617b      	str	r3, [r7, #20]

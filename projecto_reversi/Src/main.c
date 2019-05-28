@@ -504,51 +504,55 @@ void vira_pecas(int linsel, int colsel){
 
 
     //ver relaçoes com as peças vizinhas
-    //direita
-    if(tabuleiro[linsel][colsel-1] == adv){ //tendo adversario junto a direita
+    //ESQUERDA
+    if(tabuleiro[linsel][colsel-1] == adv){
         for(j = colsel-2; j >= 0 ;  j-- ){
-            if(tabuleiro[linsel][j] == self){ //self no fim
-                ok = 1; //pode imprimir e dar a vez ao jogador seguinte
+            if(tabuleiro[linsel][j] == self){
+                ok = 1;
                 break;
             }
             else{
-                ok = 0;//abortar missão - não é válida por não tem self na fila
+                ok = 0;
             }
         }
     }
 
     if(ok){
-        for(j = colsel-1; j >= 0 && tabuleiro[linsel][j] == adv; j--){ //enquanto houver peças do inimigo na fila
-        	tabuleiro[linsel][j] = self; //converter as peças do adversário
+        for(j = colsel-1; j >= 0 && tabuleiro[linsel][j] == adv; j--){
+        	tabuleiro[linsel][j] = self;
         }
     }
 
     ok = 0;
-        //esquerda
-    if(tabuleiro[linsel][colsel+1] == adv){ //adversário junto à esquerda
+
+
+    //DIREITA
+    if(tabuleiro[linsel][colsel+1] == adv){
         for(j = colsel + 2; j < 8 ;  j++ ){
-            if(tabuleiro[linsel][j] == self){ //peças self a seguir
-                ok = 1; //pode jogar e passar a vez
+            if(tabuleiro[linsel][j] == self){
+                ok = 1;
                 break;
             }
             else{
-                ok = 0; //abortar missão
+                ok = 0;
             }
         }
     }
 
     if(ok){
-        for(j = colsel + 1; j < 8 && tabuleiro[linsel][j] == adv; j++){ //enquanto houver peças do inimigo na fila
-        	tabuleiro[linsel][j] = self; //converter as peças do inimigo
+        for(j = colsel + 1; j < 8 && tabuleiro[linsel][j] == adv; j++){
+        	tabuleiro[linsel][j] = self;
         }
     }
 
-     ok = 0;
-    //cima
-    if(tabuleiro[linsel+1][colsel] == adv){ // ver se há adversários em cima
+    ok = 0;
+
+
+    //CIMA
+    if(tabuleiro[linsel+1][colsel] == adv){
         for(i = linsel + 2; i < 8 ;  i++ ){
-            if(tabuleiro[i][colsel] == self){ //self a seguir ao inimigo para cima
-                ok = 1; //valido, imprime e continua
+            if(tabuleiro[i][colsel] == self){
+                ok = 1;
                 break;
             }
             else{
@@ -559,80 +563,41 @@ void vira_pecas(int linsel, int colsel){
 
 
     if(ok){
-        for(i = linsel + 1; i < 8 && tabuleiro[i][colsel] == adv; i++){ //enquanto houver peças do adversario
-        	tabuleiro[i][colsel] = self; //converte em self
+        for(i = linsel + 1; i < 8 && tabuleiro[i][colsel] == adv; i++){
+        	tabuleiro[i][colsel] = self;
         }
     }
 
     ok = 0;
-    //baixo
-    if(tabuleiro[linsel-1][colsel] == adv){ //vê se tem peças do adversario em baixo
+
+
+    //BAIXO
+    if(tabuleiro[linsel-1][colsel] == adv){
         for(i = linsel-2; i >= 0 ;  i-- ){
-            if(tabuleiro[i][colsel] == self){ //ve se a seguir ao adversario ha self
-                ok = 1; //tudo ok, pode imprimir
+            if(tabuleiro[i][colsel] == self){
+                ok = 1;
                 break;
             }
             else{
-                ok = 0; //abortar missão
+                ok = 0;
             }
         }
     }
 
     if(ok){
-        for(i = linsel-1; i >= 0 && tabuleiro[i][colsel] == adv; i--){ //enquanto houver adversario na linha
-        	tabuleiro[i][colsel] = self; //converte em self
+        for(i = linsel-1; i >= 0 && tabuleiro[i][colsel] == adv; i--){
+        	tabuleiro[i][colsel] = self;
         }
     }
 
+    ok = 0;
 
-ok = 0;
 
-   // diagonal cima+direita
-   if(tabuleiro[linsel-1][colsel+1] == adv){ //vÊ se há adversários
+   //DIAGONAL SUPERIOR ESQUERDA
+   if(tabuleiro[linsel-1][colsel+1] == adv){
        for(i=linsel-2, j=colsel+2; i>=0 && j< 8; i--, j++){
-           if(tabuleiro[i][j] == self){ //self a seguir
-               ok = 1; // tudo ok, pode fazer a jogada
-               break;
-           }
-           else{
-               ok = 0; //abortar missão
-           }
-       }
-   }
-
-   if(ok){
-      for(i=linsel-1, j=colsel+1; i>=0 && j< 8 && tabuleiro[i][j] == adv; i--, j++){  //enquanto adversario
-    	  tabuleiro[i][j] = self; // converte
-       }
-   }
-
-    ok = 0;
-   // diagonal baixo+esquerda
-     if(tabuleiro[linsel+1][colsel-1] == adv){ //verfica se há adversário junto à casa onde pretendemos jogar
-       for(i=linsel+2, j=colsel-2; i<8 && j>= 0; i++, j--){
-           if(tabuleiro[i][j] == self){ // ve se tem self
-               ok = 1; //tudo bem, pode jogar
-               break;
-           }
-           else{
-               ok = 0; //abortar missao
-           }
-       }
-   }
-
-
-   if(ok){
-      for(i=linsel+1, j=colsel-1; i<8 && j>= 0 && tabuleiro[i][j] == adv; i++, j--){ //enquanto adversario
-    	  tabuleiro[i][j] = self; //converter
-       }
-   }
-
-    ok = 0;
-// diagonal baixo+direita
-     if(tabuleiro[linsel+1][colsel+1] == adv){ //verfica se ha adversario junto
-       for(i=linsel+2, j=colsel+2; i<8 && j< 8; i++, j++){
-           if(tabuleiro[i][j] == self){ //verifica se ha self a seguir
-               ok = 1; //tudo ok, continua
+           if(tabuleiro[i][j] == self){
+               ok = 1;
                break;
            }
            else{
@@ -642,28 +607,74 @@ ok = 0;
    }
 
    if(ok){
-      for(int i=linsel+1, j=colsel+1; i<8 && j < 8 && tabuleiro[i][j] == adv; i++, j++){ //enquanto adversario
-    	  tabuleiro[i][j] = self; //troca
+      for(i=linsel-1, j=colsel+1; i>=0 && j< 8 && tabuleiro[i][j] == adv; i--, j++){
+    	  tabuleiro[i][j] = self;
        }
    }
 
-    ok = 0;
-// diagonal cima+esquerda
-     if(tabuleiro[linsel-1][colsel-1] == adv){ //ve se ha adversario
-       for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
-           if(tabuleiro[i][j] == self){ //ve se ha self
-               ok = 1; //pode jogar
+   ok = 0;
+
+
+   //DIAGONAL INFERIOR ESQUERDA
+   if(tabuleiro[linsel+1][colsel-1] == adv){
+       for(i=linsel+2, j=colsel-2; i<8 && j>= 0; i++, j--){
+           if(tabuleiro[i][j] == self){
+               ok = 1;
                break;
            }
            else{
-               ok = 0; //abortar missao
+               ok = 0;
            }
        }
    }
 
    if(ok){
-      for(i=linsel-1, j=colsel-1; i>=0 && j>= 0 && tabuleiro[i][j] == adv; i--, j--){ //enquanto houver adversario na fila
-    	  tabuleiro[i][j] = self; //converter
+      for(i=linsel+1, j=colsel-1; i<8 && j>= 0 && tabuleiro[i][j] == adv; i++, j--){
+    	  tabuleiro[i][j] = self;
+       }
+   }
+
+   ok = 0;
+
+
+   //DIAGONAL SUPERIOR DIREITA
+   if(tabuleiro[linsel+1][colsel+1] == adv){
+       for(i=linsel+2, j=colsel+2; i<8 && j< 8; i++, j++){
+           if(tabuleiro[i][j] == self){
+               ok = 1;
+               break;
+           }
+           else{
+               ok = 0;
+           }
+       }
+   }
+
+   if(ok){
+      for(int i=linsel+1, j=colsel+1; i<8 && j < 8 && tabuleiro[i][j] == adv; i++, j++){
+    	  tabuleiro[i][j] = self;
+       }
+   }
+
+   ok = 0;
+
+
+   //DIAGONAL INFERIOR ESQUERDA
+   if(tabuleiro[linsel-1][colsel-1] == adv){
+      for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
+           if(tabuleiro[i][j] == self){
+               ok = 1;
+               break;
+           }
+           else{
+               ok = 0;
+           }
+       }
+   }
+
+   if(ok){
+      for(i=linsel-1, j=colsel-1; i>=0 && j>= 0 && tabuleiro[i][j] == adv; i--, j--){
+    	  tabuleiro[i][j] = self;
        }
    }
 
