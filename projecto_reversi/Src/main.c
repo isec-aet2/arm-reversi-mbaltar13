@@ -1,5 +1,5 @@
 /* USER CODE BEGIN Header */
-//ADC_TempInterna_Pooling
+//REVERSI - Marina Baltar
 /**
   ******************************************************************************
   * @file           : main.c
@@ -724,6 +724,16 @@ void tocar_ecran(){
 	}
 }
 
+void menu_inicial(){
+	sprintf(desc, "REVERSI");
+	BSP_LCD_SetFont(&Font24);
+	BSP_LCD_SetTextColor(LCD_COLOR_MAGENTA);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2, (uint8_t *)desc, CENTER_MODE);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+	sprintf(desc, "Prima o botão azul para começar o jogo");
+	BSP_LCD_SetFont(&Font20);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 30, (uint8_t *)desc, CENTER_MODE);
+}
 /* USER CODE END 0 */
 
 /**
@@ -776,11 +786,23 @@ int j = 0;
   LCD_Config();
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED);
+  BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_GPIO);
 //start do adc
   HAL_ADC_Start(&hadc1);
 
   BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
   BSP_TS_ITConfig();
+
+
+  while(BSP_PB_GetState(BUTTON_WAKEUP)!=1){
+	  menu_inicial();
+  }
+  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+  BSP_LCD_FillRect(0, 60, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-60);
+  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+
+  jump:
+  count = 0;
 
   imprime_tabuleiro();
 
@@ -805,7 +827,9 @@ int j = 0;
 	  mostra_quem_joga();
 	  tocar_ecran();
 
-
+	  if(BSP_PB_GetState(BUTTON_WAKEUP)==1){
+		  goto jump;
+	  }
 
 
     /* USER CODE END WHILE */
