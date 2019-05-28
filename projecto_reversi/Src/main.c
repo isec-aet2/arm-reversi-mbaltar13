@@ -162,6 +162,24 @@ void mostra_tempo(){
 	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 70, (uint8_t *)desc, RIGHT_MODE);
 }
 
+void mostra_quem_joga(){
+	//Mostrar o jogador
+    if (ver_quem_joga%2 == 1){
+    	sprintf(desc, "Jogador 1");
+    	BSP_LCD_SetFont(&Font16);
+    	BSP_LCD_SetTextColor(COR_JOGADOR_1);
+    	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 50, (uint8_t *)desc, RIGHT_MODE);
+    	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+    }
+    else{
+    	sprintf(desc, "Jogador 2");
+    	BSP_LCD_SetFont(&Font16);
+    	BSP_LCD_SetTextColor(COR_JOGADOR_2);
+    	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 50, (uint8_t *)desc, RIGHT_MODE);
+    	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+    }
+}
+
 void imprime_pecas_iniciais(){
 
 	BSP_LCD_SetTextColor(COR_JOGADOR_1);
@@ -235,115 +253,6 @@ void limpa_possibilidades(){
 	}
 }
 
-void jogadas_possiveis(){
-    char adv;
-    int i = 0;
-    int j = 0;
-
-    if (ver_quem_joga%2 == 1){
-        adv = PECA_JOGADOR_2;
-    }
-    else{
-    	adv = PECA_JOGADOR_1;
-    }
-
-    limpa_possibilidades();
-
-    for(i = 0; i < 8; i++){
-    	for(j = 0; j < 8; j++){
-    		if(i==0 && j==0){ //canto superior esquerdo
-    			if((tabuleiro[0][1] == adv ||
-    					tabuleiro[1][1] == adv ||
-						tabuleiro[1][0] == adv)
-    					&& tabuleiro[0][0]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    		else if(i==0 && j==7){ //canto superior direito
-    			if((tabuleiro[0][6] == adv ||
-    					tabuleiro[1][6] == adv ||
-						tabuleiro[1][7] == adv)
-    					&& tabuleiro[0][7]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    		else if(i==7 && j==0){ //canto inferior esquerdo
-    			if((tabuleiro[6][0] == adv ||
-    					tabuleiro[6][1] == adv ||
-						tabuleiro[7][1] == adv)
-    					&& tabuleiro[7][0]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    		else if(i==7 && j==7){ //canto inferior direito
-    			if((tabuleiro[6][7] == adv ||
-    					tabuleiro[6][6] == adv ||
-						tabuleiro[7][6] == adv)
-    					&& tabuleiro[7][7]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    		else if(i==0 && j!=0 && j!=7){ //linha de cima
-    			if((tabuleiro[0][j-1] == adv ||
-    					tabuleiro[0][j+1] == adv ||
-						tabuleiro[1][j] == adv ||
-						tabuleiro[1][j+1] == adv ||
-						tabuleiro[1][j-1] == adv)
-    					&& tabuleiro[0][j]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    		else if(j==0 && i!=0 && i!=7){ //linha esquerda
-    			if((tabuleiro[i-1][0] == adv ||
-    					tabuleiro[i+1][0] == adv ||
-						tabuleiro[1][i-1] == adv ||
-						tabuleiro[1][i+1] == adv ||
-						tabuleiro[1][i] == adv)
-    					&& tabuleiro[i][0]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    		else if(i==7 && j!=0 && j!=7){ //linha de baixo
-    			if((tabuleiro[7][j+1] == adv ||
-    					tabuleiro[7][j+1] == adv ||
-						tabuleiro[6][j] == adv ||
-						tabuleiro[6][j-1] == adv ||
-						tabuleiro[6][j+1] == adv)
-    					&& tabuleiro[7][j]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    		else if(j==7 && i!=0 && i!=7){ //linha direita
-    			if((tabuleiro[i-1][7] == adv ||
-    					tabuleiro[i+1][7] == adv ||
-						tabuleiro[i][6] == adv ||
-						tabuleiro[i-1][6] == adv||
-						tabuleiro[i+1][6] == adv)
-    					&& tabuleiro[j][7]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    		else if((tabuleiro[i-1][j-1] == adv ||
-    					tabuleiro[i-1][j] == adv ||
-						tabuleiro[i-1][j+1] == adv ||
-						tabuleiro[i+1][j-1] == adv ||
-						tabuleiro[i+1][j] == adv ||
-						tabuleiro[i+1][j+1] == adv ||
-						tabuleiro[i][j-1] == adv ||
-						tabuleiro[i][j+1] == adv)
-    					&& tabuleiro[i][j]==SEM_PECA){
-    				tabuleiro[i][j] = JOGADA_POSSIVEL;
-    			}
-    		}
-    	}
-
-
-    BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-}
-
-
-
-
 int validar_com_self(int x, int y){
     char self, adv;
     int i = 0;
@@ -366,9 +275,6 @@ int validar_com_self(int x, int y){
     		if(tabuleiro[x][j] == self){
     			return 1;
     		}
-    		else{
-    			return 0;
-    		}
     	}
     }
 
@@ -377,9 +283,6 @@ int validar_com_self(int x, int y){
     	for(j = y + 2; j < 8 ;  j++ ){
     		if(tabuleiro[x][j] == self){
     			return 1;
-    		}
-    		else{
-    			return 0;
     		}
     	}
     }
@@ -391,9 +294,6 @@ int validar_com_self(int x, int y){
     		if(tabuleiro[i][y] == self){ //self a seguir ao inimigo para cima
                 return 1;
     		}
-    		else{
-            	return 0;
-    		}
     	}
     }
 
@@ -403,9 +303,6 @@ int validar_com_self(int x, int y){
     	for(i = x-2; i >= 0 ;  i-- ){
     		if(tabuleiro[i][y] == self){ //ve se a seguir ao adversario ha self
     			return 1;
-    		}
-    		else{
-    			return 0;
     		}
     	}
     }
@@ -417,9 +314,6 @@ int validar_com_self(int x, int y){
 		   if(tabuleiro[i][j] == self){ //self a seguir
 			   return 1;
 		   }
-		   else{
-			   return 0;
-		   }
 	   }
    }
 
@@ -429,9 +323,6 @@ int validar_com_self(int x, int y){
 	   for(i = x + 2, j = y - 2; i < 8 && j >= 0; i++, j--){
 		   if(tabuleiro[i][j] == self){ //self a seguir
 			   return 1;
-		   }
-		   else{
-			   return 0;
 		   }
 	   }
    }
@@ -443,9 +334,6 @@ int validar_com_self(int x, int y){
 		   if(tabuleiro[i][j] == self){ //verifica se ha self a seguir
 			   return 1;
 		   }
-		   else{
-			   return 0;
-		   }
 	   }
    }
 
@@ -455,9 +343,6 @@ int validar_com_self(int x, int y){
     	for(i = x - 2, j = y - 2; i >= 0 && j >= 0; i--, j--){
     		if(tabuleiro[i][j] == self){ //ve se ha self
     			return 1;
-    		}
-    		else{
-    			return 0;
     		}
     	}
      }
@@ -469,13 +354,132 @@ int validar_com_self(int x, int y){
     		if(tabuleiro[i][j] == self){ //self a seguir ao adversario
     			return 1;
     		}
-    		else{
-    			return 0;
-    		}
     	}
     }
+    return 0;
 
 }
+
+void jogadas_possiveis(){
+    char adv;
+    int i = 0;
+    int j = 0;
+
+
+    if (ver_quem_joga%2 == 1){
+        adv = PECA_JOGADOR_2;
+    }
+    else{
+    	adv = PECA_JOGADOR_1;
+    }
+
+    limpa_possibilidades();
+
+
+    	for(i = 0; i < 8; i++){
+    		for(j = 0; j < 8; j++){
+    			if(i==0 && j==0){ //canto superior esquerdo
+    				if((tabuleiro[0][1] == adv ||
+    					tabuleiro[1][1] == adv ||
+						tabuleiro[1][0] == adv)
+    					&& tabuleiro[0][0]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+    			else if(i==0 && j==7){ //canto superior direito
+    				if((tabuleiro[0][6] == adv ||
+    					tabuleiro[1][6] == adv ||
+						tabuleiro[1][7] == adv)
+    					&& tabuleiro[0][7]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+    			else if(i==7 && j==0){ //canto inferior esquerdo
+    				if((tabuleiro[6][0] == adv ||
+    					tabuleiro[6][1] == adv ||
+						tabuleiro[7][1] == adv)
+    					&& tabuleiro[7][0]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+    			else if(i==7 && j==7){ //canto inferior direito
+    				if((tabuleiro[6][7] == adv ||
+    					tabuleiro[6][6] == adv ||
+						tabuleiro[7][6] == adv)
+    					&& tabuleiro[7][7]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+    			else if(i==0 && j!=0 && j!=7){ //linha de cima
+    				if((tabuleiro[0][j-1] == adv ||
+    					tabuleiro[0][j+1] == adv ||
+						tabuleiro[1][j] == adv ||
+						tabuleiro[1][j+1] == adv ||
+						tabuleiro[1][j-1] == adv)
+    					&& tabuleiro[0][j]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+    			else if(j==0 && i!=0 && i!=7){ //linha esquerda
+    				if((tabuleiro[i-1][0] == adv ||
+    					tabuleiro[i+1][0] == adv ||
+						tabuleiro[1][i-1] == adv ||
+						tabuleiro[1][i+1] == adv ||
+						tabuleiro[1][i] == adv)
+    					&& tabuleiro[i][0]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+    			else if(i==7 && j!=0 && j!=7){ //linha de baixo
+    				if((tabuleiro[7][j-1] == adv ||
+    					tabuleiro[7][j+1] == adv ||
+						tabuleiro[6][j] == adv ||
+						tabuleiro[6][j-1] == adv ||
+						tabuleiro[6][j+1] == adv)
+    					&& tabuleiro[7][j]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+    			else if(j==7 && i!=0 && i!=7){ //linha direita
+    				if((tabuleiro[i-1][7] == adv ||
+    					tabuleiro[i+1][7] == adv ||
+						tabuleiro[i][6] == adv ||
+						tabuleiro[i-1][6] == adv||
+						tabuleiro[i+1][6] == adv)
+    					&& tabuleiro[i][7]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+    			//regra geral:
+    			else if((tabuleiro[i-1][j-1] == adv ||
+    					tabuleiro[i-1][j] == adv ||
+						tabuleiro[i-1][j+1] == adv ||
+						tabuleiro[i+1][j-1] == adv ||
+						tabuleiro[i+1][j] == adv ||
+						tabuleiro[i+1][j+1] == adv ||
+						tabuleiro[i][j-1] == adv ||
+						tabuleiro[i][j+1] == adv)
+    					&& tabuleiro[i][j]==SEM_PECA && validar_com_self(i, j)){
+
+    						tabuleiro[i][j] = JOGADA_POSSIVEL;
+    				}
+    			}
+
+    }
+    BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+}
+
+
+
+
 
 
 void vira_pecas(int x, int y){
@@ -497,7 +501,7 @@ void vira_pecas(int x, int y){
 
 
     //ESQUERDA
-    for(j = y-1; j >= 0 && tabuleiro[x][j] == adv; j--){ //enquanto houver peças do adversário
+    for(j = y - 1; j >= 0 && tabuleiro[x][j] == adv; j--){ //enquanto houver peças do adversário
         tabuleiro[x][j] = self; //converte
     }
 
@@ -512,27 +516,27 @@ void vira_pecas(int x, int y){
     }
 
     //BAIXO
-    for(i = x-1; i >= 0 && tabuleiro[i][y] == adv; i--){ //enquanto houver adversario na linha
+    for(i = x - 1; i >= 0 && tabuleiro[i][y] == adv; i--){ //enquanto houver adversario na linha
         tabuleiro[i][y] = self; //converte em self
     }
 
     //DIAGONAL SUPERIOR ESQUERDA
-    for(i = x - 1, j = y + 1; i >= 0 && j < 8 && tabuleiro[i][j] == adv; i--, j++){  //enquanto adversario
+    for(i = x - 1, j = y + 1; (i >= 0 || j < 8) && tabuleiro[i][j] == adv; i--, j++){  //enquanto adversario
          tabuleiro[i][j] = self; // converte
      }
 
     //DIAGONAL SUPERIOR DIREITA
-    for(i = x + 1, j = y + 1; i < 8 && j < 8 && tabuleiro[i][j] == adv; i++, j++){ //enquanto adversario
+    for(i = x + 1, j = y + 1; (i < 8 || j < 8) && tabuleiro[i][j] == adv; i++, j++){ //enquanto adversario
          tabuleiro[i][j] = self; //troca
      }
 
     //DIAGONAL INFERIOR ESQUERDA
-    for(i = x - 1, j = y - 1; i >= 0 && j >= 0 && tabuleiro[i][j] == adv; i--, j--){ //enquanto houver adversario na fila
+    for(i = x - 1, j = y - 1; (i >= 0 || j >= 0) && tabuleiro[i][j] == adv; i--, j--){ //enquanto houver adversario na fila
          tabuleiro[i][j] = self; //converter
      }
 
     //DIAGONAL INFERIOR DIREITA
-    for(i = x + 1, j = y - 1; i < 8 && j >= 0 && tabuleiro[i][j] == adv; i++, j--){ //enquanto adversario
+    for(i = x + 1, j = y - 1; (i < 8 || j >= 0) && tabuleiro[i][j] == adv; i++, j--){ //enquanto adversario
          tabuleiro[i][j] = self; //converter
      }
 
@@ -661,6 +665,7 @@ int j = 0;
 
 	  mostra_temperatura();
 	  mostra_tempo();
+	  mostra_quem_joga();
 	  tocar_ecran();
 
 
