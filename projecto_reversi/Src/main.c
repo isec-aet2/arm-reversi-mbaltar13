@@ -98,7 +98,7 @@ int init_tick_led1 = 0;
 TS_StateTypeDef TS_State;
 int ts_flag = 0;
 volatile int ver_quem_joga = 1; //começa no jogador 1
-char tabuleiro[8][8];
+volatile char tabuleiro[8][8];
 
 
 
@@ -275,9 +275,6 @@ int validar_com_self(int linsel, int colsel){
             if(tabuleiro[linsel][j] == self){
                 return 1;
             }
-            else{
-                return 0;
-            }
         }
     }
 
@@ -287,9 +284,6 @@ int validar_com_self(int linsel, int colsel){
         for(j = colsel + 2; j < 8 ;  j++ ){
             if(tabuleiro[linsel][j] == self){
                 return 1;
-            }
-            else{
-                return 0;
             }
         }
     }
@@ -301,9 +295,6 @@ int validar_com_self(int linsel, int colsel){
             if(tabuleiro[i][colsel] == self){
                 return 1;
             }
-            else{
-                return 0;
-            }
         }
     }
 
@@ -313,9 +304,6 @@ int validar_com_self(int linsel, int colsel){
         for(i = linsel-2; i >= 0 ;  i-- ){
             if(tabuleiro[i][colsel] == self){
                 return 1;
-            }
-            else{
-                return 0;
             }
         }
     }
@@ -327,9 +315,6 @@ int validar_com_self(int linsel, int colsel){
            if(tabuleiro[i][j] == self){
                return 1;
            }
-           else{
-               return 0;
-           }
        }
    }
 
@@ -339,9 +324,6 @@ int validar_com_self(int linsel, int colsel){
        for(i=linsel+2, j=colsel-2; i<8 && j>= 0; i++, j--){
            if(tabuleiro[i][j] == self){ // ve se tem self
                return 1;
-           }
-           else{
-               return 0;
            }
        }
    }
@@ -354,9 +336,6 @@ int validar_com_self(int linsel, int colsel){
            if(tabuleiro[i][j] == self){ //verifica se ha self a seguir
                return 1;
            }
-           else{
-               return 0;
-           }
        }
    }
 
@@ -366,9 +345,6 @@ int validar_com_self(int linsel, int colsel){
        for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
            if(tabuleiro[i][j] == self){ //ve se ha self
                return 1;
-           }
-           else{
-               return 0;
            }
        }
    }
@@ -380,11 +356,10 @@ int validar_com_self(int linsel, int colsel){
            if(tabuleiro[i][j] == self){ //self a seguir ao adversario
                return 1;
            }
-           else{
-               return 0;
-           }
        }
    }
+
+     return 0;
 
 }
 
@@ -401,7 +376,7 @@ void jogadas_possiveis(){
     	adv = PECA_JOGADOR_1;
     }
 
-    limpa_possibilidades();
+
 
 
     	for(i = 0; i < 8; i++){
@@ -603,13 +578,10 @@ void tocar_ecran(){
 					imprime_jogada(x, y, i, j);
 					vira_pecas(i, j);
 					ver_quem_joga++;
-				}
+					limpa_possibilidades();
 					jogadas_possiveis();
 					actualiza_pecas_tabuleiro();
-
-
-
-
+				}
 
 		}
 	}
