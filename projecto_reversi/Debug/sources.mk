@@ -31,6 +31,8 @@ Drivers/BSP/Components/ts3510 \
 Drivers/BSP/Components/wm8994 \
 Drivers/BSP/STM32F769I-Discovery \
 Drivers/STM32F7xx_HAL_Driver/Src \
+Middlewares/Third_Party/FatFs/src \
+Middlewares/Third_Party/FatFs/src/option \
 Src \
 Startup \
 

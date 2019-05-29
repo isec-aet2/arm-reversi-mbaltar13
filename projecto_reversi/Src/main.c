@@ -21,6 +21,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "fatfs.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -66,6 +67,8 @@ DSI_HandleTypeDef hdsi;
 
 LTDC_HandleTypeDef hltdc;
 
+SD_HandleTypeDef hsd2;
+
 TIM_HandleTypeDef htim6;
 
 SDRAM_HandleTypeDef hsdram1;
@@ -82,6 +85,7 @@ static void MX_FMC_Init(void);
 static void MX_LTDC_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_DSIHOST_DSI_Init(void);
+static void MX_SDMMC2_SD_Init(void);
 static void MX_TIM6_Init(void);
 /* USER CODE BEGIN PFP */
 static void LCD_Config();
@@ -91,6 +95,7 @@ static void LCD_Config();
 /* USER CODE BEGIN 0 */
 int flag=0;
 int count = 0; //CONTA SEGUNDOS
+int deadline = 20;
 uint32_t ConvertedValue;
 long int JTemp;
 char desc[100];
@@ -116,6 +121,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM6){
 		flag=1;
 		count++;
+		deadline--;
 
 		  if (count%2 == 0){
 			  //ACTUALIZA O VALOR DA TEMPERATURA
@@ -142,11 +148,9 @@ void menu_inicial(){
 	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 30, (uint8_t *)desc, CENTER_MODE);
 }
 
-void fim_do_jogo(){
+void fim_do_jogo(int jog_um, int jog_dois, int vencedor){
 	int k = 0;
 	int z = 0;
-	int jog_um = 0;
-	int jog_dois = 0;
 
 
 	for(k = 0; k < 8; k++){
@@ -162,12 +166,15 @@ void fim_do_jogo(){
 
 	if(jog_um == jog_dois){
 		sprintf(desc, "Empate! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
+		vencedor = 0;
 	}
 	else if(jog_um > jog_dois){
 		sprintf(desc, "Ganhou o Jogador 1! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
+		vencedor = 1;
 	}
 	else if(jog_um < jog_dois){
 		sprintf(desc, "Ganhou o Jogador 2! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
+		vencedor = 2;
 	}
 	BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 	BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
@@ -209,6 +216,13 @@ void mostra_tempo(){
 	sprintf(desc, "Tempo: %d segundos", count);
 	BSP_LCD_SetFont(&Font12);
 	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 70, (uint8_t *)desc, RIGHT_MODE);
+}
+
+void mostra_deadline(){
+	//Mostrar deadline
+	sprintf(desc, "Faltam: %d segundos", deadline);
+	BSP_LCD_SetFont(&Font20);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 20, (uint8_t *)desc, RIGHT_MODE);
 }
 
 void mostra_quem_joga(){
@@ -760,7 +774,7 @@ void tocar_ecran(){
 				}
 
 
-				if(tabuleiro[i][j]==JOGADA_POSSIVEL){
+				if(tabuleiro[i][j]==JOGADA_POSSIVEL && deadline >= 0){
 					imprime_jogada(x, y, i, j);
 					vira_pecas(i, j);
 					ver_quem_joga++;
@@ -768,6 +782,7 @@ void tocar_ecran(){
 					jogadas_possiveis();
 					actualiza_pecas_tabuleiro();
 				}
+
 
 		}
 	}
@@ -788,6 +803,7 @@ int sem_mais_jogadas_possiveis(){
 	}
 	return conta_possiveis-1;
 }
+
 /* USER CODE END 0 */
 
 /**
@@ -797,9 +813,12 @@ int sem_mais_jogadas_possiveis(){
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-int i = 0;
-int j = 0;
-
+	unsigned int nBytes;
+	int i = 0;
+	int j = 0;
+	int jog_um = 0;
+	int jog_dois = 0;
+	int vencedor = 0;
   /* USER CODE END 1 */
   
 
@@ -832,7 +851,9 @@ int j = 0;
   MX_LTDC_Init();
   MX_ADC1_Init();
   MX_DSIHOST_DSI_Init();
+  MX_SDMMC2_SD_Init();
   MX_TIM6_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start_IT(&htim6);
@@ -861,6 +882,7 @@ int j = 0;
 
   ver_quem_joga = 1;
   count = 0;
+  deadline = 20;
 
   imprime_tabuleiro();
 
@@ -870,9 +892,15 @@ int j = 0;
 	  }
   }
 
+
   imprime_pecas_iniciais();
+
   jogadas_possiveis();
   actualiza_pecas_tabuleiro();
+
+  if(f_mount(&SDFatFS, SDPath, 0)!= FR_OK){
+  	  Error_Handler();
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -882,6 +910,7 @@ int j = 0;
 
 	  mostra_temperatura();
 	  mostra_tempo();
+	  mostra_deadline();
 	  mostra_quem_joga();
 	  tocar_ecran();
 
@@ -889,8 +918,37 @@ int j = 0;
 		  goto jump;
 	  }
 
+	  if(deadline < 0){
+		  deadline = 20;
+		  ver_quem_joga++;
+		  limpa_possibilidades();
+		  jogadas_possiveis();
+		  actualiza_pecas_tabuleiro();
+	  }
+
 	  if(!sem_mais_jogadas_possiveis()){
-			  fim_do_jogo();
+		  fim_do_jogo(jog_um, jog_dois, vencedor);
+
+
+		  if(f_open(&SDFile, "registo_reversi.txt", FA_WRITE | FA_CREATE_ALWAYS) != FR_OK){
+		  	  Error_Handler();
+		  }
+
+		  if(vencedor == 0){
+			  sprintf(desc, "Empate\n");
+		  }
+		  else if(vencedor == 1){
+			  sprintf(desc, "Ganhou o jogador 1\n");
+		  }
+		  else if(vencedor == 2){
+			  sprintf(desc, "Ganhou o jogador 2\n");
+		  }
+
+  		  if(f_write(&SDFile, desc, strlen(desc), &nBytes) != FR_OK){
+  			  Error_Handler();
+  		  }
+
+  		  f_close(&SDFile);
 	  }
     /* USER CODE END WHILE */
 
@@ -922,7 +980,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 25;
   RCC_OscInitStruct.PLL.PLLN = 400;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLQ = 8;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -946,13 +1004,16 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC|RCC_PERIPHCLK_SDMMC2
+                              |RCC_PERIPHCLK_CLK48;
   PeriphClkInitStruct.PLLSAI.PLLSAIN = 192;
   PeriphClkInitStruct.PLLSAI.PLLSAIR = 2;
   PeriphClkInitStruct.PLLSAI.PLLSAIQ = 2;
   PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV2;
   PeriphClkInitStruct.PLLSAIDivQ = 1;
   PeriphClkInitStruct.PLLSAIDivR = RCC_PLLSAIDIVR_2;
+  PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLL;
+  PeriphClkInitStruct.Sdmmc2ClockSelection = RCC_SDMMC2CLKSOURCE_CLK48;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -1240,6 +1301,34 @@ static void MX_LTDC_Init(void)
 }
 
 /**
+  * @brief SDMMC2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SDMMC2_SD_Init(void)
+{
+
+  /* USER CODE BEGIN SDMMC2_Init 0 */
+
+  /* USER CODE END SDMMC2_Init 0 */
+
+  /* USER CODE BEGIN SDMMC2_Init 1 */
+
+  /* USER CODE END SDMMC2_Init 1 */
+  hsd2.Instance = SDMMC2;
+  hsd2.Init.ClockEdge = SDMMC_CLOCK_EDGE_RISING;
+  hsd2.Init.ClockBypass = SDMMC_CLOCK_BYPASS_DISABLE;
+  hsd2.Init.ClockPowerSave = SDMMC_CLOCK_POWER_SAVE_DISABLE;
+  hsd2.Init.BusWide = SDMMC_BUS_WIDE_1B;
+  hsd2.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
+  hsd2.Init.ClockDiv = 0;
+  /* USER CODE BEGIN SDMMC2_Init 2 */
+
+  /* USER CODE END SDMMC2_Init 2 */
+
+}
+
+/**
   * @brief TIM6 Initialization Function
   * @param None
   * @retval None
@@ -1335,8 +1424,8 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOI_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
@@ -1346,6 +1435,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : PI13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PI15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
@@ -1394,7 +1489,10 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-
+	while(1){
+		BSP_LED_Toggle(LED_RED);
+		HAL_Delay(500);
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 
