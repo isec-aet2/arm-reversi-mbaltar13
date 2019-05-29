@@ -222,7 +222,7 @@ void mostra_tempo(){
 
 void mostra_deadline(){
 	//Mostrar deadline
-	sprintf(desc, "Faltam: %d segundos", deadline);
+	sprintf(desc, "   Faltam: %d segundos", deadline);
 	BSP_LCD_SetFont(&Font20);
 	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 20, (uint8_t *)desc, RIGHT_MODE);
 }
@@ -799,11 +799,13 @@ void tocar_ecran(){
 }
 
 
-int possivel_continuar_jogo(){
+int nao_e_possivel_continuar_jogo(){
 	int i = 0;
 	int j = 0;
-	int conta_possiveis = 1;
-	int conta_adversario = 1;
+	int conta_self = 0;
+	int conta_possiveis = 0;
+	int conta_vazias = 0;
+
 	char self;
 
     if (ver_quem_joga%2 == 1){
@@ -815,16 +817,27 @@ int possivel_continuar_jogo(){
 
 	for (i = 0; i < 8; i++){
 		for (j = 0; j < 8; j++){
-			if(tabuleiro[i][j] == JOGADA_POSSIVEL){
-				conta_possiveis++;
+			if(tabuleiro[i][j] == self){
+				conta_self++;
 			}
-			else if(tabuleiro[i][j] == self){
-				conta_adversario++;
+			else if(tabuleiro[i][j] == SEM_PECA){
+				conta_vazias++;
+			}
+			else if(tabuleiro[i][j] == JOGADA_POSSIVEL){
+				conta_possiveis++;
 			}
 		}
 	}
-	if((conta_possiveis-1)==0 && (conta_adversario-1)==0){
+	if(conta_self == 0){
 		return 1;
+	}
+	else if(conta_vazias == 0){
+		if(conta_possiveis == 0){
+			return 1;
+		}
+		else{
+			return 0;
+		}
 	}
 	else{
 		return 0;
@@ -957,9 +970,10 @@ int main(void)
 		  limpa_possibilidades();
 		  jogadas_possiveis();
 		  actualiza_pecas_tabuleiro();
+		  tocar_ecran();
 	  }
 
-	  if(possivel_continuar_jogo() || passa_jogada_um >= 3 || passa_jogada_dois >= 3){
+	  if(nao_e_possivel_continuar_jogo() || passa_jogada_um >= 3 || passa_jogada_dois >= 3){
 		  fim_do_jogo(jog_um, jog_dois, vencedor);
 
 			  if(f_mount(&SDFatFS, SDPath, 0)!= FR_OK){

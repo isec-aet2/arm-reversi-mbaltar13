@@ -7752,7 +7752,7 @@ LOAD c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000008000000                g_pfnVectors
                 0x00000000080001f8                . = ALIGN (0x4)
 
-.text           0x0000000008000200     0xf34c
+.text           0x0000000008000200     0xf380
                 0x0000000008000200                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000008000200       0x40 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
@@ -8508,685 +8508,685 @@ LOAD c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .text.tocar_ecran
                 0x000000000800d6e0      0x1b4 Src/main.o
                 0x000000000800d6e0                tocar_ecran
- .text.possivel_continuar_jogo
-                0x000000000800d894       0xb4 Src/main.o
-                0x000000000800d894                possivel_continuar_jogo
- .text.main     0x000000000800d948      0x2b0 Src/main.o
-                0x000000000800d948                main
+ .text.nao_e_possivel_continuar_jogo
+                0x000000000800d894       0xe4 Src/main.o
+                0x000000000800d894                nao_e_possivel_continuar_jogo
+ .text.main     0x000000000800d978      0x2b4 Src/main.o
+                0x000000000800d978                main
  .text.SystemClock_Config
-                0x000000000800dbf8      0x144 Src/main.o
-                0x000000000800dbf8                SystemClock_Config
+                0x000000000800dc2c      0x144 Src/main.o
+                0x000000000800dc2c                SystemClock_Config
  .text.MX_ADC1_Init
-                0x000000000800dd3c       0xa8 Src/main.o
+                0x000000000800dd70       0xa8 Src/main.o
  .text.MX_DMA2D_Init
-                0x000000000800dde4       0x70 Src/main.o
+                0x000000000800de18       0x70 Src/main.o
  .text.MX_DSIHOST_DSI_Init
-                0x000000000800de54      0x1e8 Src/main.o
+                0x000000000800de88      0x1e8 Src/main.o
  .text.MX_LTDC_Init
-                0x000000000800e03c      0x164 Src/main.o
+                0x000000000800e070      0x164 Src/main.o
  .text.MX_SDMMC2_SD_Init
-                0x000000000800e1a0       0x40 Src/main.o
+                0x000000000800e1d4       0x40 Src/main.o
  .text.MX_TIM6_Init
-                0x000000000800e1e0       0x70 Src/main.o
+                0x000000000800e214       0x70 Src/main.o
  .text.MX_FMC_Init
-                0x000000000800e250       0x9c Src/main.o
+                0x000000000800e284       0x9c Src/main.o
  .text.MX_GPIO_Init
-                0x000000000800e2ec      0x130 Src/main.o
+                0x000000000800e320      0x130 Src/main.o
  .text.LCD_Config
-                0x000000000800e41c       0xc0 Src/main.o
+                0x000000000800e450       0xc0 Src/main.o
  .text.Error_Handler
-                0x000000000800e4dc       0x14 Src/main.o
-                0x000000000800e4dc                Error_Handler
+                0x000000000800e510       0x14 Src/main.o
+                0x000000000800e510                Error_Handler
  .text.SD_CheckStatus
-                0x000000000800e4f0       0x3c Src/sd_diskio.o
+                0x000000000800e524       0x3c Src/sd_diskio.o
  .text.SD_initialize
-                0x000000000800e52c       0x3c Src/sd_diskio.o
-                0x000000000800e52c                SD_initialize
+                0x000000000800e560       0x3c Src/sd_diskio.o
+                0x000000000800e560                SD_initialize
  .text.SD_status
-                0x000000000800e568       0x1c Src/sd_diskio.o
-                0x000000000800e568                SD_status
- .text.SD_read  0x000000000800e584       0x42 Src/sd_diskio.o
-                0x000000000800e584                SD_read
+                0x000000000800e59c       0x1c Src/sd_diskio.o
+                0x000000000800e59c                SD_status
+ .text.SD_read  0x000000000800e5b8       0x42 Src/sd_diskio.o
+                0x000000000800e5b8                SD_read
  .text.SD_write
-                0x000000000800e5c6       0x42 Src/sd_diskio.o
-                0x000000000800e5c6                SD_write
+                0x000000000800e5fa       0x42 Src/sd_diskio.o
+                0x000000000800e5fa                SD_write
  .text.SD_ioctl
-                0x000000000800e608       0xb0 Src/sd_diskio.o
-                0x000000000800e608                SD_ioctl
+                0x000000000800e63c       0xb0 Src/sd_diskio.o
+                0x000000000800e63c                SD_ioctl
  .text.HAL_MspInit
-                0x000000000800e6b8       0x48 Src/stm32f7xx_hal_msp.o
-                0x000000000800e6b8                HAL_MspInit
+                0x000000000800e6ec       0x48 Src/stm32f7xx_hal_msp.o
+                0x000000000800e6ec                HAL_MspInit
  .text.HAL_ADC_MspInit
-                0x000000000800e700       0x40 Src/stm32f7xx_hal_msp.o
-                0x000000000800e700                HAL_ADC_MspInit
+                0x000000000800e734       0x40 Src/stm32f7xx_hal_msp.o
+                0x000000000800e734                HAL_ADC_MspInit
  .text.HAL_DMA2D_MspInit
-                0x000000000800e740       0x40 Src/stm32f7xx_hal_msp.o
-                0x000000000800e740                HAL_DMA2D_MspInit
+                0x000000000800e774       0x40 Src/stm32f7xx_hal_msp.o
+                0x000000000800e774                HAL_DMA2D_MspInit
  .text.HAL_DSI_MspInit
-                0x000000000800e780       0x88 Src/stm32f7xx_hal_msp.o
-                0x000000000800e780                HAL_DSI_MspInit
+                0x000000000800e7b4       0x88 Src/stm32f7xx_hal_msp.o
+                0x000000000800e7b4                HAL_DSI_MspInit
  .text.HAL_DSI_MspDeInit
-                0x000000000800e808       0x3c Src/stm32f7xx_hal_msp.o
-                0x000000000800e808                HAL_DSI_MspDeInit
+                0x000000000800e83c       0x3c Src/stm32f7xx_hal_msp.o
+                0x000000000800e83c                HAL_DSI_MspDeInit
  .text.HAL_LTDC_MspInit
-                0x000000000800e844       0x40 Src/stm32f7xx_hal_msp.o
-                0x000000000800e844                HAL_LTDC_MspInit
+                0x000000000800e878       0x40 Src/stm32f7xx_hal_msp.o
+                0x000000000800e878                HAL_LTDC_MspInit
  .text.HAL_SD_MspInit
-                0x000000000800e884      0x100 Src/stm32f7xx_hal_msp.o
-                0x000000000800e884                HAL_SD_MspInit
+                0x000000000800e8b8      0x100 Src/stm32f7xx_hal_msp.o
+                0x000000000800e8b8                HAL_SD_MspInit
  .text.HAL_TIM_Base_MspInit
-                0x000000000800e984       0x4c Src/stm32f7xx_hal_msp.o
-                0x000000000800e984                HAL_TIM_Base_MspInit
+                0x000000000800e9b8       0x4c Src/stm32f7xx_hal_msp.o
+                0x000000000800e9b8                HAL_TIM_Base_MspInit
  .text.HAL_FMC_MspInit
-                0x000000000800e9d0      0x148 Src/stm32f7xx_hal_msp.o
+                0x000000000800ea04      0x148 Src/stm32f7xx_hal_msp.o
  .text.HAL_SDRAM_MspInit
-                0x000000000800eb18       0x14 Src/stm32f7xx_hal_msp.o
-                0x000000000800eb18                HAL_SDRAM_MspInit
+                0x000000000800eb4c       0x14 Src/stm32f7xx_hal_msp.o
+                0x000000000800eb4c                HAL_SDRAM_MspInit
  .text.NMI_Handler
-                0x000000000800eb2c        0xe Src/stm32f7xx_it.o
-                0x000000000800eb2c                NMI_Handler
- .text.HardFault_Handler
-                0x000000000800eb3a        0x6 Src/stm32f7xx_it.o
-                0x000000000800eb3a                HardFault_Handler
- .text.MemManage_Handler
-                0x000000000800eb40        0x6 Src/stm32f7xx_it.o
-                0x000000000800eb40                MemManage_Handler
- .text.BusFault_Handler
-                0x000000000800eb46        0x6 Src/stm32f7xx_it.o
-                0x000000000800eb46                BusFault_Handler
- .text.UsageFault_Handler
-                0x000000000800eb4c        0x6 Src/stm32f7xx_it.o
-                0x000000000800eb4c                UsageFault_Handler
- .text.SVC_Handler
-                0x000000000800eb52        0xe Src/stm32f7xx_it.o
-                0x000000000800eb52                SVC_Handler
- .text.DebugMon_Handler
                 0x000000000800eb60        0xe Src/stm32f7xx_it.o
-                0x000000000800eb60                DebugMon_Handler
+                0x000000000800eb60                NMI_Handler
+ .text.HardFault_Handler
+                0x000000000800eb6e        0x6 Src/stm32f7xx_it.o
+                0x000000000800eb6e                HardFault_Handler
+ .text.MemManage_Handler
+                0x000000000800eb74        0x6 Src/stm32f7xx_it.o
+                0x000000000800eb74                MemManage_Handler
+ .text.BusFault_Handler
+                0x000000000800eb7a        0x6 Src/stm32f7xx_it.o
+                0x000000000800eb7a                BusFault_Handler
+ .text.UsageFault_Handler
+                0x000000000800eb80        0x6 Src/stm32f7xx_it.o
+                0x000000000800eb80                UsageFault_Handler
+ .text.SVC_Handler
+                0x000000000800eb86        0xe Src/stm32f7xx_it.o
+                0x000000000800eb86                SVC_Handler
+ .text.DebugMon_Handler
+                0x000000000800eb94        0xe Src/stm32f7xx_it.o
+                0x000000000800eb94                DebugMon_Handler
  .text.PendSV_Handler
-                0x000000000800eb6e        0xe Src/stm32f7xx_it.o
-                0x000000000800eb6e                PendSV_Handler
+                0x000000000800eba2        0xe Src/stm32f7xx_it.o
+                0x000000000800eba2                PendSV_Handler
  .text.SysTick_Handler
-                0x000000000800eb7c        0xc Src/stm32f7xx_it.o
-                0x000000000800eb7c                SysTick_Handler
+                0x000000000800ebb0        0xc Src/stm32f7xx_it.o
+                0x000000000800ebb0                SysTick_Handler
  .text.EXTI15_10_IRQHandler
-                0x000000000800eb88       0x10 Src/stm32f7xx_it.o
-                0x000000000800eb88                EXTI15_10_IRQHandler
+                0x000000000800ebbc       0x10 Src/stm32f7xx_it.o
+                0x000000000800ebbc                EXTI15_10_IRQHandler
  .text.TIM6_DAC_IRQHandler
-                0x000000000800eb98       0x14 Src/stm32f7xx_it.o
-                0x000000000800eb98                TIM6_DAC_IRQHandler
- .text._sbrk    0x000000000800ebac       0x58 Src/sysmem.o
-                0x000000000800ebac                _sbrk
+                0x000000000800ebcc       0x14 Src/stm32f7xx_it.o
+                0x000000000800ebcc                TIM6_DAC_IRQHandler
+ .text._sbrk    0x000000000800ebe0       0x58 Src/sysmem.o
+                0x000000000800ebe0                _sbrk
  .text.SystemInit
-                0x000000000800ec04       0x6c Src/system_stm32f7xx.o
-                0x000000000800ec04                SystemInit
+                0x000000000800ec38       0x6c Src/system_stm32f7xx.o
+                0x000000000800ec38                SystemInit
  .text.Reset_Handler
-                0x000000000800ec70       0x50 Startup/startup_stm32f769nihx.o
-                0x000000000800ec70                Reset_Handler
+                0x000000000800eca4       0x50 Startup/startup_stm32f769nihx.o
+                0x000000000800eca4                Reset_Handler
  .text.Default_Handler
-                0x000000000800ecc0        0x2 Startup/startup_stm32f769nihx.o
-                0x000000000800ecc0                RTC_Alarm_IRQHandler
-                0x000000000800ecc0                EXTI2_IRQHandler
-                0x000000000800ecc0                TIM8_CC_IRQHandler
-                0x000000000800ecc0                UART8_IRQHandler
-                0x000000000800ecc0                SPI4_IRQHandler
-                0x000000000800ecc0                TIM1_CC_IRQHandler
-                0x000000000800ecc0                DMA2_Stream5_IRQHandler
-                0x000000000800ecc0                JPEG_IRQHandler
-                0x000000000800ecc0                DMA1_Stream5_IRQHandler
-                0x000000000800ecc0                CAN3_RX1_IRQHandler
-                0x000000000800ecc0                PVD_IRQHandler
-                0x000000000800ecc0                TAMP_STAMP_IRQHandler
-                0x000000000800ecc0                CAN2_RX1_IRQHandler
-                0x000000000800ecc0                EXTI3_IRQHandler
-                0x000000000800ecc0                TIM8_TRG_COM_TIM14_IRQHandler
-                0x000000000800ecc0                DFSDM1_FLT1_IRQHandler
-                0x000000000800ecc0                TIM1_UP_TIM10_IRQHandler
-                0x000000000800ecc0                TIM8_UP_TIM13_IRQHandler
-                0x000000000800ecc0                I2C3_ER_IRQHandler
-                0x000000000800ecc0                DFSDM1_FLT2_IRQHandler
-                0x000000000800ecc0                EXTI0_IRQHandler
-                0x000000000800ecc0                I2C2_EV_IRQHandler
-                0x000000000800ecc0                DMA1_Stream2_IRQHandler
-                0x000000000800ecc0                CAN1_RX0_IRQHandler
-                0x000000000800ecc0                FPU_IRQHandler
-                0x000000000800ecc0                OTG_HS_WKUP_IRQHandler
-                0x000000000800ecc0                CAN3_SCE_IRQHandler
-                0x000000000800ecc0                LTDC_ER_IRQHandler
-                0x000000000800ecc0                CAN2_SCE_IRQHandler
-                0x000000000800ecc0                DMA2_Stream2_IRQHandler
-                0x000000000800ecc0                SPI1_IRQHandler
-                0x000000000800ecc0                TIM1_BRK_TIM9_IRQHandler
-                0x000000000800ecc0                DCMI_IRQHandler
-                0x000000000800ecc0                CAN2_RX0_IRQHandler
-                0x000000000800ecc0                DMA2_Stream3_IRQHandler
-                0x000000000800ecc0                SAI2_IRQHandler
-                0x000000000800ecc0                DFSDM1_FLT3_IRQHandler
-                0x000000000800ecc0                USART6_IRQHandler
-                0x000000000800ecc0                CAN3_RX0_IRQHandler
-                0x000000000800ecc0                USART3_IRQHandler
-                0x000000000800ecc0                CAN1_RX1_IRQHandler
-                0x000000000800ecc0                UART5_IRQHandler
-                0x000000000800ecc0                DMA2_Stream0_IRQHandler
-                0x000000000800ecc0                TIM4_IRQHandler
-                0x000000000800ecc0                QUADSPI_IRQHandler
-                0x000000000800ecc0                I2C1_EV_IRQHandler
-                0x000000000800ecc0                DMA1_Stream6_IRQHandler
-                0x000000000800ecc0                DMA1_Stream1_IRQHandler
-                0x000000000800ecc0                UART4_IRQHandler
-                0x000000000800ecc0                TIM3_IRQHandler
-                0x000000000800ecc0                RCC_IRQHandler
-                0x000000000800ecc0                TIM8_BRK_TIM12_IRQHandler
-                0x000000000800ecc0                Default_Handler
-                0x000000000800ecc0                CEC_IRQHandler
-                0x000000000800ecc0                ADC_IRQHandler
-                0x000000000800ecc0                DMA1_Stream7_IRQHandler
-                0x000000000800ecc0                SPI5_IRQHandler
-                0x000000000800ecc0                TIM7_IRQHandler
-                0x000000000800ecc0                SDMMC1_IRQHandler
-                0x000000000800ecc0                CAN2_TX_IRQHandler
-                0x000000000800ecc0                TIM5_IRQHandler
-                0x000000000800ecc0                DMA2_Stream7_IRQHandler
-                0x000000000800ecc0                I2C3_EV_IRQHandler
-                0x000000000800ecc0                EXTI9_5_IRQHandler
-                0x000000000800ecc0                RTC_WKUP_IRQHandler
-                0x000000000800ecc0                LTDC_IRQHandler
-                0x000000000800ecc0                ETH_WKUP_IRQHandler
-                0x000000000800ecc0                SPDIF_RX_IRQHandler
-                0x000000000800ecc0                SPI2_IRQHandler
-                0x000000000800ecc0                OTG_HS_EP1_IN_IRQHandler
-                0x000000000800ecc0                DMA1_Stream0_IRQHandler
-                0x000000000800ecc0                CAN1_TX_IRQHandler
-                0x000000000800ecc0                EXTI4_IRQHandler
-                0x000000000800ecc0                RNG_IRQHandler
-                0x000000000800ecc0                DSI_IRQHandler
-                0x000000000800ecc0                ETH_IRQHandler
-                0x000000000800ecc0                OTG_HS_EP1_OUT_IRQHandler
-                0x000000000800ecc0                WWDG_IRQHandler
-                0x000000000800ecc0                SPI6_IRQHandler
-                0x000000000800ecc0                MDIOS_IRQHandler
-                0x000000000800ecc0                I2C4_EV_IRQHandler
-                0x000000000800ecc0                CAN3_TX_IRQHandler
-                0x000000000800ecc0                TIM2_IRQHandler
-                0x000000000800ecc0                OTG_FS_WKUP_IRQHandler
-                0x000000000800ecc0                TIM1_TRG_COM_TIM11_IRQHandler
-                0x000000000800ecc0                OTG_HS_IRQHandler
-                0x000000000800ecc0                DMA2D_IRQHandler
-                0x000000000800ecc0                EXTI1_IRQHandler
-                0x000000000800ecc0                SDMMC2_IRQHandler
-                0x000000000800ecc0                UART7_IRQHandler
-                0x000000000800ecc0                USART2_IRQHandler
-                0x000000000800ecc0                DFSDM1_FLT0_IRQHandler
-                0x000000000800ecc0                I2C2_ER_IRQHandler
-                0x000000000800ecc0                DMA2_Stream1_IRQHandler
-                0x000000000800ecc0                CAN1_SCE_IRQHandler
-                0x000000000800ecc0                FLASH_IRQHandler
-                0x000000000800ecc0                DMA2_Stream4_IRQHandler
-                0x000000000800ecc0                USART1_IRQHandler
-                0x000000000800ecc0                OTG_FS_IRQHandler
-                0x000000000800ecc0                SPI3_IRQHandler
-                0x000000000800ecc0                DMA1_Stream4_IRQHandler
-                0x000000000800ecc0                I2C1_ER_IRQHandler
-                0x000000000800ecc0                FMC_IRQHandler
-                0x000000000800ecc0                LPTIM1_IRQHandler
-                0x000000000800ecc0                I2C4_ER_IRQHandler
-                0x000000000800ecc0                DMA2_Stream6_IRQHandler
-                0x000000000800ecc0                SAI1_IRQHandler
-                0x000000000800ecc0                DMA1_Stream3_IRQHandler
- *fill*         0x000000000800ecc2        0x2 
- .text.__errno  0x000000000800ecc4        0xc c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-errno.o)
-                0x000000000800ecc4                __errno
+                0x000000000800ecf4        0x2 Startup/startup_stm32f769nihx.o
+                0x000000000800ecf4                RTC_Alarm_IRQHandler
+                0x000000000800ecf4                EXTI2_IRQHandler
+                0x000000000800ecf4                TIM8_CC_IRQHandler
+                0x000000000800ecf4                UART8_IRQHandler
+                0x000000000800ecf4                SPI4_IRQHandler
+                0x000000000800ecf4                TIM1_CC_IRQHandler
+                0x000000000800ecf4                DMA2_Stream5_IRQHandler
+                0x000000000800ecf4                JPEG_IRQHandler
+                0x000000000800ecf4                DMA1_Stream5_IRQHandler
+                0x000000000800ecf4                CAN3_RX1_IRQHandler
+                0x000000000800ecf4                PVD_IRQHandler
+                0x000000000800ecf4                TAMP_STAMP_IRQHandler
+                0x000000000800ecf4                CAN2_RX1_IRQHandler
+                0x000000000800ecf4                EXTI3_IRQHandler
+                0x000000000800ecf4                TIM8_TRG_COM_TIM14_IRQHandler
+                0x000000000800ecf4                DFSDM1_FLT1_IRQHandler
+                0x000000000800ecf4                TIM1_UP_TIM10_IRQHandler
+                0x000000000800ecf4                TIM8_UP_TIM13_IRQHandler
+                0x000000000800ecf4                I2C3_ER_IRQHandler
+                0x000000000800ecf4                DFSDM1_FLT2_IRQHandler
+                0x000000000800ecf4                EXTI0_IRQHandler
+                0x000000000800ecf4                I2C2_EV_IRQHandler
+                0x000000000800ecf4                DMA1_Stream2_IRQHandler
+                0x000000000800ecf4                CAN1_RX0_IRQHandler
+                0x000000000800ecf4                FPU_IRQHandler
+                0x000000000800ecf4                OTG_HS_WKUP_IRQHandler
+                0x000000000800ecf4                CAN3_SCE_IRQHandler
+                0x000000000800ecf4                LTDC_ER_IRQHandler
+                0x000000000800ecf4                CAN2_SCE_IRQHandler
+                0x000000000800ecf4                DMA2_Stream2_IRQHandler
+                0x000000000800ecf4                SPI1_IRQHandler
+                0x000000000800ecf4                TIM1_BRK_TIM9_IRQHandler
+                0x000000000800ecf4                DCMI_IRQHandler
+                0x000000000800ecf4                CAN2_RX0_IRQHandler
+                0x000000000800ecf4                DMA2_Stream3_IRQHandler
+                0x000000000800ecf4                SAI2_IRQHandler
+                0x000000000800ecf4                DFSDM1_FLT3_IRQHandler
+                0x000000000800ecf4                USART6_IRQHandler
+                0x000000000800ecf4                CAN3_RX0_IRQHandler
+                0x000000000800ecf4                USART3_IRQHandler
+                0x000000000800ecf4                CAN1_RX1_IRQHandler
+                0x000000000800ecf4                UART5_IRQHandler
+                0x000000000800ecf4                DMA2_Stream0_IRQHandler
+                0x000000000800ecf4                TIM4_IRQHandler
+                0x000000000800ecf4                QUADSPI_IRQHandler
+                0x000000000800ecf4                I2C1_EV_IRQHandler
+                0x000000000800ecf4                DMA1_Stream6_IRQHandler
+                0x000000000800ecf4                DMA1_Stream1_IRQHandler
+                0x000000000800ecf4                UART4_IRQHandler
+                0x000000000800ecf4                TIM3_IRQHandler
+                0x000000000800ecf4                RCC_IRQHandler
+                0x000000000800ecf4                TIM8_BRK_TIM12_IRQHandler
+                0x000000000800ecf4                Default_Handler
+                0x000000000800ecf4                CEC_IRQHandler
+                0x000000000800ecf4                ADC_IRQHandler
+                0x000000000800ecf4                DMA1_Stream7_IRQHandler
+                0x000000000800ecf4                SPI5_IRQHandler
+                0x000000000800ecf4                TIM7_IRQHandler
+                0x000000000800ecf4                SDMMC1_IRQHandler
+                0x000000000800ecf4                CAN2_TX_IRQHandler
+                0x000000000800ecf4                TIM5_IRQHandler
+                0x000000000800ecf4                DMA2_Stream7_IRQHandler
+                0x000000000800ecf4                I2C3_EV_IRQHandler
+                0x000000000800ecf4                EXTI9_5_IRQHandler
+                0x000000000800ecf4                RTC_WKUP_IRQHandler
+                0x000000000800ecf4                LTDC_IRQHandler
+                0x000000000800ecf4                ETH_WKUP_IRQHandler
+                0x000000000800ecf4                SPDIF_RX_IRQHandler
+                0x000000000800ecf4                SPI2_IRQHandler
+                0x000000000800ecf4                OTG_HS_EP1_IN_IRQHandler
+                0x000000000800ecf4                DMA1_Stream0_IRQHandler
+                0x000000000800ecf4                CAN1_TX_IRQHandler
+                0x000000000800ecf4                EXTI4_IRQHandler
+                0x000000000800ecf4                RNG_IRQHandler
+                0x000000000800ecf4                DSI_IRQHandler
+                0x000000000800ecf4                ETH_IRQHandler
+                0x000000000800ecf4                OTG_HS_EP1_OUT_IRQHandler
+                0x000000000800ecf4                WWDG_IRQHandler
+                0x000000000800ecf4                SPI6_IRQHandler
+                0x000000000800ecf4                MDIOS_IRQHandler
+                0x000000000800ecf4                I2C4_EV_IRQHandler
+                0x000000000800ecf4                CAN3_TX_IRQHandler
+                0x000000000800ecf4                TIM2_IRQHandler
+                0x000000000800ecf4                OTG_FS_WKUP_IRQHandler
+                0x000000000800ecf4                TIM1_TRG_COM_TIM11_IRQHandler
+                0x000000000800ecf4                OTG_HS_IRQHandler
+                0x000000000800ecf4                DMA2D_IRQHandler
+                0x000000000800ecf4                EXTI1_IRQHandler
+                0x000000000800ecf4                SDMMC2_IRQHandler
+                0x000000000800ecf4                UART7_IRQHandler
+                0x000000000800ecf4                USART2_IRQHandler
+                0x000000000800ecf4                DFSDM1_FLT0_IRQHandler
+                0x000000000800ecf4                I2C2_ER_IRQHandler
+                0x000000000800ecf4                DMA2_Stream1_IRQHandler
+                0x000000000800ecf4                CAN1_SCE_IRQHandler
+                0x000000000800ecf4                FLASH_IRQHandler
+                0x000000000800ecf4                DMA2_Stream4_IRQHandler
+                0x000000000800ecf4                USART1_IRQHandler
+                0x000000000800ecf4                OTG_FS_IRQHandler
+                0x000000000800ecf4                SPI3_IRQHandler
+                0x000000000800ecf4                DMA1_Stream4_IRQHandler
+                0x000000000800ecf4                I2C1_ER_IRQHandler
+                0x000000000800ecf4                FMC_IRQHandler
+                0x000000000800ecf4                LPTIM1_IRQHandler
+                0x000000000800ecf4                I2C4_ER_IRQHandler
+                0x000000000800ecf4                DMA2_Stream6_IRQHandler
+                0x000000000800ecf4                SAI1_IRQHandler
+                0x000000000800ecf4                DMA1_Stream3_IRQHandler
+ *fill*         0x000000000800ecf6        0x2 
+ .text.__errno  0x000000000800ecf8        0xc c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-errno.o)
+                0x000000000800ecf8                __errno
  .text.__libc_init_array
-                0x000000000800ecd0       0x48 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-init.o)
-                0x000000000800ecd0                __libc_init_array
- .text.memset   0x000000000800ed18       0x10 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-memset.o)
-                0x000000000800ed18                memset
- .text.sprintf  0x000000000800ed28       0x40 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-sprintf.o)
-                0x000000000800ed28                siprintf
-                0x000000000800ed28                sprintf
+                0x000000000800ed04       0x48 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-init.o)
+                0x000000000800ed04                __libc_init_array
+ .text.memset   0x000000000800ed4c       0x10 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-memset.o)
+                0x000000000800ed4c                memset
+ .text.sprintf  0x000000000800ed5c       0x40 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-sprintf.o)
+                0x000000000800ed5c                siprintf
+                0x000000000800ed5c                sprintf
  .text.__ssputs_r
-                0x000000000800ed68       0xb4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x000000000800ed68                __ssputs_r
+                0x000000000800ed9c       0xb4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x000000000800ed9c                __ssputs_r
  .text._svfprintf_r
-                0x000000000800ee1c      0x1f0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x000000000800ee1c                _svfiprintf_r
-                0x000000000800ee1c                _svfprintf_r
+                0x000000000800ee50      0x1f0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x000000000800ee50                _svfiprintf_r
+                0x000000000800ee50                _svfprintf_r
  .text._printf_common
-                0x000000000800f00c       0xea c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x000000000800f00c                _printf_common
- *fill*         0x000000000800f0f6        0x2 
+                0x000000000800f040       0xea c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x000000000800f040                _printf_common
+ *fill*         0x000000000800f12a        0x2 
  .text._printf_i
-                0x000000000800f0f8      0x224 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x000000000800f0f8                _printf_i
- .text.memcpy   0x000000000800f31c       0x16 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-memcpy-stub.o)
-                0x000000000800f31c                memcpy
- .text.memmove  0x000000000800f332       0x32 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-memmove.o)
-                0x000000000800f332                memmove
- .text._free_r  0x000000000800f364       0x9c c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-freer.o)
-                0x000000000800f364                _free_r
+                0x000000000800f12c      0x224 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x000000000800f12c                _printf_i
+ .text.memcpy   0x000000000800f350       0x16 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-memcpy-stub.o)
+                0x000000000800f350                memcpy
+ .text.memmove  0x000000000800f366       0x32 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-memmove.o)
+                0x000000000800f366                memmove
+ .text._free_r  0x000000000800f398       0x9c c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-freer.o)
+                0x000000000800f398                _free_r
  .text._malloc_r
-                0x000000000800f400       0xb4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-mallocr.o)
-                0x000000000800f400                _malloc_r
+                0x000000000800f434       0xb4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-mallocr.o)
+                0x000000000800f434                _malloc_r
  .text._realloc_r
-                0x000000000800f4b4       0x4c c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-reallocr.o)
-                0x000000000800f4b4                _realloc_r
- .text._sbrk_r  0x000000000800f500       0x20 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-sbrkr.o)
-                0x000000000800f500                _sbrk_r
+                0x000000000800f4e8       0x4c c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-reallocr.o)
+                0x000000000800f4e8                _realloc_r
+ .text._sbrk_r  0x000000000800f534       0x20 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-sbrkr.o)
+                0x000000000800f534                _sbrk_r
  .text.__malloc_lock
-                0x000000000800f520        0x2 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-mlock.o)
-                0x000000000800f520                __malloc_lock
+                0x000000000800f554        0x2 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-mlock.o)
+                0x000000000800f554                __malloc_lock
  .text.__malloc_unlock
-                0x000000000800f522        0x2 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-mlock.o)
-                0x000000000800f522                __malloc_unlock
+                0x000000000800f556        0x2 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-mlock.o)
+                0x000000000800f556                __malloc_unlock
  .text._malloc_usable_size_r
-                0x000000000800f524       0x10 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-msizer.o)
-                0x000000000800f524                _malloc_usable_size_r
+                0x000000000800f558       0x10 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-msizer.o)
+                0x000000000800f558                _malloc_usable_size_r
  *(.glue_7)
- .glue_7        0x000000000800f534        0x0 linker stubs
+ .glue_7        0x000000000800f568        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x000000000800f534        0x0 linker stubs
+ .glue_7t       0x000000000800f568        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x000000000800f534        0x0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
+ .eh_frame      0x000000000800f568        0x0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
  *(.init)
- .init          0x000000000800f534        0x4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crti.o
-                0x000000000800f534                _init
- .init          0x000000000800f538        0x8 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtn.o
+ .init          0x000000000800f568        0x4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crti.o
+                0x000000000800f568                _init
+ .init          0x000000000800f56c        0x8 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtn.o
  *(.fini)
- .fini          0x000000000800f540        0x4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crti.o
-                0x000000000800f540                _fini
- .fini          0x000000000800f544        0x8 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtn.o
-                0x000000000800f54c                . = ALIGN (0x4)
-                0x000000000800f54c                _etext = .
+ .fini          0x000000000800f574        0x4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crti.o
+                0x000000000800f574                _fini
+ .fini          0x000000000800f578        0x8 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtn.o
+                0x000000000800f580                . = ALIGN (0x4)
+                0x000000000800f580                _etext = .
 
-.vfp11_veneer   0x000000000800f54c        0x0
- .vfp11_veneer  0x000000000800f54c        0x0 linker stubs
+.vfp11_veneer   0x000000000800f580        0x0
+ .vfp11_veneer  0x000000000800f580        0x0 linker stubs
 
-.v4_bx          0x000000000800f54c        0x0
- .v4_bx         0x000000000800f54c        0x0 linker stubs
+.v4_bx          0x000000000800f580        0x0
+ .v4_bx         0x000000000800f580        0x0 linker stubs
 
-.iplt           0x000000000800f54c        0x0
- .iplt          0x000000000800f54c        0x0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
+.iplt           0x000000000800f580        0x0
+ .iplt          0x000000000800f580        0x0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
 
-.rodata         0x000000000800f54c     0x3f34
-                0x000000000800f54c                . = ALIGN (0x4)
+.rodata         0x000000000800f580     0x3f38
+                0x000000000800f580                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x000000000800f54c       0x44 Middlewares/Third_Party/FatFs/src/ff.o
- .rodata        0x000000000800f590      0x215 Src/main.o
+ .rodata        0x000000000800f580       0x44 Middlewares/Third_Party/FatFs/src/ff.o
+ .rodata        0x000000000800f5c4      0x219 Src/main.o
  *(.rodata*)
- *fill*         0x000000000800f7a5        0x3 
+ *fill*         0x000000000800f7dd        0x3 
  .rodata.lcdRegData1
-                0x000000000800f7a8        0x4 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7a8                lcdRegData1
+                0x000000000800f7e0        0x4 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f7e0                lcdRegData1
  .rodata.lcdRegData2
-                0x000000000800f7ac        0x3 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7ac                lcdRegData2
- *fill*         0x000000000800f7af        0x1 
- .rodata.lcdRegData3
-                0x000000000800f7b0       0x11 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7b0                lcdRegData3
- *fill*         0x000000000800f7c1        0x3 
- .rodata.lcdRegData4
-                0x000000000800f7c4       0x11 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7c4                lcdRegData4
- *fill*         0x000000000800f7d5        0x3 
- .rodata.lcdRegData5
-                0x000000000800f7d8        0x3 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7d8                lcdRegData5
- *fill*         0x000000000800f7db        0x1 
- .rodata.lcdRegData6
-                0x000000000800f7dc        0x3 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7dc                lcdRegData6
- *fill*         0x000000000800f7df        0x1 
- .rodata.lcdRegData7
-                0x000000000800f7e0        0x7 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7e0                lcdRegData7
+                0x000000000800f7e4        0x3 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f7e4                lcdRegData2
  *fill*         0x000000000800f7e7        0x1 
- .rodata.lcdRegData8
-                0x000000000800f7e8        0xf Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7e8                lcdRegData8
- *fill*         0x000000000800f7f7        0x1 
- .rodata.lcdRegData9
-                0x000000000800f7f8        0xf Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f7f8                lcdRegData9
- *fill*         0x000000000800f807        0x1 
- .rodata.lcdRegData10
-                0x000000000800f808        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f808                lcdRegData10
+ .rodata.lcdRegData3
+                0x000000000800f7e8       0x11 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f7e8                lcdRegData3
+ *fill*         0x000000000800f7f9        0x3 
+ .rodata.lcdRegData4
+                0x000000000800f7fc       0x11 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f7fc                lcdRegData4
+ *fill*         0x000000000800f80d        0x3 
+ .rodata.lcdRegData5
+                0x000000000800f810        0x3 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f810                lcdRegData5
  *fill*         0x000000000800f813        0x1 
- .rodata.lcdRegData11
-                0x000000000800f814        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f814                lcdRegData11
+ .rodata.lcdRegData6
+                0x000000000800f814        0x3 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f814                lcdRegData6
+ *fill*         0x000000000800f817        0x1 
+ .rodata.lcdRegData7
+                0x000000000800f818        0x7 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f818                lcdRegData7
  *fill*         0x000000000800f81f        0x1 
- .rodata.lcdRegData12
-                0x000000000800f820       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f820                lcdRegData12
- .rodata.lcdRegData13
-                0x000000000800f830       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f830                lcdRegData13
- .rodata.lcdRegData14
+ .rodata.lcdRegData8
+                0x000000000800f820        0xf Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f820                lcdRegData8
+ *fill*         0x000000000800f82f        0x1 
+ .rodata.lcdRegData9
+                0x000000000800f830        0xf Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f830                lcdRegData9
+ *fill*         0x000000000800f83f        0x1 
+ .rodata.lcdRegData10
                 0x000000000800f840        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f840                lcdRegData14
+                0x000000000800f840                lcdRegData10
  *fill*         0x000000000800f84b        0x1 
- .rodata.lcdRegData15
-                0x000000000800f84c       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f84c                lcdRegData15
- .rodata.lcdRegData16
-                0x000000000800f85c       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f85c                lcdRegData16
- .rodata.lcdRegData17
-                0x000000000800f86c        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f86c                lcdRegData17
- *fill*         0x000000000800f877        0x1 
- .rodata.lcdRegData18
+ .rodata.lcdRegData11
+                0x000000000800f84c        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f84c                lcdRegData11
+ *fill*         0x000000000800f857        0x1 
+ .rodata.lcdRegData12
+                0x000000000800f858       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f858                lcdRegData12
+ .rodata.lcdRegData13
+                0x000000000800f868       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f868                lcdRegData13
+ .rodata.lcdRegData14
                 0x000000000800f878        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f878                lcdRegData18
+                0x000000000800f878                lcdRegData14
  *fill*         0x000000000800f883        0x1 
- .rodata.lcdRegData19
-                0x000000000800f884        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f884                lcdRegData19
- *fill*         0x000000000800f88f        0x1 
- .rodata.lcdRegData20
-                0x000000000800f890       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f890                lcdRegData20
- .rodata.lcdRegData21
-                0x000000000800f8a0       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8a0                lcdRegData21
- .rodata.lcdRegData22
+ .rodata.lcdRegData15
+                0x000000000800f884       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f884                lcdRegData15
+ .rodata.lcdRegData16
+                0x000000000800f894       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f894                lcdRegData16
+ .rodata.lcdRegData17
+                0x000000000800f8a4        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f8a4                lcdRegData17
+ *fill*         0x000000000800f8af        0x1 
+ .rodata.lcdRegData18
                 0x000000000800f8b0        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8b0                lcdRegData22
+                0x000000000800f8b0                lcdRegData18
  *fill*         0x000000000800f8bb        0x1 
+ .rodata.lcdRegData19
+                0x000000000800f8bc        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f8bc                lcdRegData19
+ *fill*         0x000000000800f8c7        0x1 
+ .rodata.lcdRegData20
+                0x000000000800f8c8       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f8c8                lcdRegData20
+ .rodata.lcdRegData21
+                0x000000000800f8d8       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f8d8                lcdRegData21
+ .rodata.lcdRegData22
+                0x000000000800f8e8        0xb Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f8e8                lcdRegData22
+ *fill*         0x000000000800f8f3        0x1 
  .rodata.lcdRegData23
-                0x000000000800f8bc       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8bc                lcdRegData23
+                0x000000000800f8f4       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f8f4                lcdRegData23
  .rodata.lcdRegData24
-                0x000000000800f8cc       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8cc                lcdRegData24
+                0x000000000800f904       0x10 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f904                lcdRegData24
  .rodata.lcdRegData25
-                0x000000000800f8dc        0x4 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8dc                lcdRegData25
+                0x000000000800f914        0x4 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f914                lcdRegData25
  .rodata.lcdRegData27
-                0x000000000800f8e0        0x5 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8e0                lcdRegData27
- *fill*         0x000000000800f8e5        0x3 
+                0x000000000800f918        0x5 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f918                lcdRegData27
+ *fill*         0x000000000800f91d        0x3 
  .rodata.lcdRegData28
-                0x000000000800f8e8        0x5 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8e8                lcdRegData28
- *fill*         0x000000000800f8ed        0x3 
+                0x000000000800f920        0x5 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f920                lcdRegData28
+ *fill*         0x000000000800f925        0x3 
  .rodata.ShortRegData1
-                0x000000000800f8f0        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8f0                ShortRegData1
- *fill*         0x000000000800f8f2        0x2 
- .rodata.ShortRegData2
-                0x000000000800f8f4        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8f4                ShortRegData2
- *fill*         0x000000000800f8f6        0x2 
- .rodata.ShortRegData3
-                0x000000000800f8f8        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8f8                ShortRegData3
- *fill*         0x000000000800f8fa        0x2 
- .rodata.ShortRegData4
-                0x000000000800f8fc        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f8fc                ShortRegData4
- *fill*         0x000000000800f8fe        0x2 
- .rodata.ShortRegData5
-                0x000000000800f900        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f900                ShortRegData5
- *fill*         0x000000000800f902        0x2 
- .rodata.ShortRegData6
-                0x000000000800f904        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f904                ShortRegData6
- *fill*         0x000000000800f906        0x2 
- .rodata.ShortRegData7
-                0x000000000800f908        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f908                ShortRegData7
- *fill*         0x000000000800f90a        0x2 
- .rodata.ShortRegData8
-                0x000000000800f90c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f90c                ShortRegData8
- *fill*         0x000000000800f90e        0x2 
- .rodata.ShortRegData9
-                0x000000000800f910        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f910                ShortRegData9
- *fill*         0x000000000800f912        0x2 
- .rodata.ShortRegData10
-                0x000000000800f914        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f914                ShortRegData10
- *fill*         0x000000000800f916        0x2 
- .rodata.ShortRegData11
-                0x000000000800f918        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f918                ShortRegData11
- *fill*         0x000000000800f91a        0x2 
- .rodata.ShortRegData12
-                0x000000000800f91c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f91c                ShortRegData12
- *fill*         0x000000000800f91e        0x2 
- .rodata.ShortRegData13
-                0x000000000800f920        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f920                ShortRegData13
- *fill*         0x000000000800f922        0x2 
- .rodata.ShortRegData14
-                0x000000000800f924        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f924                ShortRegData14
- *fill*         0x000000000800f926        0x2 
- .rodata.ShortRegData15
                 0x000000000800f928        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f928                ShortRegData15
+                0x000000000800f928                ShortRegData1
  *fill*         0x000000000800f92a        0x2 
- .rodata.ShortRegData16
+ .rodata.ShortRegData2
                 0x000000000800f92c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f92c                ShortRegData16
+                0x000000000800f92c                ShortRegData2
  *fill*         0x000000000800f92e        0x2 
- .rodata.ShortRegData17
+ .rodata.ShortRegData3
                 0x000000000800f930        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f930                ShortRegData17
+                0x000000000800f930                ShortRegData3
  *fill*         0x000000000800f932        0x2 
- .rodata.ShortRegData18
+ .rodata.ShortRegData4
                 0x000000000800f934        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f934                ShortRegData18
+                0x000000000800f934                ShortRegData4
  *fill*         0x000000000800f936        0x2 
- .rodata.ShortRegData19
+ .rodata.ShortRegData5
                 0x000000000800f938        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f938                ShortRegData19
+                0x000000000800f938                ShortRegData5
  *fill*         0x000000000800f93a        0x2 
- .rodata.ShortRegData20
+ .rodata.ShortRegData6
                 0x000000000800f93c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f93c                ShortRegData20
+                0x000000000800f93c                ShortRegData6
  *fill*         0x000000000800f93e        0x2 
- .rodata.ShortRegData21
+ .rodata.ShortRegData7
                 0x000000000800f940        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f940                ShortRegData21
+                0x000000000800f940                ShortRegData7
  *fill*         0x000000000800f942        0x2 
- .rodata.ShortRegData22
+ .rodata.ShortRegData8
                 0x000000000800f944        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f944                ShortRegData22
+                0x000000000800f944                ShortRegData8
  *fill*         0x000000000800f946        0x2 
- .rodata.ShortRegData23
+ .rodata.ShortRegData9
                 0x000000000800f948        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f948                ShortRegData23
+                0x000000000800f948                ShortRegData9
  *fill*         0x000000000800f94a        0x2 
- .rodata.ShortRegData24
+ .rodata.ShortRegData10
                 0x000000000800f94c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f94c                ShortRegData24
+                0x000000000800f94c                ShortRegData10
  *fill*         0x000000000800f94e        0x2 
- .rodata.ShortRegData25
+ .rodata.ShortRegData11
                 0x000000000800f950        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f950                ShortRegData25
+                0x000000000800f950                ShortRegData11
  *fill*         0x000000000800f952        0x2 
- .rodata.ShortRegData26
+ .rodata.ShortRegData12
                 0x000000000800f954        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f954                ShortRegData26
+                0x000000000800f954                ShortRegData12
  *fill*         0x000000000800f956        0x2 
- .rodata.ShortRegData27
+ .rodata.ShortRegData13
                 0x000000000800f958        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f958                ShortRegData27
+                0x000000000800f958                ShortRegData13
  *fill*         0x000000000800f95a        0x2 
- .rodata.ShortRegData28
+ .rodata.ShortRegData14
                 0x000000000800f95c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f95c                ShortRegData28
+                0x000000000800f95c                ShortRegData14
  *fill*         0x000000000800f95e        0x2 
- .rodata.ShortRegData29
+ .rodata.ShortRegData15
                 0x000000000800f960        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f960                ShortRegData29
+                0x000000000800f960                ShortRegData15
  *fill*         0x000000000800f962        0x2 
- .rodata.ShortRegData30
+ .rodata.ShortRegData16
                 0x000000000800f964        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f964                ShortRegData30
+                0x000000000800f964                ShortRegData16
  *fill*         0x000000000800f966        0x2 
- .rodata.ShortRegData31
+ .rodata.ShortRegData17
                 0x000000000800f968        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f968                ShortRegData31
+                0x000000000800f968                ShortRegData17
  *fill*         0x000000000800f96a        0x2 
- .rodata.ShortRegData32
+ .rodata.ShortRegData18
                 0x000000000800f96c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f96c                ShortRegData32
+                0x000000000800f96c                ShortRegData18
  *fill*         0x000000000800f96e        0x2 
- .rodata.ShortRegData33
+ .rodata.ShortRegData19
                 0x000000000800f970        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f970                ShortRegData33
+                0x000000000800f970                ShortRegData19
  *fill*         0x000000000800f972        0x2 
- .rodata.ShortRegData34
+ .rodata.ShortRegData20
                 0x000000000800f974        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f974                ShortRegData34
+                0x000000000800f974                ShortRegData20
  *fill*         0x000000000800f976        0x2 
- .rodata.ShortRegData35
+ .rodata.ShortRegData21
                 0x000000000800f978        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f978                ShortRegData35
+                0x000000000800f978                ShortRegData21
  *fill*         0x000000000800f97a        0x2 
- .rodata.ShortRegData36
+ .rodata.ShortRegData22
                 0x000000000800f97c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f97c                ShortRegData36
+                0x000000000800f97c                ShortRegData22
  *fill*         0x000000000800f97e        0x2 
- .rodata.ShortRegData37
+ .rodata.ShortRegData23
                 0x000000000800f980        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f980                ShortRegData37
+                0x000000000800f980                ShortRegData23
  *fill*         0x000000000800f982        0x2 
- .rodata.ShortRegData38
+ .rodata.ShortRegData24
                 0x000000000800f984        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f984                ShortRegData38
+                0x000000000800f984                ShortRegData24
  *fill*         0x000000000800f986        0x2 
- .rodata.ShortRegData39
+ .rodata.ShortRegData25
                 0x000000000800f988        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f988                ShortRegData39
+                0x000000000800f988                ShortRegData25
  *fill*         0x000000000800f98a        0x2 
- .rodata.ShortRegData40
+ .rodata.ShortRegData26
                 0x000000000800f98c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f98c                ShortRegData40
+                0x000000000800f98c                ShortRegData26
  *fill*         0x000000000800f98e        0x2 
- .rodata.ShortRegData41
+ .rodata.ShortRegData27
                 0x000000000800f990        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f990                ShortRegData41
+                0x000000000800f990                ShortRegData27
  *fill*         0x000000000800f992        0x2 
- .rodata.ShortRegData42
+ .rodata.ShortRegData28
                 0x000000000800f994        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f994                ShortRegData42
+                0x000000000800f994                ShortRegData28
  *fill*         0x000000000800f996        0x2 
- .rodata.ShortRegData43
+ .rodata.ShortRegData29
                 0x000000000800f998        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f998                ShortRegData43
+                0x000000000800f998                ShortRegData29
  *fill*         0x000000000800f99a        0x2 
- .rodata.ShortRegData44
+ .rodata.ShortRegData30
                 0x000000000800f99c        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f99c                ShortRegData44
+                0x000000000800f99c                ShortRegData30
  *fill*         0x000000000800f99e        0x2 
- .rodata.ShortRegData45
+ .rodata.ShortRegData31
                 0x000000000800f9a0        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f9a0                ShortRegData45
+                0x000000000800f9a0                ShortRegData31
  *fill*         0x000000000800f9a2        0x2 
- .rodata.ShortRegData46
+ .rodata.ShortRegData32
                 0x000000000800f9a4        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f9a4                ShortRegData46
+                0x000000000800f9a4                ShortRegData32
  *fill*         0x000000000800f9a6        0x2 
- .rodata.ShortRegData47
+ .rodata.ShortRegData33
                 0x000000000800f9a8        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f9a8                ShortRegData47
+                0x000000000800f9a8                ShortRegData33
  *fill*         0x000000000800f9aa        0x2 
- .rodata.ShortRegData48
+ .rodata.ShortRegData34
                 0x000000000800f9ac        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f9ac                ShortRegData48
+                0x000000000800f9ac                ShortRegData34
  *fill*         0x000000000800f9ae        0x2 
- .rodata.ShortRegData49
+ .rodata.ShortRegData35
                 0x000000000800f9b0        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f9b0                ShortRegData49
+                0x000000000800f9b0                ShortRegData35
  *fill*         0x000000000800f9b2        0x2 
- .rodata.ShortRegData50
+ .rodata.ShortRegData36
                 0x000000000800f9b4        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f9b4                ShortRegData50
+                0x000000000800f9b4                ShortRegData36
  *fill*         0x000000000800f9b6        0x2 
- .rodata.ShortRegData51
+ .rodata.ShortRegData37
                 0x000000000800f9b8        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
-                0x000000000800f9b8                ShortRegData51
+                0x000000000800f9b8                ShortRegData37
  *fill*         0x000000000800f9ba        0x2 
+ .rodata.ShortRegData38
+                0x000000000800f9bc        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9bc                ShortRegData38
+ *fill*         0x000000000800f9be        0x2 
+ .rodata.ShortRegData39
+                0x000000000800f9c0        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9c0                ShortRegData39
+ *fill*         0x000000000800f9c2        0x2 
+ .rodata.ShortRegData40
+                0x000000000800f9c4        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9c4                ShortRegData40
+ *fill*         0x000000000800f9c6        0x2 
+ .rodata.ShortRegData41
+                0x000000000800f9c8        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9c8                ShortRegData41
+ *fill*         0x000000000800f9ca        0x2 
+ .rodata.ShortRegData42
+                0x000000000800f9cc        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9cc                ShortRegData42
+ *fill*         0x000000000800f9ce        0x2 
+ .rodata.ShortRegData43
+                0x000000000800f9d0        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9d0                ShortRegData43
+ *fill*         0x000000000800f9d2        0x2 
+ .rodata.ShortRegData44
+                0x000000000800f9d4        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9d4                ShortRegData44
+ *fill*         0x000000000800f9d6        0x2 
+ .rodata.ShortRegData45
+                0x000000000800f9d8        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9d8                ShortRegData45
+ *fill*         0x000000000800f9da        0x2 
+ .rodata.ShortRegData46
+                0x000000000800f9dc        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9dc                ShortRegData46
+ *fill*         0x000000000800f9de        0x2 
+ .rodata.ShortRegData47
+                0x000000000800f9e0        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9e0                ShortRegData47
+ *fill*         0x000000000800f9e2        0x2 
+ .rodata.ShortRegData48
+                0x000000000800f9e4        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9e4                ShortRegData48
+ *fill*         0x000000000800f9e6        0x2 
+ .rodata.ShortRegData49
+                0x000000000800f9e8        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9e8                ShortRegData49
+ *fill*         0x000000000800f9ea        0x2 
+ .rodata.ShortRegData50
+                0x000000000800f9ec        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9ec                ShortRegData50
+ *fill*         0x000000000800f9ee        0x2 
+ .rodata.ShortRegData51
+                0x000000000800f9f0        0x2 Drivers/BSP/Components/otm8009a/otm8009a.o
+                0x000000000800f9f0                ShortRegData51
+ *fill*         0x000000000800f9f2        0x2 
  .rodata.Font24_Table
-                0x000000000800f9bc     0x1ab8 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery_lcd.o
-                0x000000000800f9bc                Font24_Table
+                0x000000000800f9f4     0x1ab8 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery_lcd.o
+                0x000000000800f9f4                Font24_Table
  .rodata.Font20_Table
-                0x0000000008011474      0xed8 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery_lcd.o
-                0x0000000008011474                Font20_Table
+                0x00000000080114ac      0xed8 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery_lcd.o
+                0x00000000080114ac                Font20_Table
  .rodata.Font16_Table
-                0x000000000801234c      0xbe0 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery_lcd.o
-                0x000000000801234c                Font16_Table
+                0x0000000008012384      0xbe0 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery_lcd.o
+                0x0000000008012384                Font16_Table
  .rodata.Font12_Table
-                0x0000000008012f2c      0x474 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery_lcd.o
-                0x0000000008012f2c                Font12_Table
+                0x0000000008012f64      0x474 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery_lcd.o
+                0x0000000008012f64                Font12_Table
  .rodata.flagBitshiftOffset.10058
-                0x00000000080133a0        0x8 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.o
- .rodata.ExCvt  0x00000000080133a8       0x80 Middlewares/Third_Party/FatFs/src/ff.o
+                0x00000000080133d8        0x8 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.o
+ .rodata.ExCvt  0x00000000080133e0       0x80 Middlewares/Third_Party/FatFs/src/ff.o
  .rodata.SD_Driver
-                0x0000000008013428       0x14 Src/sd_diskio.o
-                0x0000000008013428                SD_Driver
+                0x0000000008013460       0x14 Src/sd_diskio.o
+                0x0000000008013460                SD_Driver
  .rodata.AHBPrescTable
-                0x000000000801343c       0x10 Src/system_stm32f7xx.o
-                0x000000000801343c                AHBPrescTable
+                0x0000000008013474       0x10 Src/system_stm32f7xx.o
+                0x0000000008013474                AHBPrescTable
  .rodata._svfprintf_r.str1.1
-                0x000000000801344c       0x11 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000008013484       0x11 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x000000000801345d       0x22 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000000008013480                . = ALIGN (0x4)
- *fill*         0x000000000801347f        0x1 
+                0x0000000008013495       0x22 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv5/hard\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000080134b8                . = ALIGN (0x4)
+ *fill*         0x00000000080134b7        0x1 
 
-.ARM.extab      0x0000000008013480        0x0
-                0x0000000008013480                . = ALIGN (0x4)
+.ARM.extab      0x00000000080134b8        0x0
+                0x00000000080134b8                . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000000008013480                . = ALIGN (0x4)
+                0x00000000080134b8                . = ALIGN (0x4)
 
-.ARM            0x0000000008013480        0x8
-                0x0000000008013480                . = ALIGN (0x4)
-                0x0000000008013480                __exidx_start = .
+.ARM            0x00000000080134b8        0x8
+                0x00000000080134b8                . = ALIGN (0x4)
+                0x00000000080134b8                __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x0000000008013480        0x8 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard\libgcc.a(_udivmoddi4.o)
-                0x0000000008013488                __exidx_end = .
-                0x0000000008013488                . = ALIGN (0x4)
+ .ARM.exidx     0x00000000080134b8        0x8 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard\libgcc.a(_udivmoddi4.o)
+                0x00000000080134c0                __exidx_end = .
+                0x00000000080134c0                . = ALIGN (0x4)
 
-.rel.dyn        0x0000000008013488        0x0
- .rel.iplt      0x0000000008013488        0x0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
+.rel.dyn        0x00000000080134c0        0x0
+ .rel.iplt      0x00000000080134c0        0x0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
 
-.preinit_array  0x0000000008013488        0x0
-                0x0000000008013488                . = ALIGN (0x4)
-                0x0000000008013488                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x00000000080134c0        0x0
+                0x00000000080134c0                . = ALIGN (0x4)
+                0x00000000080134c0                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0000000008013488                PROVIDE (__preinit_array_end = .)
-                0x0000000008013488                . = ALIGN (0x4)
+                0x00000000080134c0                PROVIDE (__preinit_array_end = .)
+                0x00000000080134c0                . = ALIGN (0x4)
 
-.init_array     0x0000000008013488        0x4
-                0x0000000008013488                . = ALIGN (0x4)
-                0x0000000008013488                PROVIDE (__init_array_start = .)
+.init_array     0x00000000080134c0        0x4
+                0x00000000080134c0                . = ALIGN (0x4)
+                0x00000000080134c0                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0000000008013488        0x4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
-                0x000000000801348c                PROVIDE (__init_array_end = .)
-                0x000000000801348c                . = ALIGN (0x4)
+ .init_array    0x00000000080134c0        0x4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
+                0x00000000080134c4                PROVIDE (__init_array_end = .)
+                0x00000000080134c4                . = ALIGN (0x4)
 
-.fini_array     0x000000000801348c        0x4
-                0x000000000801348c                . = ALIGN (0x4)
+.fini_array     0x00000000080134c4        0x4
+                0x00000000080134c4                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x000000000801348c        0x4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
+ .fini_array    0x00000000080134c4        0x4 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x0000000008013490                . = ALIGN (0x4)
-                0x0000000008013490                _sidata = LOADADDR (.data)
+                0x00000000080134c8                . = ALIGN (0x4)
+                0x00000000080134c8                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000       0xe4 load address 0x0000000008013490
+.data           0x0000000020000000       0xe4 load address 0x00000000080134c8
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -9246,11 +9246,11 @@ LOAD c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x00000000200000e4                . = ALIGN (0x4)
                 0x00000000200000e4                _edata = .
 
-.igot.plt       0x00000000200000e4        0x0 load address 0x0000000008013574
+.igot.plt       0x00000000200000e4        0x0 load address 0x00000000080135ac
  .igot.plt      0x00000000200000e4        0x0 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtbegin.o
                 0x00000000200000e4                . = ALIGN (0x4)
 
-.bss            0x00000000200000e4      0xb5c load address 0x0000000008013574
+.bss            0x00000000200000e4      0xb5c load address 0x00000000080135ac
                 0x00000000200000e4                _sbss = .
                 0x00000000200000e4                __bss_start__ = _sbss
  *(.bss)
@@ -9350,7 +9350,7 @@ LOAD c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000020000c40                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x0000000020000c40      0x600 load address 0x0000000008013574
+                0x0000000020000c40      0x600 load address 0x00000000080135ac
                 0x0000000020000c40                . = ALIGN (0x8)
                 0x0000000020000c40                PROVIDE (end = .)
                 [!provide]                        PROVIDE (_end = .)
@@ -9494,7 +9494,7 @@ LOAD c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000000000c2f       0x20 c:/st/stm32cubeide_1.0.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.0.0.201904181610/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtn.o
 OUTPUT(projecto_reversi_2.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000    0x295f8
+.debug_info     0x0000000000000000    0x29607
  .debug_info    0x0000000000000000      0x498 Drivers/BSP/Components/ft6x06/ft6x06.o
  .debug_info    0x0000000000000498      0x6fa Drivers/BSP/Components/otm8009a/otm8009a.o
  .debug_info    0x0000000000000b92     0x160c Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery.o
@@ -9526,13 +9526,13 @@ OUTPUT(projecto_reversi_2.elf elf32-littlearm)
  .debug_info    0x000000000001f0c7      0xa75 Src/bsp_driver_sd.o
  .debug_info    0x000000000001fb3c      0xd86 Src/fatfs.o
  .debug_info    0x00000000000208c2      0x265 Src/fatfs_platform.o
- .debug_info    0x0000000000020b27     0x4328 Src/main.o
- .debug_info    0x0000000000024e4f      0xd14 Src/sd_diskio.o
- .debug_info    0x0000000000025b63     0x22bb Src/stm32f7xx_hal_msp.o
- .debug_info    0x0000000000027e1e      0x75f Src/stm32f7xx_it.o
- .debug_info    0x000000000002857d      0x91c Src/sysmem.o
- .debug_info    0x0000000000028e99      0x73d Src/system_stm32f7xx.o
- .debug_info    0x00000000000295d6       0x22 Startup/startup_stm32f769nihx.o
+ .debug_info    0x0000000000020b27     0x4337 Src/main.o
+ .debug_info    0x0000000000024e5e      0xd14 Src/sd_diskio.o
+ .debug_info    0x0000000000025b72     0x22bb Src/stm32f7xx_hal_msp.o
+ .debug_info    0x0000000000027e2d      0x75f Src/stm32f7xx_it.o
+ .debug_info    0x000000000002858c      0x91c Src/sysmem.o
+ .debug_info    0x0000000000028ea8      0x73d Src/system_stm32f7xx.o
+ .debug_info    0x00000000000295e5       0x22 Startup/startup_stm32f769nihx.o
 
 .debug_abbrev   0x0000000000000000     0x4b90
  .debug_abbrev  0x0000000000000000      0x1ee Drivers/BSP/Components/ft6x06/ft6x06.o
@@ -9810,7 +9810,7 @@ OUTPUT(projecto_reversi_2.elf elf32-littlearm)
  .debug_macro   0x000000000003217c      0x23b Src/sysmem.o
  .debug_macro   0x00000000000323b7      0x254 Src/system_stm32f7xx.o
 
-.debug_line     0x0000000000000000    0x1c3f8
+.debug_line     0x0000000000000000    0x1c3fb
  .debug_line    0x0000000000000000      0x4d0 Drivers/BSP/Components/ft6x06/ft6x06.o
  .debug_line    0x00000000000004d0      0x433 Drivers/BSP/Components/otm8009a/otm8009a.o
  .debug_line    0x0000000000000903      0xa93 Drivers/BSP/STM32F769I-Discovery/stm32f769i_discovery.o
@@ -9842,15 +9842,15 @@ OUTPUT(projecto_reversi_2.elf elf32-littlearm)
  .debug_line    0x0000000000016a04      0x8db Src/bsp_driver_sd.o
  .debug_line    0x00000000000172df      0x98c Src/fatfs.o
  .debug_line    0x0000000000017c6b      0x7a8 Src/fatfs_platform.o
- .debug_line    0x0000000000018413     0x169f Src/main.o
- .debug_line    0x0000000000019ab2      0xa08 Src/sd_diskio.o
- .debug_line    0x000000000001a4ba      0x93d Src/stm32f7xx_hal_msp.o
- .debug_line    0x000000000001adf7      0x868 Src/stm32f7xx_it.o
- .debug_line    0x000000000001b65f      0x559 Src/sysmem.o
- .debug_line    0x000000000001bbb8      0x7bf Src/system_stm32f7xx.o
- .debug_line    0x000000000001c377       0x81 Startup/startup_stm32f769nihx.o
+ .debug_line    0x0000000000018413     0x16a2 Src/main.o
+ .debug_line    0x0000000000019ab5      0xa08 Src/sd_diskio.o
+ .debug_line    0x000000000001a4bd      0x93d Src/stm32f7xx_hal_msp.o
+ .debug_line    0x000000000001adfa      0x868 Src/stm32f7xx_it.o
+ .debug_line    0x000000000001b662      0x559 Src/sysmem.o
+ .debug_line    0x000000000001bbbb      0x7bf Src/system_stm32f7xx.o
+ .debug_line    0x000000000001c37a       0x81 Startup/startup_stm32f769nihx.o
 
-.debug_str      0x0000000000000000   0x12a5e1
+.debug_str      0x0000000000000000   0x12a5ee
  .debug_str     0x0000000000000000     0x45d6 Drivers/BSP/Components/ft6x06/ft6x06.o
                                        0x479c (size before relaxing)
  .debug_str     0x00000000000045d6      0xbcf Drivers/BSP/Components/otm8009a/otm8009a.o
@@ -9913,19 +9913,19 @@ OUTPUT(projecto_reversi_2.elf elf32-littlearm)
                                      0x11bb62 (size before relaxing)
  .debug_str     0x000000000012891b       0x2f Src/fatfs_platform.o
                                      0x11831a (size before relaxing)
- .debug_str     0x000000000012894a     0x1566 Src/main.o
-                                     0x1225c3 (size before relaxing)
- .debug_str     0x0000000000129eb0       0x90 Src/sd_diskio.o
+ .debug_str     0x000000000012894a     0x1573 Src/main.o
+                                     0x1225d0 (size before relaxing)
+ .debug_str     0x0000000000129ebd       0x90 Src/sd_diskio.o
                                      0x11bb4c (size before relaxing)
- .debug_str     0x0000000000129f40       0x69 Src/stm32f7xx_hal_msp.o
+ .debug_str     0x0000000000129f4d       0x69 Src/stm32f7xx_hal_msp.o
                                      0x119bcd (size before relaxing)
- .debug_str     0x0000000000129fa9       0xe1 Src/stm32f7xx_it.o
+ .debug_str     0x0000000000129fb6       0xe1 Src/stm32f7xx_it.o
                                      0x11877a (size before relaxing)
- .debug_str     0x000000000012a08a      0x4cc Src/sysmem.o
+ .debug_str     0x000000000012a097      0x4cc Src/sysmem.o
                                        0x7b14 (size before relaxing)
- .debug_str     0x000000000012a556       0x5a Src/system_stm32f7xx.o
+ .debug_str     0x000000000012a563       0x5a Src/system_stm32f7xx.o
                                      0x1184b5 (size before relaxing)
- .debug_str     0x000000000012a5b0       0x31 Startup/startup_stm32f769nihx.o
+ .debug_str     0x000000000012a5bd       0x31 Startup/startup_stm32f769nihx.o
                                          0x77 (size before relaxing)
 
 .comment        0x0000000000000000       0x7b
