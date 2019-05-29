@@ -777,6 +777,7 @@ void tocar_ecran(){
 
 
 				if(tabuleiro[i][j]==JOGADA_POSSIVEL && deadline >= 0){
+					deadline = 20;
 					if (ver_quem_joga%2 == 1){
 						  passa_jogada_um = 0;
 					}
@@ -798,19 +799,36 @@ void tocar_ecran(){
 }
 
 
-int sem_mais_jogadas_possiveis(){
+int possivel_continuar_jogo(){
 	int i = 0;
 	int j = 0;
 	int conta_possiveis = 1;
+	int conta_adversario = 1;
+	char self;
+
+    if (ver_quem_joga%2 == 1){
+        self = PECA_JOGADOR_1;
+    }
+    else{
+    	self = PECA_JOGADOR_2;
+    }
 
 	for (i = 0; i < 8; i++){
 		for (j = 0; j < 8; j++){
 			if(tabuleiro[i][j] == JOGADA_POSSIVEL){
 				conta_possiveis++;
 			}
+			else if(tabuleiro[i][j] == self){
+				conta_adversario++;
+			}
 		}
 	}
-	return conta_possiveis-1;
+	if((conta_possiveis-1)==0 && (conta_adversario-1)==0){
+		return 1;
+	}
+	else{
+		return 0;
+	}
 }
 
 /* USER CODE END 0 */
@@ -941,7 +959,7 @@ int main(void)
 		  actualiza_pecas_tabuleiro();
 	  }
 
-	  if(!sem_mais_jogadas_possiveis() || passa_jogada_um >= 3 || passa_jogada_dois >= 3){
+	  if(possivel_continuar_jogo() || passa_jogada_um >= 3 || passa_jogada_dois >= 3){
 		  fim_do_jogo(jog_um, jog_dois, vencedor);
 
 			  if(f_mount(&SDFatFS, SDPath, 0)!= FR_OK){
