@@ -131,6 +131,55 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
 	flag=0;
 }
 
+void menu_inicial(){
+	sprintf(desc, "REVERSI");
+	BSP_LCD_SetFont(&Font24);
+	BSP_LCD_SetTextColor(LCD_COLOR_RED);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2, (uint8_t *)desc, CENTER_MODE);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+	sprintf(desc, "Prima o botao azul para comecar o jogo");
+	BSP_LCD_SetFont(&Font20);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 30, (uint8_t *)desc, CENTER_MODE);
+}
+
+void fim_do_jogo(){
+	int k = 0;
+	int z = 0;
+	int jog_um = 0;
+	int jog_dois = 0;
+
+
+	for(k = 0; k < 8; k++){
+		for(z = 0; z < 8; z++){
+			if(tabuleiro[k][z] == PECA_JOGADOR_1){
+				jog_um++;
+			}
+			else if(tabuleiro[k][z] == PECA_JOGADOR_2){
+				jog_dois++;
+			}
+		}
+	}
+
+	if(jog_um == jog_dois){
+		sprintf(desc, "Empate! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
+	}
+	else if(jog_um > jog_dois){
+		sprintf(desc, "Ganhou o Jogador 1! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
+	}
+	else if(jog_um < jog_dois){
+		sprintf(desc, "Ganhou o Jogador 2! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
+	}
+	BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+	BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
+	BSP_LCD_SetFont(&Font20);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 30, (uint8_t *)desc, CENTER_MODE);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+	sprintf(desc, "Prima o botao azul para recomecar o jogo");
+	BSP_LCD_SetFont(&Font16);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 10, (uint8_t *)desc, CENTER_MODE);
+}
+
 void imprime_tabuleiro(){
 
 	  BSP_LCD_SetTextColor(LCD_COLOR_YELLOW);
@@ -724,15 +773,20 @@ void tocar_ecran(){
 	}
 }
 
-void menu_inicial(){
-	sprintf(desc, "REVERSI");
-	BSP_LCD_SetFont(&Font24);
-	BSP_LCD_SetTextColor(LCD_COLOR_MAGENTA);
-	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2, (uint8_t *)desc, CENTER_MODE);
-	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-	sprintf(desc, "Prima o botão azul para começar o jogo");
-	BSP_LCD_SetFont(&Font20);
-	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 30, (uint8_t *)desc, CENTER_MODE);
+
+int sem_mais_jogadas_possiveis(){
+	int i = 0;
+	int j = 0;
+	int conta_possiveis = 1;
+
+	for (i = 0; i < 8; i++){
+		for (j = 0; j < 8; j++){
+			if(tabuleiro[i][j] == JOGADA_POSSIVEL){
+				conta_possiveis++;
+			}
+		}
+	}
+	return conta_possiveis-1;
 }
 /* USER CODE END 0 */
 
@@ -745,7 +799,6 @@ int main(void)
   /* USER CODE BEGIN 1 */
 int i = 0;
 int j = 0;
-
 
   /* USER CODE END 1 */
   
@@ -790,18 +843,23 @@ int j = 0;
 //start do adc
   HAL_ADC_Start(&hadc1);
 
+
   BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
   BSP_TS_ITConfig();
 
+  jump:
 
+  HAL_Delay(250);
+  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+  BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
   while(BSP_PB_GetState(BUTTON_WAKEUP)!=1){
 	  menu_inicial();
+	  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
   }
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-  BSP_LCD_FillRect(0, 60, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-60);
-  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+  BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
 
-  jump:
+  ver_quem_joga = 1;
   count = 0;
 
   imprime_tabuleiro();
@@ -827,11 +885,13 @@ int j = 0;
 	  mostra_quem_joga();
 	  tocar_ecran();
 
-	  if(BSP_PB_GetState(BUTTON_WAKEUP)==1){
+	  if(BSP_PB_GetState(BUTTON_WAKEUP)==1 && count>1){
 		  goto jump;
 	  }
 
-
+	  if(!sem_mais_jogadas_possiveis()){
+			  fim_do_jogo();
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
