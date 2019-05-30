@@ -774,6 +774,7 @@ void jogada_automatica(){
     int j = 0;
     int conta_valida = 0;
 
+    HAL_Delay(500);
 
     for(i=0; i<8; i++){
     	for(j=0; j<8; j++){
