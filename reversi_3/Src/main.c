@@ -764,18 +764,28 @@ void jogada_automatica(){
 
     int i = 0;
     int j = 0;
+    int conta_valida = 0;
 
 
     for(i=0; i<8; i++){
     	for(j=0; j<8; j++){
     		if(tabuleiro[i][j] == JOGADA_POSSIVEL){
-    			tabuleiro[i][j] = PECA_JOGADOR_2;
-    			vira_pecas(i, j);
-    			break;
+    			conta_valida++;
+    				if(conta_valida == 1){
+    					tabuleiro[i][j] = PECA_JOGADOR_2;
+    					vira_pecas(i, j);
+    				}
+    				else if(conta_valida > 1){
+    					tabuleiro[i][j] = SEM_PECA;
+    				}
     		}
     	}
     }
 
+    ver_quem_joga++;
+	limpa_possibilidades();
+	jogadas_possiveis();
+	actualiza_pecas_tabuleiro();
 
 }
 
@@ -1022,10 +1032,6 @@ int main(void)
 				actualiza_pecas_tabuleiro();
 				passa_jogada_dois = 0;
 				jogada_automatica();
-				ver_quem_joga++;
-				limpa_possibilidades();
-				jogadas_possiveis();
-				actualiza_pecas_tabuleiro();
 		  }
 	  }
 
@@ -1049,34 +1055,27 @@ int main(void)
 	  if(nao_e_possivel_continuar_jogo() || passa_jogada_um >= 3 || passa_jogada_dois >= 3){
 		  fim_do_jogo(jog_um, jog_dois, vencedor);
 
-		  if( f_mount (&SDFatFS, SDPath, 0)!=FR_OK){
-			  //Error_Handler();
-		  }
+		  if (f_mount(&SDFatFS, SDPath, 0) != FR_OK){
+		          Error_Handler();
+		      }
 
-		  if(f_open(&SDFile, "Reversi.txt", FA_WRITE | FA_CREATE_ALWAYS)!=FR_OK){
-		      //Error_Handler();
-		  }
+		      if (f_open(&SDFile, "reversi.txt", FA_CREATE_ALWAYS | FA_WRITE ) != FR_OK){
+		          Error_Handler();
+		      }
 
-		  if(vencedor == 0){
-			  sprintf(desc, "Empate a %d!\n", jog_um);
-		  }
-		  else if(vencedor == 1){
-			  sprintf(desc, "Ganhou o jogador 1! Jog 1: %d; Jog 2: %d\n", jog_um, jog_dois);
-		  }
-		  else if(vencedor == 2){
-			  sprintf(desc, "Ganhou o jogador 2! Jog 1: %d; Jog 2: %d\n", jog_um, jog_dois);
-		  }
+			  if(vencedor == 0){
+				  sprintf(desc, "Empate a %d!\n", jog_um);
+			  }
+			  else if(vencedor == 1){
+				  sprintf(desc, "Ganhou o jogador 1! Jog 1: %d; Jog 2: %d\n", jog_um, jog_dois);
+			  }
+			  else if(vencedor == 2){
+				  sprintf(desc, "Ganhou o jogador 2! Jog 1: %d; Jog 2: %d\n", jog_um, jog_dois);
+			  }
 
-		  if(f_write(&SDFile, desc, strlen(desc), &nBytes) !=FR_OK){
-		      //Error_Handler();
-		  }
+		          f_write(&SDFile, desc, strlen(desc), &nBytes);
+		          f_close(&SDFile);
 
-		  sprintf(desc, "Duracao do jogo: %d segundos\n", count);
-		  if(f_write(&SDFile, desc, strlen(desc), &nBytes) !=FR_OK){
-		      //Error_Handler();
-		  }
-
-		  f_close(&SDFile);
 
 
 
