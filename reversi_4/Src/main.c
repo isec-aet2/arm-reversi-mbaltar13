@@ -72,6 +72,7 @@ LTDC_HandleTypeDef hltdc;
 SD_HandleTypeDef hsd2;
 
 TIM_HandleTypeDef htim6;
+TIM_HandleTypeDef htim7;
 
 SDRAM_HandleTypeDef hsdram1;
 
@@ -89,6 +90,7 @@ static void MX_ADC1_Init(void);
 static void MX_DSIHOST_DSI_Init(void);
 static void MX_SDMMC2_SD_Init(void);
 static void MX_TIM6_Init(void);
+static void MX_TIM7_Init(void);
 /* USER CODE BEGIN PFP */
 static void LCD_Config();
 /* USER CODE END PFP */
@@ -96,8 +98,10 @@ static void LCD_Config();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int adversario = 0;             // se 1 joga contra o ARM
-int flag=0;                     // timer 6
+int flag_seis=0;                     // timer 6
+int flag_sete=0;				// timer 7
 int count = 0;                  // CONTA SEGUNDOS
+int count_temp = 0;				// conta tempo para a temperatura
 int deadline = 20;              // segundos para fazer a jogada
 uint32_t ConvertedValue;        // valor obtido da temperatura
 long int JTemp;                 // valor convertido da temperatura
@@ -109,6 +113,7 @@ volatile int ver_quem_joga = 1; // começa no jogador 1
 volatile char tabuleiro[8][8];	// tabuleiro
 int passa_jogada_um = 0;		// conta vezes que o jogador 1 nao jogou seguidas
 int passa_jogada_dois = 0;      // conta vezes que o jogador 2 nao jogou seguidas
+int muda_logica = 1;            // altera abordagem do jogador do ARM
 
 
 
@@ -122,24 +127,33 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 }
 
-void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
-	if(htim->Instance == TIM6){
-		flag=1;
-		count++;
-		deadline--;
-
-		  if (count%2 == 0){
+void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance == TIM7){
+		flag_sete = 1;
+		count_temp++;
+		  if (count_temp%2 == 0){
 			  //ACTUALIZA O VALOR DA TEMPERATURA
 			  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
 			  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
-		      if(HAL_GetTick() >= init_tick_led1 + 500)
+		      if(HAL_GetTick() >= init_tick_led1)
 		      {
 		          init_tick_led1 = HAL_GetTick();
 		          BSP_LED_Toggle(LED_GREEN); // cada vez que actualiza, pisca o led verde
 		      }
 		  }
 	}
-	flag=0;
+	flag_sete = 0;
+
+	if(htim->Instance == TIM6){
+
+		flag_seis = 1;
+		count++;
+		deadline--;
+
+	}
+	flag_seis = 0;
+
 }
 
 void menu_inicial(){
@@ -776,21 +790,39 @@ void jogada_automatica(){
 
     HAL_Delay(500);
 
-    for(i=0; i<8; i++){
-    	for(j=0; j<8; j++){
-    		if(tabuleiro[i][j] == JOGADA_POSSIVEL){
-    			conta_valida++;
-    				if(conta_valida == 1){
-    					tabuleiro[i][j] = PECA_JOGADOR_2;
-    					vira_pecas(i, j);
-    				}
-    				else if(conta_valida > 1){
-    					tabuleiro[i][j] = SEM_PECA;
-    				}
+    if(muda_logica%2==1){
+    	for(i=0; i<8; i++){
+    		for(j=0; j<8; j++){
+    			if(tabuleiro[i][j] == JOGADA_POSSIVEL){
+    				conta_valida++;
+    					if(conta_valida == 1){
+    						tabuleiro[i][j] = PECA_JOGADOR_2;
+    						vira_pecas(i, j);
+    					}
+    					else if(conta_valida > 1){
+    						tabuleiro[i][j] = SEM_PECA;
+    					}
+    			}
     		}
     	}
     }
-
+    else if(muda_logica%2==0){
+    	for(i=7; i>=0; i--){
+    		for(j=7; j>=0; j--){
+    			if(tabuleiro[i][j] == JOGADA_POSSIVEL){
+    				conta_valida++;
+    					if(conta_valida == 1){
+    						tabuleiro[i][j] = PECA_JOGADOR_2;
+    						vira_pecas(i, j);
+    					}
+    					else if(conta_valida > 1){
+    						tabuleiro[i][j] = SEM_PECA;
+    					}
+    			}
+    		}
+    	}
+    }
+    muda_logica++;
     ver_quem_joga++;
 	limpa_possibilidades();
 	jogadas_possiveis();
@@ -967,9 +999,11 @@ int main(void)
   MX_SDMMC2_SD_Init();
   MX_TIM6_Init();
   MX_FATFS_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start_IT(&htim6);
+  HAL_TIM_Base_Start_IT(&htim7);
   LCD_Config();
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED);
@@ -1508,6 +1542,44 @@ static void MX_TIM6_Init(void)
   /* USER CODE BEGIN TIM6_Init 2 */
 
   /* USER CODE END TIM6_Init 2 */
+
+}
+
+/**
+  * @brief TIM7 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM7_Init(void)
+{
+
+  /* USER CODE BEGIN TIM7_Init 0 */
+
+  /* USER CODE END TIM7_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM7_Init 1 */
+
+  /* USER CODE END TIM7_Init 1 */
+  htim7.Instance = TIM7;
+  htim7.Init.Prescaler = 19999;
+  htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim7.Init.Period = 9999;
+  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM7_Init 2 */
+
+  /* USER CODE END TIM7_Init 2 */
 
 }
 
