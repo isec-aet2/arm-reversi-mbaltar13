@@ -166,7 +166,7 @@ void menu_inicial(){
 
 }
 
-void fim_do_jogo(int jog_um, int jog_dois, int vencedor){
+void fim_do_jogo(int * jog_um, int * jog_dois, int * vencedor){
 	int k = 0;
 	int z = 0;
 
@@ -174,25 +174,25 @@ void fim_do_jogo(int jog_um, int jog_dois, int vencedor){
 	for(k = 0; k < 8; k++){
 		for(z = 0; z < 8; z++){
 			if(tabuleiro[k][z] == PECA_JOGADOR_1){
-				jog_um++;
+				(*jog_um)++;
 			}
 			else if(tabuleiro[k][z] == PECA_JOGADOR_2){
-				jog_dois++;
+				(*jog_dois)++;
 			}
 		}
 	}
 
-	if(jog_um == jog_dois){
-		sprintf(desc, "Empate! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
-		vencedor = 0;
+	if(*jog_um == *jog_dois){
+		sprintf(desc, "Empate! Jogador 1: %d; Jogador 2: %d", *jog_um, *jog_dois);
+		*vencedor = 0;
 	}
-	else if(jog_um > jog_dois){
-		sprintf(desc, "Ganhou o Jogador 1! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
-		vencedor = 1;
+	else if(*jog_um > *jog_dois){
+		sprintf(desc, "Ganhou o Jogador 1! Jogador 1: %d; Jogador 2: %d", *jog_um, *jog_dois);
+		*vencedor = 1;
 	}
-	else if(jog_um < jog_dois){
-		sprintf(desc, "Ganhou o Jogador 2! Jogador 1: %d; Jogador 2: %d", jog_um, jog_dois);
-		vencedor = 2;
+	else if(*jog_um < *jog_dois){
+		sprintf(desc, "Ganhou o Jogador 2! Jogador 1: %d; Jogador 2: %d", *jog_um, *jog_dois);
+		*vencedor = 2;
 	}
 	BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 	BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
@@ -1053,7 +1053,7 @@ int main(void)
 	  }
 
 	  if(nao_e_possivel_continuar_jogo() || passa_jogada_um >= 3 || passa_jogada_dois >= 3){
-		  fim_do_jogo(jog_um, jog_dois, vencedor);
+		  fim_do_jogo(&jog_um, &jog_dois, &vencedor);
 
 		  if (f_mount(&SDFatFS, SDPath, 0) != FR_OK){
 		          Error_Handler();
