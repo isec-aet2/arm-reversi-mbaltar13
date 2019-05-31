@@ -53,6 +53,10 @@
 #define PECA_JOGADOR_2       'Y'
 #define SEM_PECA	         'N'
 #define JOGADA_POSSIVEL	     'P'
+#define size_of_division 50
+#define SIZE_OF_BOARD size_of_division*8
+#define offset_in_x 50
+#define offset_in_y 50
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -117,6 +121,7 @@ int muda_logica = 1;            // altera abordagem do jogador do ARM
 
 
 
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 	if(GPIO_Pin == GPIO_PIN_13){
@@ -132,6 +137,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	if(htim->Instance == TIM7){
 		flag_sete = 1;
 		count_temp++;
+
 		  if (count_temp%2 == 0){
 			  //ACTUALIZA O VALOR DA TEMPERATURA
 			  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
@@ -228,17 +234,17 @@ void fim_do_jogo(int * jog_um, int * jog_dois, int * vencedor){
 void imprime_tabuleiro(){
 
 	  BSP_LCD_SetTextColor(LCD_COLOR_YELLOW);  // fundo da tabela
-	  BSP_LCD_FillRect(BSP_LCD_GetXSize()/10, BSP_LCD_GetYSize()/10, 400, 400);
+	  BSP_LCD_FillRect(offset_in_x, offset_in_y, SIZE_OF_BOARD, SIZE_OF_BOARD);
 	  BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
 
 	  int i=0;
 	  for(i = 0; i<=8; i++){ // imprime colunas
-		  BSP_LCD_DrawVLine(BSP_LCD_GetXSize()/10 + (BSP_LCD_GetXSize()/16)*i, BSP_LCD_GetYSize()/10, 400);
+		  BSP_LCD_DrawVLine(offset_in_x + (size_of_division*i),offset_in_y , SIZE_OF_BOARD);
 	  }
 
 	  int j;
 	  for(j = 0; j<=8; j++){ // imprime linhas
-		  BSP_LCD_DrawHLine(BSP_LCD_GetXSize()/10, BSP_LCD_GetYSize()/10 + (BSP_LCD_GetYSize()/9.6)*j, 400);
+		  BSP_LCD_DrawHLine(offset_in_x,offset_in_y + (size_of_division*j) , SIZE_OF_BOARD);
 	  }
 	  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 
@@ -287,19 +293,20 @@ void imprime_pecas_iniciais(){
 
 	//posiçoes iniciais do jogador 1
 	BSP_LCD_SetTextColor(COR_JOGADOR_1);
-	BSP_LCD_FillCircle(50*3 + 105, 50*3 + 75, 15);
-	BSP_LCD_FillCircle(50*4 + 105, 50*4 + 75, 15);
+	BSP_LCD_FillCircle(offset_in_x+(((3*size_of_division)+(4*size_of_division))/2), offset_in_y+(((3*size_of_division)+(4*size_of_division))/2), (size_of_division-5)/2);
+	BSP_LCD_FillCircle(offset_in_x+(((4*size_of_division)+(5*size_of_division))/2), offset_in_y+(((4*size_of_division)+(5*size_of_division))/2), (size_of_division-5)/2);
 	tabuleiro[3][3] = PECA_JOGADOR_1;
 	tabuleiro[4][4] = PECA_JOGADOR_1;
 
 	//posiçoes iniciais do jogador 2
 	BSP_LCD_SetTextColor(COR_JOGADOR_2);
-	BSP_LCD_FillCircle(50*3 + 105, 50*4 + 75, 15);
-	BSP_LCD_FillCircle(50*4 + 105, 50*3 + 75, 15);
-	tabuleiro[3][4] = PECA_JOGADOR_2;
+	BSP_LCD_FillCircle(offset_in_x+(((3*size_of_division)+(4*size_of_division))/2), offset_in_y+(((4*size_of_division)+(5*size_of_division))/2), (size_of_division-5)/2);
+	BSP_LCD_FillCircle(offset_in_x+(((4*size_of_division)+(5*size_of_division))/2), offset_in_y+(((3*size_of_division)+(4*size_of_division))/2), (size_of_division-5)/2);
 	tabuleiro[4][3] = PECA_JOGADOR_2;
+	tabuleiro[3][4] = PECA_JOGADOR_2;
 
 	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+
 
 }
 
@@ -307,12 +314,12 @@ void imprime_jogada(float x, float y, int i, int j){
     if (ver_quem_joga%2 == 1){
     	tabuleiro[i][j] = PECA_JOGADOR_1;
 		BSP_LCD_SetTextColor(COR_JOGADOR_1);
-		BSP_LCD_FillCircle(x, y, 15);
+		BSP_LCD_FillCircle(x, y, (size_of_division-5)/2);
     }
     else{
     	tabuleiro[i][j] = PECA_JOGADOR_2;
 		BSP_LCD_SetTextColor(COR_JOGADOR_2);
-		BSP_LCD_FillCircle(x, y, 15);
+		BSP_LCD_FillCircle(x, y, (size_of_division-5)/2);
     }
 }
 
@@ -325,19 +332,19 @@ void actualiza_pecas_tabuleiro(){
 		for(z = 0; z < 8; z++){
 			if(tabuleiro[k][z] == PECA_JOGADOR_1){
 				BSP_LCD_SetTextColor(COR_JOGADOR_1);
-				BSP_LCD_FillCircle(50*k + 105, 50*z + 75, 15);
+				BSP_LCD_FillCircle(offset_in_x+(((k*size_of_division)+((k+1)*size_of_division))/2), offset_in_y+(((z*size_of_division)+((z+1)*size_of_division))/2), (size_of_division-5)/2);
 			}
 			else if(tabuleiro[k][z]==PECA_JOGADOR_2){
 				BSP_LCD_SetTextColor(COR_JOGADOR_2);
-				BSP_LCD_FillCircle(50*k + 105, 50*z + 75, 15);
+				BSP_LCD_FillCircle(offset_in_x+(((k*size_of_division)+((k+1)*size_of_division))/2), offset_in_y+(((z*size_of_division)+((z+1)*size_of_division))/2), (size_of_division-5)/2);
 			}
 			else if(tabuleiro[k][z]==SEM_PECA){
 				BSP_LCD_SetTextColor(LCD_COLOR_YELLOW);
-				BSP_LCD_FillCircle(50*k + 105, 50*z + 75, 15);
+				BSP_LCD_FillCircle(offset_in_x+(((k*size_of_division)+((k+1)*size_of_division))/2), offset_in_y+(((z*size_of_division)+((z+1)*size_of_division))/2), (size_of_division-5)/2);
 			}
 			else if(tabuleiro[k][z]==JOGADA_POSSIVEL){
 				BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
-				BSP_LCD_FillCircle(50*k + 105, 50*z + 75, 5);
+				BSP_LCD_FillCircle(offset_in_x+(((k*size_of_division)+((k+1)*size_of_division))/2), offset_in_y+(((z*size_of_division)+((z+1)*size_of_division))/2), (size_of_division-((size_of_division/5)+(size_of_division/2)))/2);
 			}
 		}
 	}
@@ -878,24 +885,25 @@ void tocar_ecran(){
 
 	if(ts_flag==1){
 		ts_flag=0;
-			if(TS_State.touchX[0]>=(BSP_LCD_GetXSize()/10+15) && TS_State.touchY[0]>=(BSP_LCD_GetYSize()/10+15) && TS_State.touchX[0]<=475 && TS_State.touchY[0]<=450){
+			if(TS_State.touchX[0] >= offset_in_x && TS_State.touchY[0] >= offset_in_y && TS_State.touchX[0] <= offset_in_x+SIZE_OF_BOARD && TS_State.touchY[0] <= offset_in_x+SIZE_OF_BOARD){
 
 				for(i=0; i<8; i++){
-					if((TS_State.touchX[0]) >= 50*i + 80 && (TS_State.touchX[0]) < 50*i + 130){
-						x = 50*i + 105; // converte para o ponto medio dos quadrados da tabela
+					if((TS_State.touchX[0]) >= offset_in_x+(i*size_of_division) && (TS_State.touchX[0]) < offset_in_x+((i+1)*size_of_division)){
+						x = offset_in_x+(((i*size_of_division)+((i+1)*size_of_division))/2); // converte para o ponto medio dos quadrados da tabela
 						break;
 					}
 				}
 
 				for(j=0; j<8; j++){
-					if((TS_State.touchY[0]) >= (50*j) && (TS_State.touchY[0]) < (50*j+100)){
-						y = 50*j + 75;  // converte para o ponto medio dos quadrados da tabela
+					if((TS_State.touchY[0]) >= offset_in_x+(j*size_of_division) && (TS_State.touchY[0]) < offset_in_x+((j+1)*size_of_division)){
+						y = offset_in_y+(((j*size_of_division)+((j+1)*size_of_division))/2);  // converte para o ponto medio dos quadrados da tabela
 						break;
 					}
 				}
 
 
 				dinamica_de_jogo(x, y, i, j);
+
 
 
 		}
