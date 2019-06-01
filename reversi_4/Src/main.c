@@ -384,7 +384,7 @@ int validar_com_self(int linsel, int colsel){
     //ESQUERDA
     if(tabuleiro[linsel][colsel - 1] == adv){
         for(j = colsel - 2; j >= 0 ;  j--){
-            if(tabuleiro[linsel][j] == self){
+            if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j + 1] != SEM_PECA){
                 return 1;
             }
         }
@@ -394,7 +394,7 @@ int validar_com_self(int linsel, int colsel){
     //DIREITA
     if(tabuleiro[linsel][colsel + 1] == adv){
         for(j = colsel + 2; j < 8 ;  j++){
-            if(tabuleiro[linsel][j] == self){
+            if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j - 1] != SEM_PECA){
                 return 1;
             }
         }
@@ -404,7 +404,7 @@ int validar_com_self(int linsel, int colsel){
     //CIMA
     if(tabuleiro[linsel + 1][colsel] == adv){
         for(i = linsel + 2; i < 8 ;  i++){
-            if(tabuleiro[i][colsel] == self){
+            if(tabuleiro[i][colsel] == self && tabuleiro[i - 1][colsel] != SEM_PECA){
                 return 1;
             }
         }
@@ -414,7 +414,7 @@ int validar_com_self(int linsel, int colsel){
     //BAIXO
     if(tabuleiro[linsel - 1][colsel] == adv){
         for(i = linsel - 2; i >= 0 ;  i-- ){
-            if(tabuleiro[i][colsel] == self){
+            if(tabuleiro[i][colsel] == self && tabuleiro[i + 1][colsel] != SEM_PECA){
                 return 1;
             }
         }
@@ -424,7 +424,7 @@ int validar_com_self(int linsel, int colsel){
    //DIAGONAL SUPERIOR ESQUERDA
    if(tabuleiro[linsel - 1][colsel + 1] == adv){
        for(i = linsel - 2, j = colsel + 2; i >= 0 && j < 8; i--, j++){
-           if(tabuleiro[i][j] == self){
+           if(tabuleiro[i][j] == self && tabuleiro[i + 1][j - 1] != SEM_PECA){
                return 1;
            }
        }
@@ -434,7 +434,7 @@ int validar_com_self(int linsel, int colsel){
    // DIAGONAL INFERIOR DIREITA
      if(tabuleiro[linsel + 1][colsel - 1] == adv){
        for(i = linsel + 2, j = colsel - 2; i < 8 && j >= 0; i++, j--){
-           if(tabuleiro[i][j] == self){
+           if(tabuleiro[i][j] == self && tabuleiro[i - 1][j + 1] != SEM_PECA){
                return 1;
            }
        }
@@ -445,7 +445,7 @@ int validar_com_self(int linsel, int colsel){
      // DIAGONAL INFERIOR ESQUERDA
      if(tabuleiro[linsel + 1][colsel + 1] == adv){
        for(i = linsel + 2, j = colsel + 2; i < 8 && j < 8; i++, j++){
-           if(tabuleiro[i][j] == self){
+           if(tabuleiro[i][j] == self && tabuleiro[i - 1][j - 1] != SEM_PECA){
                return 1;
            }
        }
@@ -453,9 +453,9 @@ int validar_com_self(int linsel, int colsel){
 
 
      // DIAGONAL SUPERIOR DIREITA
-     if(tabuleiro[linsel - 1][colsel - 1] == adv){ //ve se ha adversario
+     if(tabuleiro[linsel - 1][colsel - 1] == adv){
        for(i = linsel - 2, j = colsel - 2; i >= 0 && j >= 0; i--, j--){
-           if(tabuleiro[i][j] == self){ //ve se ha self
+           if(tabuleiro[i][j] == self && tabuleiro[i + 1][j + 1] != SEM_PECA){
                return 1;
            }
        }
