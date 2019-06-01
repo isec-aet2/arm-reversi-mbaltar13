@@ -392,7 +392,7 @@ int validar_com_self(int linsel, int colsel){
         for(j = colsel - 2; j >= 0 ;  j--){
             if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j + 1] == adv){
             	for(d = colsel - 2; d >= j ;  d--){
-            		if(tabuleiro[linsel][d] == SEM_PECA){
+            		if(tabuleiro[linsel][d] == SEM_PECA || tabuleiro[linsel][d] == JOGADA_POSSIVEL){
             			return 0;
             		}
             		else{
@@ -409,7 +409,7 @@ int validar_com_self(int linsel, int colsel){
         for(j = colsel + 2; j < 8 ;  j++){
             if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j - 1] == adv){
             	for(d = colsel + 2; d <= j;  d++){
-            		if(tabuleiro[linsel][d] == SEM_PECA){
+            		if(tabuleiro[linsel][d] == SEM_PECA || tabuleiro[linsel][d] == JOGADA_POSSIVEL){
             			return 0;
             		}
             		else{
@@ -426,7 +426,7 @@ int validar_com_self(int linsel, int colsel){
         for(i = linsel + 2; i < 8 ;  i++){
             if(tabuleiro[i][colsel] == self && tabuleiro[i - 1][colsel] == adv){
             	for(c = linsel + 2; c <= i;  c++){
-            		if(tabuleiro[c][colsel] == SEM_PECA){
+            		if(tabuleiro[c][colsel] == SEM_PECA || tabuleiro[c][colsel] == JOGADA_POSSIVEL){
             			return 0;
             		}
             		else{
@@ -443,7 +443,7 @@ int validar_com_self(int linsel, int colsel){
         for(i = linsel - 2; i >= 0 ;  i-- ){
             if(tabuleiro[i][colsel] == self && tabuleiro[i + 1][colsel] == adv){
             	for(c = linsel - 2; c >= i;  c--){
-            		if(tabuleiro[c][colsel] == SEM_PECA){
+            		if(tabuleiro[c][colsel] == SEM_PECA || tabuleiro[c][colsel] == JOGADA_POSSIVEL){
             			return 0;
             		}
             		else{
@@ -461,7 +461,7 @@ int validar_com_self(int linsel, int colsel){
            if(tabuleiro[i][j] == self && tabuleiro[i + 1][j - 1] == adv){
         	   for(c = linsel - 2; c >= i;  c--){
         		   for(d = colsel + 2; d <= j;  d++){
-        			   if(tabuleiro[c][d] == SEM_PECA){
+        			   if(tabuleiro[c][d] == SEM_PECA || tabuleiro[c][d] == JOGADA_POSSIVEL){
         				   return 0;
         			   }
         			   else{
@@ -480,7 +480,7 @@ int validar_com_self(int linsel, int colsel){
            if(tabuleiro[i][j] == self && tabuleiro[i - 1][j + 1] == adv){
         	   for(c = linsel + 2; c <= i;  c++){
         	       for(d = colsel - 2; d >= j;  d--){
-        	    	   if(tabuleiro[c][d] == SEM_PECA){
+        	    	   if(tabuleiro[c][d] == SEM_PECA || tabuleiro[c][d] == JOGADA_POSSIVEL){
         	    		   return 0;
         	           }
         	           else{
@@ -500,7 +500,7 @@ int validar_com_self(int linsel, int colsel){
            if(tabuleiro[i][j] == self && tabuleiro[i - 1][j - 1] == adv){
         	   for(c = linsel + 2; c <= i;  c++){
         	       for(d = colsel + 2; d <= j;  d++){
-        	    	   if(tabuleiro[c][d] == SEM_PECA){
+        	    	   if(tabuleiro[c][d] == SEM_PECA || tabuleiro[c][d] == JOGADA_POSSIVEL){
         	    		   return 0;
         	           }
         	           else{
@@ -519,7 +519,7 @@ int validar_com_self(int linsel, int colsel){
            if(tabuleiro[i][j] == self && tabuleiro[i + 1][j + 1] == adv){
         	   for(c = linsel - 2; c >= i;  c--){
         	       for(d = colsel - 2; d >= j;  d--){
-        	    	   if(tabuleiro[c][d] == SEM_PECA){
+        	    	   if(tabuleiro[c][d] == SEM_PECA || tabuleiro[c][d] == JOGADA_POSSIVEL){
         	    		   return 0;
         	           }
         	           else{
