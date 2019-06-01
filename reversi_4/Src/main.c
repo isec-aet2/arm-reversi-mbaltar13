@@ -384,7 +384,7 @@ int validar_com_self(int linsel, int colsel){
     //ESQUERDA
     if(tabuleiro[linsel][colsel - 1] == adv){
         for(j = colsel - 2; j >= 0 ;  j--){
-            if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j + 1] != SEM_PECA){
+            if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j + 1] == adv){
                 return 1;
             }
         }
@@ -394,7 +394,7 @@ int validar_com_self(int linsel, int colsel){
     //DIREITA
     if(tabuleiro[linsel][colsel + 1] == adv){
         for(j = colsel + 2; j < 8 ;  j++){
-            if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j - 1] != SEM_PECA){
+            if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j - 1] == adv){
                 return 1;
             }
         }
@@ -404,7 +404,7 @@ int validar_com_self(int linsel, int colsel){
     //CIMA
     if(tabuleiro[linsel + 1][colsel] == adv){
         for(i = linsel + 2; i < 8 ;  i++){
-            if(tabuleiro[i][colsel] == self && tabuleiro[i - 1][colsel] != SEM_PECA){
+            if(tabuleiro[i][colsel] == self && tabuleiro[i - 1][colsel] == adv){
                 return 1;
             }
         }
@@ -414,7 +414,7 @@ int validar_com_self(int linsel, int colsel){
     //BAIXO
     if(tabuleiro[linsel - 1][colsel] == adv){
         for(i = linsel - 2; i >= 0 ;  i-- ){
-            if(tabuleiro[i][colsel] == self && tabuleiro[i + 1][colsel] != SEM_PECA){
+            if(tabuleiro[i][colsel] == self && tabuleiro[i + 1][colsel] == adv){
                 return 1;
             }
         }
@@ -424,7 +424,7 @@ int validar_com_self(int linsel, int colsel){
    //DIAGONAL SUPERIOR ESQUERDA
    if(tabuleiro[linsel - 1][colsel + 1] == adv){
        for(i = linsel - 2, j = colsel + 2; i >= 0 && j < 8; i--, j++){
-           if(tabuleiro[i][j] == self && tabuleiro[i + 1][j - 1] != SEM_PECA){
+           if(tabuleiro[i][j] == self && tabuleiro[i + 1][j - 1] == adv){
                return 1;
            }
        }
@@ -434,7 +434,7 @@ int validar_com_self(int linsel, int colsel){
    // DIAGONAL INFERIOR DIREITA
      if(tabuleiro[linsel + 1][colsel - 1] == adv){
        for(i = linsel + 2, j = colsel - 2; i < 8 && j >= 0; i++, j--){
-           if(tabuleiro[i][j] == self && tabuleiro[i - 1][j + 1] != SEM_PECA){
+           if(tabuleiro[i][j] == self && tabuleiro[i - 1][j + 1] == adv){
                return 1;
            }
        }
@@ -445,7 +445,7 @@ int validar_com_self(int linsel, int colsel){
      // DIAGONAL INFERIOR ESQUERDA
      if(tabuleiro[linsel + 1][colsel + 1] == adv){
        for(i = linsel + 2, j = colsel + 2; i < 8 && j < 8; i++, j++){
-           if(tabuleiro[i][j] == self && tabuleiro[i - 1][j - 1] != SEM_PECA){
+           if(tabuleiro[i][j] == self && tabuleiro[i - 1][j - 1] == adv){
                return 1;
            }
        }
@@ -455,7 +455,7 @@ int validar_com_self(int linsel, int colsel){
      // DIAGONAL SUPERIOR DIREITA
      if(tabuleiro[linsel - 1][colsel - 1] == adv){
        for(i = linsel - 2, j = colsel - 2; i >= 0 && j >= 0; i--, j--){
-           if(tabuleiro[i][j] == self && tabuleiro[i + 1][j + 1] != SEM_PECA){
+           if(tabuleiro[i][j] == self && tabuleiro[i + 1][j + 1] == adv){
                return 1;
            }
        }
@@ -832,14 +832,24 @@ void tocar_ecran_menu_inicial(){
 	if(ts_flag==1){
 		ts_flag=0;
 			if(TS_State.touchX[0]>500 && TS_State.touchY[0]>=250){
-				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-				BSP_LCD_FillCircle(TS_State.touchX[0], TS_State.touchY[0], 20);
 				adversario = 1;
 			}
 			if(TS_State.touchX[0]<300 && TS_State.touchY[0]>=250){
-				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-				BSP_LCD_FillCircle(TS_State.touchX[0], TS_State.touchY[0], 20);
 				adversario = 0;
+			}
+
+			if(adversario == 1){
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no ARM
+				BSP_LCD_DrawRect(550, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
+				BSP_LCD_DrawRect(50, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+			}
+			else if(adversario == 0){
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no humano
+				BSP_LCD_DrawRect(50, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
+				BSP_LCD_DrawRect(550, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 			}
 	}
 
