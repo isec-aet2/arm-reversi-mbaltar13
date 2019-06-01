@@ -142,7 +142,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
 			  //ACTUALIZA O VALOR DA TEMPERATURA
 			  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
 			  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
-		      if(HAL_GetTick() >= init_tick_led1 + 2000)
+		      if(HAL_GetTick() >= init_tick_led1)
 		      {
 		          init_tick_led1 = HAL_GetTick();
 		          BSP_LED_Toggle(LED_GREEN); // cada vez que actualiza, pisca o led verde
