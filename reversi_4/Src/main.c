@@ -382,9 +382,9 @@ int validar_com_self(int linsel, int colsel){
 
     //ver relaçoes com as peças vizinhas
     //ESQUERDA
-    if(tabuleiro[linsel][colsel-1] == adv){
-        for(j = colsel-2; j >= 0 ;  j-- ){
-            if(tabuleiro[linsel][j] == self){
+    if(tabuleiro[linsel][colsel - 1] == adv){
+        for(j = colsel - 2; j >= 0 ;  j--){
+            if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j + 1] == adv){
                 return 1;
             }
         }
@@ -392,9 +392,9 @@ int validar_com_self(int linsel, int colsel){
 
 
     //DIREITA
-    if(tabuleiro[linsel][colsel+1] == adv){
-        for(j = colsel + 2; j < 8 ;  j++ ){
-            if(tabuleiro[linsel][j] == self){
+    if(tabuleiro[linsel][colsel + 1] == adv){
+        for(j = colsel + 2; j < 8 ;  j++){
+            if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j - 1] == adv){
                 return 1;
             }
         }
@@ -402,9 +402,9 @@ int validar_com_self(int linsel, int colsel){
 
 
     //CIMA
-    if(tabuleiro[linsel+1][colsel] == adv){
-        for(i = linsel + 2; i < 8 ;  i++ ){
-            if(tabuleiro[i][colsel] == self){
+    if(tabuleiro[linsel + 1][colsel] == adv){
+        for(i = linsel + 2; i < 8 ;  i++){
+            if(tabuleiro[i][colsel] == self && tabuleiro[i - 1][colsel] == adv){
                 return 1;
             }
         }
@@ -412,9 +412,9 @@ int validar_com_self(int linsel, int colsel){
 
 
     //BAIXO
-    if(tabuleiro[linsel-1][colsel] == adv){
-        for(i = linsel-2; i >= 0 ;  i-- ){
-            if(tabuleiro[i][colsel] == self){
+    if(tabuleiro[linsel - 1][colsel] == adv){
+        for(i = linsel - 2; i >= 0 ;  i-- ){
+            if(tabuleiro[i][colsel] == self && tabuleiro[i + 1][colsel] == adv){
                 return 1;
             }
         }
@@ -422,9 +422,9 @@ int validar_com_self(int linsel, int colsel){
 
 
    //DIAGONAL SUPERIOR ESQUERDA
-   if(tabuleiro[linsel-1][colsel+1] == adv){
-       for(i=linsel-2, j=colsel+2; i>=0 && j< 8; i--, j++){
-           if(tabuleiro[i][j] == self){
+   if(tabuleiro[linsel - 1][colsel + 1] == adv){
+       for(i = linsel - 2, j = colsel + 2; i >= 0 && j < 8; i--, j++){
+           if(tabuleiro[i][j] == self && tabuleiro[i + 1][j - 1] == adv){
                return 1;
            }
        }
@@ -432,9 +432,9 @@ int validar_com_self(int linsel, int colsel){
 
 
    // DIAGONAL INFERIOR DIREITA
-     if(tabuleiro[linsel+1][colsel-1] == adv){ //verfica se há adversário junto à casa onde pretendemos jogar
-       for(i=linsel+2, j=colsel-2; i<8 && j>= 0; i++, j--){
-           if(tabuleiro[i][j] == self){ // ve se tem self
+     if(tabuleiro[linsel + 1][colsel - 1] == adv){
+       for(i = linsel + 2, j = colsel - 2; i < 8 && j >= 0; i++, j--){
+           if(tabuleiro[i][j] == self && tabuleiro[i - 1][j + 1] == adv){
                return 1;
            }
        }
@@ -443,9 +443,9 @@ int validar_com_self(int linsel, int colsel){
 
 
      // DIAGONAL INFERIOR ESQUERDA
-     if(tabuleiro[linsel+1][colsel+1] == adv){ //verfica se ha adversario junto
-       for(i=linsel+2, j=colsel+2; i<8 && j< 8; i++, j++){
-           if(tabuleiro[i][j] == self){ //verifica se ha self a seguir
+     if(tabuleiro[linsel + 1][colsel + 1] == adv){
+       for(i = linsel + 2, j = colsel + 2; i < 8 && j < 8; i++, j++){
+           if(tabuleiro[i][j] == self && tabuleiro[i - 1][j - 1] == adv){
                return 1;
            }
        }
@@ -453,19 +453,9 @@ int validar_com_self(int linsel, int colsel){
 
 
      // DIAGONAL SUPERIOR DIREITA
-     if(tabuleiro[linsel-1][colsel-1] == adv){ //ve se ha adversario
-       for(i=linsel-2, j=colsel-2; i>=0 && j>= 0; i--, j--){
-           if(tabuleiro[i][j] == self){ //ve se ha self
-               return 1;
-           }
-       }
-   }
-
-
-     // DIAGONAL SUPERIOR ESQUERDA
-     if(tabuleiro[linsel-1][colsel+1] == adv){ //adversario ao lado
-       for(i=linsel-2, j=colsel+2; i>=0 && j< 8; i--, j++){
-           if(tabuleiro[i][j] == self){ //self a seguir ao adversario
+     if(tabuleiro[linsel - 1][colsel - 1] == adv){
+       for(i = linsel - 2, j = colsel - 2; i >= 0 && j >= 0; i--, j--){
+           if(tabuleiro[i][j] == self && tabuleiro[i + 1][j + 1] == adv){
                return 1;
            }
        }
@@ -527,29 +517,29 @@ void jogadas_possiveis(){
     						tabuleiro[i][j] = JOGADA_POSSIVEL;
     				}
     			}
-    			else if(i==0 && j!=0 && j!=7){ //linha de cima
+    			else if(i==0 && j > 0 && j < 7){ //linha de cima
     				if((tabuleiro[0][j-1] == adv ||
     					tabuleiro[0][j+1] == adv ||
 						tabuleiro[1][j] == adv ||
-						tabuleiro[1][j+1] == adv ||
-						tabuleiro[1][j-1] == adv)
+						tabuleiro[1][j-1] == adv ||
+						tabuleiro[1][j+1] == adv)
     					&& tabuleiro[0][j]==SEM_PECA && validar_com_self(i, j)){
 
     						tabuleiro[i][j] = JOGADA_POSSIVEL;
     				}
     			}
-    			else if(j==0 && i!=0 && i!=7){ //linha esquerda
+    			else if(j==0 && i > 0 && i < 7){ //linha esquerda
     				if((tabuleiro[i-1][0] == adv ||
     					tabuleiro[i+1][0] == adv ||
-						tabuleiro[1][i-1] == adv ||
-						tabuleiro[1][i+1] == adv ||
-						tabuleiro[1][i] == adv)
+						tabuleiro[i][1] == adv   ||
+						tabuleiro[i-1][1] == adv ||
+						tabuleiro[i+1][1] == adv)
     					&& tabuleiro[i][0]==SEM_PECA && validar_com_self(i, j)){
 
     						tabuleiro[i][j] = JOGADA_POSSIVEL;
     				}
     			}
-    			else if(i==7 && j!=0 && j!=7){ //linha de baixo
+    			else if(i==7 && j > 0 && j < 7){ //linha de baixo
     				if((tabuleiro[7][j-1] == adv ||
     					tabuleiro[7][j+1] == adv ||
 						tabuleiro[6][j] == adv ||
@@ -560,7 +550,7 @@ void jogadas_possiveis(){
     						tabuleiro[i][j] = JOGADA_POSSIVEL;
     				}
     			}
-    			else if(j==7 && i!=0 && i!=7){ //linha direita
+    			else if(j==7 && i > 0 && i < 7){ //linha direita
     				if((tabuleiro[i-1][7] == adv ||
     					tabuleiro[i+1][7] == adv ||
 						tabuleiro[i][6] == adv ||
@@ -842,14 +832,24 @@ void tocar_ecran_menu_inicial(){
 	if(ts_flag==1){
 		ts_flag=0;
 			if(TS_State.touchX[0]>500 && TS_State.touchY[0]>=250){
-				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-				BSP_LCD_FillCircle(TS_State.touchX[0], TS_State.touchY[0], 20);
 				adversario = 1;
 			}
 			if(TS_State.touchX[0]<300 && TS_State.touchY[0]>=250){
-				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-				BSP_LCD_FillCircle(TS_State.touchX[0], TS_State.touchY[0], 20);
 				adversario = 0;
+			}
+
+			if(adversario == 1){
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no ARM
+				BSP_LCD_DrawRect(550, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
+				BSP_LCD_DrawRect(50, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+			}
+			else if(adversario == 0){
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no humano
+				BSP_LCD_DrawRect(50, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
+				BSP_LCD_DrawRect(550, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 			}
 	}
 
