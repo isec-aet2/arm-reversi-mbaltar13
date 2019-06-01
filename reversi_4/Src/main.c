@@ -121,7 +121,7 @@ int muda_logica = 1;            // altera abordagem do jogador do ARM
 
 
 
-
+// INTERRUPÇAO DO TOUCH SCREEN
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 	if(GPIO_Pin == GPIO_PIN_13){
@@ -132,8 +132,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 }
 
-void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
-{
+// TIMER 7 PARA A TEMPERATURA - a cada 2 segundos actualiza
+void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM7){
 		flag_sete = 1;
 		count_temp++;
@@ -142,7 +142,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 			  //ACTUALIZA O VALOR DA TEMPERATURA
 			  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
 			  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
-		      if(HAL_GetTick() >= init_tick_led1)
+		      if(HAL_GetTick() >= init_tick_led1 + 2000)
 		      {
 		          init_tick_led1 = HAL_GetTick();
 		          BSP_LED_Toggle(LED_GREEN); // cada vez que actualiza, pisca o led verde
@@ -154,8 +154,8 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	if(htim->Instance == TIM6){
 
 		flag_seis = 1;
-		count++;
-		deadline--;
+		count++;       // tempo de jogo
+		deadline--;    // tempo limite das jogadas
 
 	}
 	flag_seis = 0;
@@ -251,6 +251,7 @@ void imprime_tabuleiro(){
 }
 
 void mostra_temperatura(){
+
 	  //Mostrar a temperatura interna
 	  sprintf(desc, "Temperatura: %ld C", JTemp);
 	  BSP_LCD_SetFont(&Font12);
@@ -258,6 +259,7 @@ void mostra_temperatura(){
 }
 
 void mostra_tempo(){
+
 	//Mostrar a duração do jogo
 	sprintf(desc, "Tempo: %d segundos", count);
 	BSP_LCD_SetFont(&Font12);
@@ -265,13 +267,16 @@ void mostra_tempo(){
 }
 
 void mostra_deadline(){
+
 	//Mostrar deadline - quanto tempo ainda sobra para poder jogar
 	sprintf(desc, "   Faltam: %d segundos", deadline);
 	BSP_LCD_SetFont(&Font20);
 	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 - 20, (uint8_t *)desc, RIGHT_MODE);
+
 }
 
 void mostra_quem_joga(){
+
 	//Mostrar o jogador actual
     if (ver_quem_joga%2 == 1){
     	sprintf(desc, "Jogador 1");
@@ -306,7 +311,6 @@ void imprime_pecas_iniciais(){
 	tabuleiro[3][4] = PECA_JOGADOR_2;
 
 	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-
 
 }
 
@@ -369,6 +373,8 @@ int validar_com_self(int linsel, int colsel){
     char self, adv;
     int i = 0;
     int j = 0;
+    int d = 0;
+    int c = 0;
 
     if (ver_quem_joga%2 == 1){
     	self = PECA_JOGADOR_1;
@@ -385,7 +391,14 @@ int validar_com_self(int linsel, int colsel){
     if(tabuleiro[linsel][colsel - 1] == adv){
         for(j = colsel - 2; j >= 0 ;  j--){
             if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j + 1] == adv){
-                return 1;
+            	for(d = colsel - 2; d >= j ;  d--){
+            		if(tabuleiro[linsel][d] == SEM_PECA){
+            			return 0;
+            		}
+            		else{
+            			return 1;
+            		}
+            	}
             }
         }
     }
@@ -395,7 +408,14 @@ int validar_com_self(int linsel, int colsel){
     if(tabuleiro[linsel][colsel + 1] == adv){
         for(j = colsel + 2; j < 8 ;  j++){
             if(tabuleiro[linsel][j] == self && tabuleiro[linsel][j - 1] == adv){
-                return 1;
+            	for(d = colsel + 2; d <= j;  d++){
+            		if(tabuleiro[linsel][d] == SEM_PECA){
+            			return 0;
+            		}
+            		else{
+            			return 1;
+            		}
+            	}
             }
         }
     }
@@ -405,7 +425,14 @@ int validar_com_self(int linsel, int colsel){
     if(tabuleiro[linsel + 1][colsel] == adv){
         for(i = linsel + 2; i < 8 ;  i++){
             if(tabuleiro[i][colsel] == self && tabuleiro[i - 1][colsel] == adv){
-                return 1;
+            	for(c = linsel + 2; c <= i;  c++){
+            		if(tabuleiro[c][colsel] == SEM_PECA){
+            			return 0;
+            		}
+            		else{
+            			return 1;
+            		}
+            	}
             }
         }
     }
@@ -415,7 +442,14 @@ int validar_com_self(int linsel, int colsel){
     if(tabuleiro[linsel - 1][colsel] == adv){
         for(i = linsel - 2; i >= 0 ;  i-- ){
             if(tabuleiro[i][colsel] == self && tabuleiro[i + 1][colsel] == adv){
-                return 1;
+            	for(c = linsel - 2; c >= i;  c--){
+            		if(tabuleiro[c][colsel] == SEM_PECA){
+            			return 0;
+            		}
+            		else{
+            			return 1;
+            		}
+            	}
             }
         }
     }
@@ -425,43 +459,79 @@ int validar_com_self(int linsel, int colsel){
    if(tabuleiro[linsel - 1][colsel + 1] == adv){
        for(i = linsel - 2, j = colsel + 2; i >= 0 && j < 8; i--, j++){
            if(tabuleiro[i][j] == self && tabuleiro[i + 1][j - 1] == adv){
-               return 1;
+        	   for(c = linsel - 2; c >= i;  c--){
+        		   for(d = colsel + 2; d <= j;  d++){
+        			   if(tabuleiro[c][d] == SEM_PECA){
+        				   return 0;
+        			   }
+        			   else{
+        				   return 1;
+        			   }
+        		   }
+        	   }
            }
        }
    }
 
 
    // DIAGONAL INFERIOR DIREITA
-     if(tabuleiro[linsel + 1][colsel - 1] == adv){
+   if(tabuleiro[linsel + 1][colsel - 1] == adv){
        for(i = linsel + 2, j = colsel - 2; i < 8 && j >= 0; i++, j--){
            if(tabuleiro[i][j] == self && tabuleiro[i - 1][j + 1] == adv){
-               return 1;
+        	   for(c = linsel + 2; c <= i;  c++){
+        	       for(d = colsel - 2; d >= j;  d--){
+        	    	   if(tabuleiro[c][d] == SEM_PECA){
+        	    		   return 0;
+        	           }
+        	           else{
+        	        	   return 1;
+        	           }
+        	       }
+        	   }
            }
        }
    }
 
 
 
-     // DIAGONAL INFERIOR ESQUERDA
-     if(tabuleiro[linsel + 1][colsel + 1] == adv){
+   // DIAGONAL INFERIOR ESQUERDA
+   if(tabuleiro[linsel + 1][colsel + 1] == adv){
        for(i = linsel + 2, j = colsel + 2; i < 8 && j < 8; i++, j++){
            if(tabuleiro[i][j] == self && tabuleiro[i - 1][j - 1] == adv){
-               return 1;
+        	   for(c = linsel + 2; c <= i;  c++){
+        	       for(d = colsel + 2; d <= j;  d++){
+        	    	   if(tabuleiro[c][d] == SEM_PECA){
+        	    		   return 0;
+        	           }
+        	           else{
+        	        	   return 1;
+        	           }
+        	       }
+        	   }
            }
        }
    }
 
 
-     // DIAGONAL SUPERIOR DIREITA
-     if(tabuleiro[linsel - 1][colsel - 1] == adv){
+   // DIAGONAL SUPERIOR DIREITA
+   if(tabuleiro[linsel - 1][colsel - 1] == adv){
        for(i = linsel - 2, j = colsel - 2; i >= 0 && j >= 0; i--, j--){
            if(tabuleiro[i][j] == self && tabuleiro[i + 1][j + 1] == adv){
-               return 1;
+        	   for(c = linsel - 2; c >= i;  c--){
+        	       for(d = colsel - 2; d >= j;  d--){
+        	    	   if(tabuleiro[c][d] == SEM_PECA){
+        	    		   return 0;
+        	           }
+        	           else{
+        	        	   return 1;
+        	           }
+        	       }
+        	   }
            }
        }
    }
 
-     return 0;
+   return 0;
 
 }
 
@@ -819,6 +889,7 @@ void jogada_automatica(){
     		}
     	}
     }
+
     muda_logica++;
     ver_quem_joga++;
 	limpa_possibilidades();
@@ -856,6 +927,7 @@ void tocar_ecran_menu_inicial(){
 }
 
 void dinamica_de_jogo(float x, float y, int i, int j){
+
 	if(tabuleiro[i][j]==JOGADA_POSSIVEL && deadline >= 0){
 		deadline = 20;
 		if (ver_quem_joga%2 == 1){
@@ -882,7 +954,6 @@ void tocar_ecran(){
 	float y = 0.0;
 
 
-
 	if(ts_flag==1){
 		ts_flag=0;
 			if(TS_State.touchX[0] >= offset_in_x && TS_State.touchY[0] >= offset_in_y && TS_State.touchX[0] <= offset_in_x+SIZE_OF_BOARD && TS_State.touchY[0] <= offset_in_x+SIZE_OF_BOARD){
@@ -901,23 +972,20 @@ void tocar_ecran(){
 					}
 				}
 
-
 				dinamica_de_jogo(x, y, i, j);
 
-
-
-		}
+			}
 	}
 }
 
 
 int nao_e_possivel_continuar_jogo(){
+
 	int i = 0;
 	int j = 0;
 	int conta_self = 0;
 	int conta_possiveis = 0;
 	int conta_vazias = 0;
-
 	char self;
 
     if (ver_quem_joga%2 == 1){
@@ -967,7 +1035,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	unsigned int nBytes; // feedback da passagem para o cartao
 	int i = 0;			 // clear do tabuleiro antes de um novo jogo
-	int j = 0;
+	int j = 0;			 // clear do tabuleiro antes de um novo jogo
 	int jog_um = 0;		 // pontuação do jogador 1
 	int jog_dois = 0;    // pontuação do jogador 2
 	int vencedor = 0;    // quem ganhou
@@ -1023,23 +1091,25 @@ int main(void)
   BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
   BSP_TS_ITConfig();
 
-
+  // ponto do reinicio do jogo
   jump:
 
-  HAL_Delay(250);
-  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+  HAL_Delay(250); // estabilização do botão azul
+  BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // fundo do menu inicial
   BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
-  adversario = 0;
+  adversario = 0; //joga com o humano por defeito
 
   while(BSP_PB_GetState(BUTTON_WAKEUP)!=1){
 	  menu_inicial();
 	  tocar_ecran_menu_inicial();
 	  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
   }
-  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+
+  BSP_LCD_SetTextColor(LCD_COLOR_WHITE); //fundo do jogo
   BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
 
-  ver_quem_joga = 1;
+  //reinicia contadores
+  ver_quem_joga = 1; // começa no jogador 1 por defeito
   count = 0;
   deadline = 20;
   passa_jogada_um = 0;
@@ -1064,20 +1134,21 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+  while (1){
 
+	  // informações laterais
 	  mostra_temperatura();
 	  mostra_tempo();
 	  mostra_deadline();
 	  mostra_quem_joga();
 	  tocar_ecran();
 
+	  // reinicia o jogo se se tocar no botão azul
 	  if(BSP_PB_GetState(BUTTON_WAKEUP)==1 && count>1){
 		  goto jump;
 	  }
 
-
+	  // dinamica do jogo do ARM
 	  if(adversario==1){
 		  if(ver_quem_joga%2==0){
 				limpa_possibilidades();
@@ -1088,8 +1159,9 @@ int main(void)
 		  }
 	  }
 
+	  // se naõ houver jogadas em 20 segundos
 	  if(deadline < 0){
-		  deadline = 20;
+		  deadline = 20; // reinicia
 
 		  if (ver_quem_joga%2 == 1){
 			  passa_jogada_um++;
@@ -1105,9 +1177,11 @@ int main(void)
 		  tocar_ecran();
 	  }
 
+	  // condiçoes de fim do jogo
 	  if(nao_e_possivel_continuar_jogo() || passa_jogada_um >= 3 || passa_jogada_dois >= 3){
 		  fim_do_jogo(&jog_um, &jog_dois, &vencedor);
 
+		  // guarda resultados no cartão
 		  if (f_mount(&SDFatFS, SDPath, 0) != FR_OK){
 		          Error_Handler();
 		      }
@@ -1129,10 +1203,12 @@ int main(void)
 		          f_write(&SDFile, desc, strlen(desc), &nBytes);
 		          f_close(&SDFile);
 
+		          // reinicia quadro das pontuações
 		          jog_um = 0;
 		          jog_dois = 0;
 		          vencedor = 0;
 
+		  // carregar no botao azul para voltar ao menu inicial
   		  while(BSP_PB_GetState(BUTTON_WAKEUP)!=1){
 
   		  }
