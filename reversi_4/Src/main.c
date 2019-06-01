@@ -118,6 +118,7 @@ volatile char tabuleiro[8][8];	// tabuleiro
 int passa_jogada_um = 0;		// conta vezes que o jogador 1 nao jogou seguidas
 int passa_jogada_dois = 0;      // conta vezes que o jogador 2 nao jogou seguidas
 int muda_logica = 1;            // altera abordagem do jogador do ARM
+int nivel_de_dificuldade = 0;   // altera o nivel de dificuldade
 
 
 
@@ -182,12 +183,17 @@ void menu_inicial(){
 	sprintf(desc, "Humano");
 	BSP_LCD_SetFont(&Font24);
 	BSP_LCD_SetTextColor(LCD_COLOR_RED);
-	BSP_LCD_DisplayStringAt(-250, BSP_LCD_GetYSize()/2 + 115, (uint8_t *)desc, CENTER_MODE);
+	BSP_LCD_DisplayStringAt(-200, BSP_LCD_GetYSize()/2 + 115, (uint8_t *)desc, CENTER_MODE);
 
 	sprintf(desc, "ARM");
-	BSP_LCD_DisplayStringAt(250, BSP_LCD_GetYSize()/2 + 115, (uint8_t *)desc, CENTER_MODE);
-	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+	BSP_LCD_DisplayStringAt(200, BSP_LCD_GetYSize()/2 + 115, (uint8_t *)desc, CENTER_MODE);
 
+	sprintf(desc, "Facil");
+	BSP_LCD_DisplayStringAt(450, BSP_LCD_GetYSize() - 50, (uint8_t *)desc, LEFT_MODE);
+
+	sprintf(desc, "Dificil");
+	BSP_LCD_DisplayStringAt(650, BSP_LCD_GetYSize() - 50, (uint8_t *)desc, LEFT_MODE);
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 }
 
 void fim_do_jogo(int * jog_um, int * jog_dois, int * vencedor){
@@ -890,39 +896,13 @@ void jogada_automatica(){
     	}
     }
 
-    muda_logica++;
+    if(nivel_de_dificuldade==1){ // no nivel dificil faz pontaria ao canto superior esquerdo e ao inferior direito
+    	muda_logica++;
+    }
     ver_quem_joga++;
 	limpa_possibilidades();
 	jogadas_possiveis();
 	actualiza_pecas_tabuleiro();
-
-}
-
-void tocar_ecran_menu_inicial(){
-
-	if(ts_flag==1){
-		ts_flag=0;
-			if(TS_State.touchX[0]>500 && TS_State.touchY[0]>=250){
-				adversario = 1;
-			}
-			if(TS_State.touchX[0]<300 && TS_State.touchY[0]>=250){
-				adversario = 0;
-			}
-
-			if(adversario == 1){
-				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no ARM
-				BSP_LCD_DrawRect(550, BSP_LCD_GetYSize()/2 + 100, 200, 50);
-				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
-				BSP_LCD_DrawRect(50, BSP_LCD_GetYSize()/2 + 100, 200, 50);
-			}
-			else if(adversario == 0){
-				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no humano
-				BSP_LCD_DrawRect(50, BSP_LCD_GetYSize()/2 + 100, 200, 50);
-				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
-				BSP_LCD_DrawRect(550, BSP_LCD_GetYSize()/2 + 100, 200, 50);
-				BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-			}
-	}
 
 }
 
@@ -945,6 +925,66 @@ void dinamica_de_jogo(float x, float y, int i, int j){
 		actualiza_pecas_tabuleiro();
 	}
 }
+
+void tocar_ecran_menu_inicial(){
+
+	if(ts_flag==1){
+		ts_flag=0;
+			// JOGA COM O ARM
+			if(TS_State.touchX[0] > 500 && TS_State.touchY[0] >= 250 && TS_State.touchY[0] <= BSP_LCD_GetYSize()/2 + 160){
+				adversario = 1;
+			}
+
+				// NIVEL DE DIFICULDADE
+				if(TS_State.touchX[0] > 600 && TS_State.touchY[0] >= BSP_LCD_GetYSize() - 60){
+					nivel_de_dificuldade = 1;
+				}
+				if(TS_State.touchX[0] > 400 && TS_State.touchX[0] < 550 && TS_State.touchY[0] >= BSP_LCD_GetYSize() - 60){
+					nivel_de_dificuldade = 0;
+				}
+
+			// JOGA COM HUMANO
+			if(TS_State.touchX[0] < 300 && TS_State.touchY[0] >= 250 && TS_State.touchY[0] <= BSP_LCD_GetYSize()/2 + 160){
+				adversario = 0;
+			}
+
+			//HUMANO vs ARM
+			if(adversario == 1){
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no ARM
+				BSP_LCD_DrawRect(500, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
+				BSP_LCD_DrawRect(100, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+			}
+			else if(adversario == 0){
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no humano
+				BSP_LCD_DrawRect(100, BSP_LCD_GetYSize()/2 + 100, 200, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
+				BSP_LCD_DrawRect(500, BSP_LCD_GetYSize()/2 + 100, 200, 50); // ARM
+				BSP_LCD_DrawRect(410, BSP_LCD_GetYSize() - 60, 150, 50); // facil
+				BSP_LCD_DrawRect(630, BSP_LCD_GetYSize() - 60, 150, 50); // dificil
+			}
+
+			//FACIL vs DIFICIL
+			if(adversario == 1 && nivel_de_dificuldade == 1){
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no dificil
+				BSP_LCD_DrawRect(630, BSP_LCD_GetYSize() - 60, 150, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
+				BSP_LCD_DrawRect(410, BSP_LCD_GetYSize() - 60, 150, 50);
+			}
+			else if(adversario == 1 && nivel_de_dificuldade == 0){
+				BSP_LCD_SetTextColor(LCD_COLOR_BLACK); // desenha botao no facil
+				BSP_LCD_DrawRect(410, BSP_LCD_GetYSize() - 60, 150, 50);
+				BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // limpa o anterior
+				BSP_LCD_DrawRect(630, BSP_LCD_GetYSize() - 60, 150, 50);
+			}
+
+			BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+
+	}
+
+}
+
+
 
 void tocar_ecran(){
 
@@ -1094,10 +1134,12 @@ int main(void)
   // ponto do reinicio do jogo
   jump:
 
-  HAL_Delay(250); // estabilização do botão azul
+  HAL_Delay(250);                        // estabilização do botão azul
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE); // fundo do menu inicial
   BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
-  adversario = 0; //joga com o humano por defeito
+  adversario = 0;                        // joga com o humano por defeito
+  nivel_de_dificuldade = 0; 			 // se jogar com o ARM, joga fácil por defeito
+  muda_logica = 1; 						 // reinicia contador
 
   while(BSP_PB_GetState(BUTTON_WAKEUP)!=1){
 	  menu_inicial();
@@ -1108,7 +1150,7 @@ int main(void)
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE); //fundo do jogo
   BSP_LCD_FillRect(0, 50, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()-50);
 
-  //reinicia contadores
+  // reinicia contadores
   ver_quem_joga = 1; // começa no jogador 1 por defeito
   count = 0;
   deadline = 20;
