@@ -287,6 +287,59 @@ void mostra_deadline(){
 
 }
 
+void bolinhas_do_tempo(){
+	int b = 0;
+
+	if(deadline > 16){
+		for(b = 0; b < 5; b++){
+			BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
+			BSP_LCD_FillCircle(600 + 30*b, BSP_LCD_GetYSize()/2 + 20, 10);
+		}
+	}
+	else if(deadline > 12 && deadline <=16){
+		for(b = 0; b < 4; b++){
+			BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
+			BSP_LCD_FillCircle(600 + 30*b, BSP_LCD_GetYSize()/2 + 20, 10);
+		}
+		BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+		BSP_LCD_FillCircle(600 + 30*4, BSP_LCD_GetYSize()/2 + 20, 10);
+	}
+	else if(deadline > 8 && deadline <=12){
+		for(b = 0; b < 3; b++){
+			BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
+			BSP_LCD_FillCircle(600 + 30*b, BSP_LCD_GetYSize()/2 + 20, 10);
+		}
+		BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+		BSP_LCD_FillCircle(600 + 30*3, BSP_LCD_GetYSize()/2 + 20, 10);
+		BSP_LCD_FillCircle(600 + 30*4, BSP_LCD_GetYSize()/2 + 20, 10);
+	}
+	else if(deadline > 4 && deadline <=8){
+		BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
+		BSP_LCD_FillCircle(600, BSP_LCD_GetYSize()/2 + 20, 10);
+		BSP_LCD_FillCircle(600 + 30, BSP_LCD_GetYSize()/2 + 20, 10);
+
+		for(b = 2; b < 5; b++){
+			BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+			BSP_LCD_FillCircle(600 + 30*b, BSP_LCD_GetYSize()/2 + 20, 10);
+		}
+	}
+	else if(deadline > 0 && deadline <=4){
+		BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
+		BSP_LCD_FillCircle(600, BSP_LCD_GetYSize()/2 + 20, 10);
+
+		for(b = 1; b < 5; b++){
+			BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+			BSP_LCD_FillCircle(600 + 30*b, BSP_LCD_GetYSize()/2 + 20, 10);
+		}
+	}
+	else if(deadline == 0){
+		for(b = 0; b < 5; b++){
+			BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+			BSP_LCD_FillCircle(600 + 30*b, BSP_LCD_GetYSize()/2 + 20, 10);
+		}
+	}
+}
+
 void mostra_quem_joga(){
 
 	//Mostrar o jogador actual
@@ -1188,6 +1241,7 @@ int main(void)
 	  mostra_temperatura();
 	  mostra_tempo();
 	  mostra_deadline();
+	  bolinhas_do_tempo();
 	  mostra_quem_joga();
 	  tocar_ecran();
 
