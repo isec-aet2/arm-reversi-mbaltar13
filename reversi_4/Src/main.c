@@ -133,22 +133,28 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 }
 
-// TIMER 7 PARA A TEMPERATURA - a cada 2 segundos actualiza
+void actualiza_temperatura(){
+	  if (count_temp%2 == 0){
+		  //ACTUALIZA O VALOR DA TEMPERATURA
+		  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
+		  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
+	      if(HAL_GetTick() >= init_tick_led1){
+	          init_tick_led1 = HAL_GetTick();
+			  BSP_LED_On(LED_GREEN);
+	      }
+	  }
+	  else{
+		  BSP_LED_Off(LED_GREEN);
+	  }
+}
+
+
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM7){
+
 		flag_sete = 1;
 		count_temp++;
-
-		  if (count_temp%2 == 0){
-			  //ACTUALIZA O VALOR DA TEMPERATURA
-			  ConvertedValue=HAL_ADC_GetValue(&hadc1); //get value
-			  JTemp = ((((ConvertedValue * VREF)/MAX_CONVERTED_VALUE) - VSENS_AT_AMBIENT_TEMP) * 10 / AVG_SLOPE) + AMBIENT_TEMP;
-		      if(HAL_GetTick() >= init_tick_led1)
-		      {
-		          init_tick_led1 = HAL_GetTick();
-		          BSP_LED_Toggle(LED_GREEN); // cada vez que actualiza, pisca o led verde
-		      }
-		  }
+		actualiza_temperatura(); // a cada 2 segundos actualiza a temperatura
 	}
 	flag_sete = 0;
 
