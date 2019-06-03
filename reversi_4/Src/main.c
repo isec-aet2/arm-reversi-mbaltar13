@@ -1147,7 +1147,7 @@ void quem_esta_a_ganhar(){
 	}
 
 	if(conta_pecas_jog_um == conta_pecas_jog_dois){
-		sprintf(desc, "Empate!");
+		sprintf(desc, "            Empate!");
 	}
 	else if(conta_pecas_jog_um > conta_pecas_jog_dois){
 		sprintf(desc, "Jogador 1 a ganhar!");
