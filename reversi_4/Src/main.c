@@ -1055,6 +1055,9 @@ void tocar_ecran(){
 
 	if(ts_flag==1){
 		ts_flag=0;
+			if(TS_State.touchX[0] > BSP_LCD_GetXSize()-200 && TS_State.touchX[0] < BSP_LCD_GetXSize() && TS_State.touchY[0] >= BSP_LCD_GetYSize()/2-100 && TS_State.touchY[0] <= BSP_LCD_GetYSize()/2+100){
+			count = 0;
+			}
 			if(TS_State.touchX[0] >= offset_in_x && TS_State.touchY[0] >= offset_in_y && TS_State.touchX[0] <= offset_in_x+SIZE_OF_BOARD && TS_State.touchY[0] <= offset_in_x+SIZE_OF_BOARD){
 
 				for(i=0; i<8; i++){
@@ -1074,6 +1077,7 @@ void tocar_ecran(){
 				dinamica_de_jogo(x, y, i, j);
 
 			}
+
 	}
 }
 
@@ -1123,6 +1127,46 @@ int nao_e_possivel_continuar_jogo(){
 	}
 }
 
+void quem_esta_a_ganhar(){
+
+	int i = 0;
+	int j = 0;
+	int conta_pecas_jog_um = 0;
+	int conta_pecas_jog_dois = 0;
+
+
+	for (i = 0; i < 8; i++){
+		for (j = 0; j < 8; j++){
+			if(tabuleiro[i][j] == PECA_JOGADOR_1){
+				conta_pecas_jog_um++;
+			}
+			else if(tabuleiro[i][j] == PECA_JOGADOR_2){
+				conta_pecas_jog_dois++;
+			}
+		}
+	}
+
+	if(conta_pecas_jog_um == conta_pecas_jog_dois){
+		sprintf(desc, "Empate!");
+	}
+	else if(conta_pecas_jog_um > conta_pecas_jog_dois){
+		sprintf(desc, "Jogador 1 a ganhar!");
+	}
+	else if(conta_pecas_jog_um < conta_pecas_jog_dois){
+		sprintf(desc, "Jogador 2 a ganhar!");
+	}
+	BSP_LCD_SetFont(&Font20);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 50, (uint8_t *)desc, RIGHT_MODE);
+
+	sprintf(desc, "Jogador 1: %d pecas!", conta_pecas_jog_um);
+	BSP_LCD_SetFont(&Font16);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 80, (uint8_t *)desc, RIGHT_MODE);
+
+	sprintf(desc, "Jogador 2: %d pecas!", conta_pecas_jog_dois);
+	BSP_LCD_SetFont(&Font16);
+	BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 120, (uint8_t *)desc, RIGHT_MODE);
+
+}
 /* USER CODE END 0 */
 
 /**
@@ -1242,6 +1286,7 @@ int main(void)
 	  mostra_tempo();
 	  mostra_deadline();
 	  bolinhas_do_tempo();
+	  quem_esta_a_ganhar();
 	  mostra_quem_joga();
 	  tocar_ecran();
 
